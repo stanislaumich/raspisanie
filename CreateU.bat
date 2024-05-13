@@ -1,0 +1,1 @@
+net use Z: "\\192.168.0.6\Users\Общая канцелярия\ИПКиП\Микулич С.В\EXCHANGE" /PERSISTENT:YES

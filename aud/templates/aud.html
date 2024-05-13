@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+
+{% block header %}Участники{% endblock header %}
+{% block content%}
+
+    <ul>
+        {% for a in aud %}
+            <li><a href="/aud/{{ a.id }}/">{{ a.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
