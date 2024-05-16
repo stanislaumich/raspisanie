@@ -1,6 +1,4 @@
 from django.db import models
-
-
 class Grp(models.Model):
     num = models.CharField("Номер", max_length=30)
     #fam = models.CharField("Фамилия", max_length=100)

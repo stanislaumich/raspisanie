@@ -1,5 +1,4 @@
 from django.db import models
-
 class Person(models.Model):
 	fio = models.CharField("ФИО",max_length=100)
 	fam = models.CharField("Фамилия",max_length=100)
