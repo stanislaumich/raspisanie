@@ -6,9 +6,9 @@ def index(request):
     return render(request, "index.html", context=data)
 
 
-def about(request):
+def grid(request):
     data = {"header": "Hello Django", "message": "About"}
-    return render(request, "about.html", context=data)
+    return render(request, "grid.html", context=data)
 
 
 def contact(request):

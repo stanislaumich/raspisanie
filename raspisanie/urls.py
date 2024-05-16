@@ -7,6 +7,7 @@ from .import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
+    path('grid/', views.grid, name='grid'),
     path('predmet/', include('predmet.urls')),
     path("person/", include('person.urls')),
 	path("aud/", include('aud.urls')),
