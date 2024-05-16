@@ -34,4 +34,6 @@ class Rasp(models.Model):
     # Methods
 	def get_absolute_url(self):
 		return reverse('model-detail-view', args=[str(self.id)])
-
+	class Meta:
+		verbose_name = "Расписание"
+		verbose_name_plural = "Расписания"
