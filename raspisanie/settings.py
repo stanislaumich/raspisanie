@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'person.apps.PersonConfig',
     'aud.apps.AudConfig',
     'grp.apps.GrpConfig',
+    'predmet.apps.PredmetConfig',
 ]
 
 MIDDLEWARE = [

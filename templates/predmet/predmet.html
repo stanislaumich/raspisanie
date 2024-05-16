@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Предметы{% endblock title %}
+
+{% block content%}
+    <ul>
+        {% for pr in p %}
+            <li><a href="{% url 'predmet:detail' pr.id %}">{{ pr.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
