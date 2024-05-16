@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'aud.apps.AudConfig',
     'grp.apps.GrpConfig',
     'predmet.apps.PredmetConfig',
+    'rasp.apps.RaspConfig',
 ]
 
 MIDDLEWARE = [

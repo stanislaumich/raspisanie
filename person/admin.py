@@ -1,6 +1,6 @@
 from django.contrib import admin
 # may with comma
-from .models import Person, Rasp
+from .models import Person
 
 admin.site.register(Person)
-admin.site.register(Rasp)
+
