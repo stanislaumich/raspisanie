@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Группы{% endblock title %}
+
+{% block content%}
+    <ul>
+        {% for gg in g %}
+            <li><a href="{% url 'grp:detail' gg.id %}">{{ gg.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

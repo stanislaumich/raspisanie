@@ -27,4 +27,5 @@ urlpatterns = [
     path('contact', views.contact),
     path("person/", include('person.urls')),
 	path("aud/", include('aud.urls')),
+    path("grp/", include('grp.urls')),
 ]

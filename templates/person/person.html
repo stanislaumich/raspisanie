@@ -2,13 +2,10 @@
 
 {% block title %}Участники{% endblock title %}
 
-{% block header %}Участники{% endblock header %}
 {% block content%}
-
     <ul>
         {% for p in people %}
-            <li><a href="/person/{{ p.id }}/">{{ p.fio }}</a></li>
+            <li><a href="{% url 'person:detail' p.id %}">{{ p.fio }}</a></li>
         {% endfor %}
     </ul>
-
 {% endblock content %}

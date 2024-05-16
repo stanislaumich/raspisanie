@@ -8,7 +8,7 @@ def index(request):
     return render(request, "person/person.html", context={"people": people})
 
 
-def person(request, id):
+def detail(request, id):
     t = id
     people = Person.objects.get(id=t)
-    return render(request, "person/personone.html", context={"p": people})
+    return render(request, "person/detail.html", context={"p": people})
