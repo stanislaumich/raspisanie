@@ -3,7 +3,7 @@
 {% block content%}
     <ul>
         {% for gg in g %}
-            <li><a href="{% url 'grp:detail' gg.id %}">{{ gg.name }}</a></li>
+            <li><a href="{% url 'grp' %}{{gg.id}}/">{{ gg.name }}</a></li>
         {% endfor %}
     </ul>
 {% endblock content %}

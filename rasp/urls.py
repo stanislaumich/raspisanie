@@ -6,9 +6,9 @@ urlpatterns = [
     path('predmet/', views.indexPredmet, name="predmet"),
     path("predmet/<int:id>/", views.detailAud, name="aud"),
     path("person/", views.indexPerson, name="person"),
-    path("aud/<int:id>/", views.detailAud, name="aud"),
+    path("person/<int:id>/", views.detailPerson, name="person"),
 	path("aud/", views.indexAud, name="aud"),
     path("aud/<int:id>/", views.detailAud, name="aud"),
     path("grp/", views.indexGrp, name="grp"),
-    path("aud/<int:id>/", views.detailAud, name="aud"),
+    path("grp/<int:id>/", views.detailGrp, name="grp"),
 ]

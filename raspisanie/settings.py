@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rasp.apps.RaspConfig',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [

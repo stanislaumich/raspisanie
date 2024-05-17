@@ -32,8 +32,6 @@ def detailAud(request, id):
 def indexGrp(request):
     g = Grp.objects.order_by("num")
     return render(request, "rasp/indexGrp.html", context={"g": g})
-
-
 def detailGrp(request, id):
     t = id
     g = Grp.objects.get(id=t)
