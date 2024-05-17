@@ -8,22 +8,17 @@ import datetime
 #d = datetime.date(1997, 10, 19)
 
 class Para(models.Model):
-    name = models.CharField("Название", max_length=100)
-    num = models.IntegerField(default = 0)
+	name = models.CharField("Название", max_length=100)
+	num = models.IntegerField(default = 0)
+	def __str__(self):
+		return self.name
+	class Meta:
+		ordering = ['num']
+		verbose_name = "Пара"
+		verbose_name_plural = "Пары"
+	def get_absolute_url(self):
+		return reverse('model-detail-view', args=[str(self.id)])
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name']
-
-    # Methods
-    def get_absolute_url(self):
-        return reverse('model-detail-view', args=[str(self.id)])
-
-    class Meta:
-        verbose_name = "Пара"
-        verbose_name_plural = "Пары"
 class Aud(models.Model):
 	#fio = models.CharField(max_length=100)
 	#fam = models.CharField(max_length=100)
@@ -35,7 +30,6 @@ class Aud(models.Model):
 		return self.name
 	class Meta:
 		ordering = ['name']
-    # Methods
 	def get_absolute_url(self):
 		return reverse('model-detail-view', args=[str(self.id)])
 
@@ -43,44 +37,43 @@ class Aud(models.Model):
 		verbose_name = "Аудитория"
 		verbose_name_plural = "Аудитории"
 class Grp(models.Model):
-    num = models.CharField("Номер", max_length=30)
-    #fam = models.CharField("Фамилия", max_length=100)
-    name = models.CharField("Название", max_length=100)
-    #otch = models.CharField("Отчество", max_length=100)
-    #born = models.IntegerField("Год. рожд.")
-    #dolg = models.CharField("Должность", max_length=100)
+	num = models.CharField("Номер", max_length=30)
+	#fam = models.CharField("Фамилия", max_length=100)
+	name = models.CharField("Название", max_length=100)
+	#otch = models.CharField("Отчество", max_length=100)
+	#born = models.IntegerField("Год. рожд.")
+	#dolg = models.CharField("Должность", max_length=100)
 
-    def __str__(self):
-        return self.name
+	def __str__(self):
+		return self.name
 
-    class Meta:
-        ordering = ['name']
-        verbose_name = "Группа"
-        verbose_name_plural = "Группы"
-    # Methods
-    def get_absolute_url(self):
-        return reverse('model-detail-view', args=[str(self.id)])
+	class Meta:
+		ordering = ['name']
+		verbose_name = "Группа"
+		verbose_name_plural = "Группы"
+	def get_absolute_url(self):
+		return reverse('model-detail-view', args=[str(self.id)])
 class Person(models.Model):
-    fio = models.CharField("ФИО", max_length=100)
-    fam = models.CharField("Фамилия", max_length=100)
-    name = models.CharField("Имя", max_length=100)
-    otch = models.CharField("Отчество", max_length=100)
-    born = models.IntegerField("Год. рожд.")
-    dolg = models.CharField("Должность", max_length=100)
+	fio = models.CharField("ФИО", max_length=100)
+	fam = models.CharField("Фамилия", max_length=100)
+	name = models.CharField("Имя", max_length=100)
+	otch = models.CharField("Отчество", max_length=100)
+	born = models.IntegerField("Год. рожд.")
+	dolg = models.CharField("Должность", max_length=100)
 
-    def __str__(self):
-        return self.fio
+	def __str__(self):
+		return self.fio
 
-    class Meta:
-        ordering = ['fio']
+	class Meta:
+		ordering = ['fio']
 
-    # Methods
-    def get_absolute_url(self):
-        return reverse('model-detail-view', args=[str(self.id)])
+	# Methods
+	def get_absolute_url(self):
+		return reverse('model-detail-view', args=[str(self.id)])
 
-    class Meta:
-        verbose_name = "Преподаватель"
-        verbose_name_plural = "Преподаватели"
+	class Meta:
+		verbose_name = "Преподаватель"
+		verbose_name_plural = "Преподаватели"
 class Predmet(models.Model):
 	#fio = models.CharField("ФИО",max_length=100)
 	#fam = models.CharField("Фамилия",max_length=100)
@@ -92,7 +85,7 @@ class Predmet(models.Model):
 		return self.name
 	class Meta:
 		ordering = ['name']
-    # Methods
+	# Methods
 	def get_absolute_url(self):
 		return reverse('model-detail-view', args=[str(self.id)])
 	class Meta:
@@ -111,7 +104,7 @@ class Rasp(models.Model):
 		return self.name
 	class Meta:
 		ordering = ['name']
-    # Methods
+	# Methods
 	def get_absolute_url(self):
 		return reverse('model-detail-view', args=[str(self.id)])
 	class Meta:
