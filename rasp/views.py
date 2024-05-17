@@ -6,18 +6,14 @@ from .models import Predmet
 
 def indexPredmet(request):
     p = Predmet.objects.order_by("name")
-    tit = "PredmetConfig.verbose_name"
-    return render(request, "rasp/indexPredmet.html", context={"p": p, "tit": tit})
-
+    return render(request, "rasp/indexPredmet.html", context={"p": p})
 def detailPredmet(request, id):
     t = id
     p = Predmet.objects.get(id=t)
-    tit = "PredmetConfig.verbose_name"
-    return render(request, "rasp/detailPredmet.html", context={"p": p, "tit": tit})
+    return render(request, "rasp/detailPredmet.html", context={"p": p})
 def indexPerson(request):
     people = Person.objects.order_by("fio")
     return render(request, "rasp/indexPerson.html", context={"people": people})
-
 def detailPerson(request, id):
     t = id
     people = Person.objects.get(id=t)

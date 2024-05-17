@@ -16,8 +16,8 @@ class Para(models.Model):
 		ordering = ['num']
 		verbose_name = "Пара"
 		verbose_name_plural = "Пары"
-	def get_absolute_url(self):
-		return reverse('model-detail-view', args=[str(self.id)])
+	#def get_absolute_url(self):
+	#	return reverse('model-detail-view', args=[str(self.id)])
 
 class Aud(models.Model):
 	#fio = models.CharField(max_length=100)
