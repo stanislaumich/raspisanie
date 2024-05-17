@@ -7,7 +7,23 @@ import datetime
 # datetime.date
 #d = datetime.date(1997, 10, 19)
 
+class Para(models.Model):
+    name = models.CharField("Название", max_length=100)
+    num = models.IntegerField(default = 0)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+
+    # Methods
+    def get_absolute_url(self):
+        return reverse('model-detail-view', args=[str(self.id)])
+
+    class Meta:
+        verbose_name = "Пара"
+        verbose_name_plural = "Пары"
 class Aud(models.Model):
 	#fio = models.CharField(max_length=100)
 	#fam = models.CharField(max_length=100)
@@ -86,11 +102,11 @@ class Rasp(models.Model):
 	#dt = models.DateField("Дата")
 	#dw = models.IntegerField("День недели", default = 0)
 	name = models.CharField("Название", max_length=100)
-	#idgrp = models.ForeignKey(Grp, on_delete=models.CASCADE)
-	#idpers = models.ForeignKey(Person, on_delete=models.CASCADE)
-	#idpara = models.ForeignKey(Para, on_delete=models.CASCADE)
-	#idaud = models.ForeignKey(Aud, on_delete=models.CASCADE)
-	#idpredmet = models.ForeignKey(Predmet, on_delete=models.CASCADE)
+	idgrp = models.ForeignKey(Grp, verbose_name="Группа",on_delete=models.PROTECT, default = 0)
+	idpers = models.ForeignKey(Person,verbose_name="Преподаватель", on_delete=models.PROTECT, default = 0)
+	idpara = models.ForeignKey(Para, verbose_name="Пара",on_delete=models.PROTECT, default = 0)
+	idaud = models.ForeignKey(Aud,verbose_name="Аудитория", on_delete=models.PROTECT, default = 0)
+	idpredmet = models.ForeignKey(Predmet,verbose_name="Предмет", on_delete=models.PROTECT, default = 0)
 	def __str__(self):
 		return self.name
 	class Meta:
@@ -101,22 +117,6 @@ class Rasp(models.Model):
 	class Meta:
 		verbose_name = "Расписание"
 		verbose_name_plural = "Расписания"
-class Para(models.Model):
-    name = models.CharField("Название", max_length=100)
-    num = models.IntegerField()
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name']
-
-    # Methods
-    def get_absolute_url(self):
-        return reverse('model-detail-view', args=[str(self.id)])
-
-    class Meta:
-        verbose_name = "Пара"
-        verbose_name_plural = "Пары"
 
 

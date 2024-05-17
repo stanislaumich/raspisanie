@@ -1,14 +1,7 @@
 {% extends "base.html" %}
-
-
-
-{% block header %}Участники{% endblock header %}
+{% block title %}Аудитория{% endblock title %}
 {% block content%}
-
     <ul>
-
             <li><a href="/aud/{{ a.id }}/">{{ a.name }}</a> {{ a.descr }}</li>
-
     </ul>
-
 {% endblock content %}

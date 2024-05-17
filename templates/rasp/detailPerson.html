@@ -1,14 +1,7 @@
 {% extends "base.html" %}
-
-
-
-{% block header %}Участники{% endblock header %}
+{% block title %}Преподаватель{% endblock title %}
 {% block content%}
-
     <ul>
-
             <li><a href="/person/{{ p.id }}/">{{ p.fio }}</a></li>
-
     </ul>
-
 {% endblock content %}

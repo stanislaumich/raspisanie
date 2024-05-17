@@ -1,14 +1,9 @@
 {% extends "base.html" %}
-
 {% block title %}Аудитории{% endblock title %}
-
-{% block header %}Аудитории{% endblock header %}
 {% block content%}
-
     <ul>
         {% for a in aud %}
-            <li><a href="/aud/{{ a.id }}/">{{ a.name }}</a></li>
+            <li><a href="{% url 'aud' %}{{ a.id }}/">{{ a.name }}</a></li>
         {% endfor %}
     </ul>
-
 {% endblock content %}
