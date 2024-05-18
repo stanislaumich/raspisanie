@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path, re_path, include
-#from aud import views
+
 from .import views
+
 urlpatterns = [
     path('predmet/', views.indexPredmet, name="predmet"),
     path("predmet/<int:id>/", views.detailPredmet, name="predmet"),
@@ -11,4 +12,8 @@ urlpatterns = [
     path("aud/<int:id>/", views.detailAud, name="aud"),
     path("grp/", views.indexGrp, name="grp"),
     path("grp/<int:id>/", views.detailGrp, name="grp"),
+    path("rasp/", views.indexRasp, name="rsp"),
+    path("rasp/<int:id>/", views.detailRasp, name="rsp"),
+    path("rasp/person/<int:id>/<int:wd>/", views.detailRaspPers, name="rspperson"),
+    #path("rasp/person/<int:id>/<int:y>/<int:m>/<int:d>", views.detailRaspPers, name="rsp"),
 ]

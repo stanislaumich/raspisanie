@@ -20,12 +20,8 @@ class Para(models.Model):
 	#	return reverse('model-detail-view', args=[str(self.id)])
 
 class Aud(models.Model):
-	#fio = models.CharField(max_length=100)
-	#fam = models.CharField(max_length=100)
 	name = models.CharField("Название",max_length=100)
 	descr = models.CharField("Описание",max_length=200)
-	#idpers = models.IntegerField()
-	#dolg = models.CharField(max_length=100)
 	def __str__(self):
 		return self.name
 	class Meta:
@@ -38,15 +34,9 @@ class Aud(models.Model):
 		verbose_name_plural = "Аудитории"
 class Grp(models.Model):
 	num = models.CharField("Номер", max_length=30)
-	#fam = models.CharField("Фамилия", max_length=100)
 	name = models.CharField("Название", max_length=100)
-	#otch = models.CharField("Отчество", max_length=100)
-	#born = models.IntegerField("Год. рожд.")
-	#dolg = models.CharField("Должность", max_length=100)
-
 	def __str__(self):
 		return self.name
-
 	class Meta:
 		ordering = ['name']
 		verbose_name = "Группа"
@@ -75,16 +65,11 @@ class Person(models.Model):
 		verbose_name = "Преподаватель"
 		verbose_name_plural = "Преподаватели"
 class Predmet(models.Model):
-	#fio = models.CharField("ФИО",max_length=100)
-	#fam = models.CharField("Фамилия",max_length=100)
 	name = models.CharField("Название",max_length=100)
-	#otch = models.CharField("Отчество",max_length=100)
-	#born = models.IntegerField("Год. рожд.")
-	#dolg = models.CharField("Должность",max_length=100)
 	def __str__(self):
 		return self.name
 	class Meta:
-		ordering = ['name']
+		ordering = ['id']
 	# Methods
 	def get_absolute_url(self):
 		return reverse('model-detail-view', args=[str(self.id)])
@@ -92,7 +77,7 @@ class Predmet(models.Model):
 		verbose_name = "Предмет"
 		verbose_name_plural = "Предметы"
 class Rasp(models.Model):
-	#dt = models.DateField("Дата")
+	dt = models.DateField("Дата", null = True)
 	#dw = models.IntegerField("День недели", default = 0)
 	name = models.CharField("Название", max_length=100)
 	idgrp = models.ForeignKey(Grp, verbose_name="Группа",on_delete=models.PROTECT, default = 0)

@@ -2,6 +2,6 @@
 {% block title %}Преподаватель{% endblock title %}
 {% block content%}
     <ul>
-            <li><a href="/person/{{ p.id }}/">{{ p.fio }}</a></li>
+            <li><a href="{%  url "rspperson"  p.id  %}">{{ p.fio }}</a></li>
     </ul>
 {% endblock content %}

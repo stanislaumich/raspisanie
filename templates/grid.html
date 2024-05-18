@@ -1,40 +1,97 @@
 {% extends "base.html" %}
 {% block title %}{{ tit }}{% endblock title %}
-{% block content%}
-<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
-  <div class="list-group">
-    <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+{% block content %}
+    <div class="container">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Понедельник{{ dt1 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    <li></li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                </ul>
 
-      <div class="d-flex gap-2 w-100 justify-content-between">
-        <div>
-          <h6 class="mb-0">List group item heading</h6>
-          <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+            </div>
         </div>
-        <small class="opacity-50 text-nowrap">now</small>
-      </div>
-    </a>
-    <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Вторник{{ dt2 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                </ul>
 
-      <div class="d-flex gap-2 w-100 justify-content-between">
-        <div>
-          <h6 class="mb-0">Another title here</h6>
-          <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
+            </div>
         </div>
-        <small class="opacity-50 text-nowrap">3d</small>
-      </div>
-    </a>
-    <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+    <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Среда{{ dt3 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                </ul>
 
-      <div class="d-flex gap-2 w-100 justify-content-between">
-        <div>
-          <h6 class="mb-0">Third heading</h6>
-          <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+            </div>
         </div>
-        <small class="opacity-50 text-nowrap">1w</small>
-      </div>
-    </a>
-  </div>
-</div>
+    <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Четверг{{ dt4 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                </ul>
+
+            </div>
+        </div>
+    <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Пятница{{ dt5 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                </ul>
+
+            </div>
+        </div>
+    <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Суббота{{ dt6 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
 
