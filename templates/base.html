@@ -31,27 +31,47 @@
 
 <div id="wrapper">
     <!-- header -->
-        {% include "header.html" %}
-        <!-- /header -->
+    {% include "header.html" %}
+    <!-- /header -->
     <!-- End Navigation -->
     <!-- Begin Faux Columns -->
     <div id="faux">
         <!-- Begin Left Column -->
-        <div id="leftcolumn" class="d-flex card mb-4 rounded-3 shadow-sm">{% block left %}LEFT {% endblock left %}</div>
+        <div id="leftcolumn" class="d-flex card mb-4 rounded-3 shadow-sm">
+            {% block left %}
+            <ul class="list-unstyled mt-0 mb-0">
+                <li class="nav-item"><a href="/" class="nav-link" aria-current="page">Главная</a></li>
+                <li class="nav-item"><a href="/rasp/person/" class="nav-link">Преподаватели</a></li>
+                <li class="nav-item"><a href="/rasp/aud/" class="nav-link">Аудитории</a></li>
+                <li class="nav-item"><a href="/rasp/grp/" class="nav-link">Группы</a></li>
+                <li class="nav-item"><a href="/rasp/predmet/" class="nav-link">Предметы</a></li>
+                <li class="nav-item"><a href="/rasp/rasp/" class="nav-link">Расписания</a></li>
+            </ul>
+
+            {% endblock left %}
+        </div>
         <!-- End Left Column -->
         <!-- Begin Right Column -->
         <div id="rightcolumn">
-            <div class="container">{% block content%}<img src="{% static '3.png'%}"> {% endblock content %}</div>
+            <div class="container">
+                {% block content%}
+                <img src="{% static '3.png'%}">
+                {% endblock content %}
+            </div>
         </div>
         <!-- End Right Column -->
         <div class="clear"></div>
+
+        <!-- Begin Footer -->
+        <div id="footer">
+            <!-- footer -->
+            {% include "footer.html" %}
+            <!-- /footer --> </div>
+
     </div>
-    <!-- End Faux Columns -->
-    <!-- Begin Footer -->
-    <div id="footer"> <!-- footer -->
-        {% include "footer.html" %}
-        <!-- /footer --> </div>
     <!-- End Footer -->
+    <!-- End Faux Columns -->
+
 </div>
 <!-- End Wrapper -->
 </body>

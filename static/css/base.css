@@ -3,7 +3,7 @@
 
 #wrapper { 
  margin: 0 auto;
- width: 1100px;
+ width: 1110px;
 }
 #faux {
  background: url(faux-1-2-col.gif);
@@ -22,7 +22,7 @@
  display: inline;
  margin:10px;
  padding:10px;
- width: 160px;
+ width: 170px;
  float: left;
 
 }
@@ -35,9 +35,8 @@
  position: relative;
 }
 #footer { 
- width: 902px;
+ width: 1110px;
  clear: both;
-
  margin: 0px 0px 10px 0px;
  padding: 10px;
 }
