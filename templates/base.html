@@ -2,33 +2,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- https://bootstrap-5.ru/docs/5.1/utilities/api/    pip install django-bootstrap-v5   -->
- <!--link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script-->
+    <!-- https://bootstrap-5.ru/docs/5.1/utilities/api/
 
- <!-- https://www.w3schools.com/django/django_add_bootstrap5.php -->
+      pip install django-bootstrap-v5   -->
 
-  {% load bootstrap5 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
+    <!--link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script-->
 
- <meta charset="utf-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- https://www.w3schools.com/django/django_add_bootstrap5.php -->
 
- <title>
-  {% block title %}
-   Default title
-  {% endblock title %}
- </title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/base.css'%}"/>
+
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {% block title %}
+        Default title
+        {% endblock title %}
+    </title>
 
 </head>
-<body class = "">
-<!-- header -->
-{% include "header.html" %}
-<!-- /header -->
-    <div class="container">{% block content%}{{message}} {% endblock content %}</div>
-<!-- footer -->
-{% include "footer.html" %}
-<!-- /footer -->
+<body class="">
+
+<div id="wrapper">
+    <!-- header -->
+        {% include "header.html" %}
+        <!-- /header -->
+    <!-- End Navigation -->
+    <!-- Begin Faux Columns -->
+    <div id="faux">
+        <!-- Begin Left Column -->
+        <div id="leftcolumn" class="d-flex card mb-4 rounded-3 shadow-sm">{% block left %}LEFT {% endblock left %}</div>
+        <!-- End Left Column -->
+        <!-- Begin Right Column -->
+        <div id="rightcolumn">
+            <div class="container">{% block content%}<img src="{% static '3.png'%}"> {% endblock content %}</div>
+        </div>
+        <!-- End Right Column -->
+        <div class="clear"></div>
+    </div>
+    <!-- End Faux Columns -->
+    <!-- Begin Footer -->
+    <div id="footer"> <!-- footer -->
+        {% include "footer.html" %}
+        <!-- /footer --> </div>
+    <!-- End Footer -->
+</div>
+<!-- End Wrapper -->
 </body>
 </html>
