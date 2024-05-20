@@ -1,21 +1,108 @@
 {% extends "base.html" %}
-{% block title %}Расписание 1{% endblock title %}
+{% block title %}++{% endblock title %}
+{% block left %}
+    {{ il }}
+{% endblock left %}
 {% block content %}
-    <div class="container flex-nowrap">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link active"  href="{% url 'rspperson' i wdp %}">Предыдущая неделя</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'rspperson' i wdn %}">Следующая неделя</a>
-            </li>
-        </ul>
+    <div>
+
+        {{ fio }}
+        <a href="{% url 'rspperson' idp wdp %}"> пред </a>
+        <a href="{% url 'rspperson' idp wdn %}"> след </a>
     </div>
-    <ul>
-        {% for p in r %}
-            <li><!--a href="/rasp/{{ p.id }}/">{{ p.id }} * {{ p.name }}</a-->
-                {{ p.name }} {{ p.idpers }} {{ p.idpara }} {{ p.idpredmet }} {{ p.idgrp }}
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="row row-cols-3 row-cols-md-1 mb-3">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3 bg-primary">
+                <h4 class="my-0 fw-normal text-light">{{ dt1 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    {% for i in r1 %}
+                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
+                            {% if i.idgrp.id == 2 %}
+                                {{ i.idgrp }}
+                            {% else %}
+                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
+                            {% endif %}
+
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+        <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ dt2 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    {% for i in r2 %}
+                        <li>{{ i.idpara.name }} {{ i.idgrp }} {{ i.idpredmet }} {{ i.idaud.name }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+        <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ dt3 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    {% for i in r2 %}
+                        <li>{{ i.idpara.name }} {{ i.idgrp }} {{ i.idpredmet }} {{ i.idaud.name }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+        <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ dt4 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    {% for i in r2 %}
+                        <li>{{ i.idpara.name }}{{ i.idgrp }} {{ i.idpredmet }} {{ i.idaud.name }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+        <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ dt5 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    {% for i in r2 %}
+                        <li>{{ i.idpara.name }} {{ i.idgrp }}{{ i.idpredmet }} {{ i.idaud.name }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+        <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ dt6 }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    {% for i in r2 %}
+                        <li>{{ i.idpara.name }} {{ i.idgrp }} {{ i.idpredmet }} {{ i.idaud.name }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
 {% endblock content %}
+
+
+

@@ -77,8 +77,7 @@ class Predmet(models.Model):
 		verbose_name = "Предмет"
 		verbose_name_plural = "Предметы"
 class Rasp(models.Model):
-	dt = models.DateField("Дата", null = True)
-	#dw = models.IntegerField("День недели", default = 0)
+	dt = models.DateField("Дата", null=True)
 	name = models.CharField("Название", max_length=100)
 	idgrp = models.ForeignKey(Grp, verbose_name="Группа",on_delete=models.PROTECT, default = 0)
 	idpers = models.ForeignKey(Person,verbose_name="Преподаватель", on_delete=models.PROTECT, default = 0)

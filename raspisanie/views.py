@@ -16,12 +16,12 @@ def grid(request):
     #dtb = dtb + timedelta(-1 * dtb.weekday())
     #dtr = (dtb + timedelta(-1 * dtb.weekday())).strftime(",  %B %d ")
     #dr = dtb.strftime(",  %B %d ")#%m
-    data = {"dt1": (dtb + timedelta(-1 * dtb.weekday()+0)).strftime(",  %B %d "),
-            "dt2": (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(",  %B %d "),
-            "dt3": (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime(",  %B %d "),
-            "dt4": (dtb + timedelta(-1 * dtb.weekday() + 3)).strftime(",  %B %d "),
-            "dt5": (dtb + timedelta(-1 * dtb.weekday() + 4)).strftime(",  %B %d "),
-            "dt6": (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime(",  %B %d "),
+    data = {"dt1": 'Понедельник,  '+(dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
+            "dt2": 'Вторник,  '+(dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
+            "dt3": 'Среда,  '+(dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%B %d "),
+            "dt4": 'Четверг,  '+(dtb + timedelta(-1 * dtb.weekday() + 3)).strftime("%B %d "),
+            "dt5": 'Пятница,  '+(dtb + timedelta(-1 * dtb.weekday() + 4)).strftime("%B %d "),
+            "dt6": 'Суббота,  '+(dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%B %d "),
             }
 
     return render(request, "grid.html", context=data)

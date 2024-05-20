@@ -14,7 +14,7 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <link rel="stylesheet" type="text/css" href="{% static '/css/base.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/base.css' %}"/>
 
 
     <meta charset="utf-8"/>
@@ -22,7 +22,7 @@
 
     <title>
         {% block title %}
-        Default title
+            Default title
         {% endblock title %}
     </title>
 
@@ -37,25 +37,16 @@
     <!-- Begin Faux Columns -->
     <div id="faux">
         <!-- Begin Left Column -->
-        <div id="leftcolumn" class="d-flex card mb-4 rounded-3 shadow-sm">
-            {% block left %}
-            <ul class="list-unstyled mt-0 mb-0">
-                <li class="nav-item"><a href="/" class="nav-link" aria-current="page">Главная</a></li>
-                <li class="nav-item"><a href="/rasp/person/" class="nav-link">Преподаватели</a></li>
-                <li class="nav-item"><a href="/rasp/aud/" class="nav-link">Аудитории</a></li>
-                <li class="nav-item"><a href="/rasp/grp/" class="nav-link">Группы</a></li>
-                <li class="nav-item"><a href="/rasp/predmet/" class="nav-link">Предметы</a></li>
-                <li class="nav-item"><a href="/rasp/rasp/" class="nav-link">Расписания</a></li>
-            </ul>
+        {% block left %}
+          {% include "baseleft.html" %}
+        {% endblock left %}
 
-            {% endblock left %}
-        </div>
         <!-- End Left Column -->
         <!-- Begin Right Column -->
         <div id="rightcolumn">
             <div class="container">
-                {% block content%}
-                <img src="{% static '3.png'%}">
+                {% block content %}
+                    <img src="{% static '3.png' %}">
                 {% endblock content %}
             </div>
         </div>
