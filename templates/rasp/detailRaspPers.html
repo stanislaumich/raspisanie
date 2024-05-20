@@ -39,7 +39,14 @@
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
                     {% for i in r2 %}
-                        <li>{{ i.idpara.name }} {{ i.idgrp }} {{ i.idpredmet }} {{ i.idaud.name }}</li>
+                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
+                            {% if i.idgrp.id == 2 %}
+                                {{ i.idgrp }}
+                            {% else %}
+                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
+                            {% endif %}
+
+                        </li>
                     {% endfor %}
                 </ul>
 
@@ -52,8 +59,15 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r2 %}
-                        <li>{{ i.idpara.name }} {{ i.idgrp }} {{ i.idpredmet }} {{ i.idaud.name }}</li>
+                    {% for i in r3 %}
+                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
+                            {% if i.idgrp.id == 2 %}
+                                {{ i.idgrp }}
+                            {% else %}
+                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
+                            {% endif %}
+
+                        </li>
                     {% endfor %}
                 </ul>
 
@@ -66,8 +80,15 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r2 %}
-                        <li>{{ i.idpara.name }}{{ i.idgrp }} {{ i.idpredmet }} {{ i.idaud.name }}</li>
+                    {% for i in r4 %}
+                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
+                            {% if i.idgrp.id == 2 %}
+                                {{ i.idgrp }}
+                            {% else %}
+                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
+                            {% endif %}
+
+                        </li>
                     {% endfor %}
                 </ul>
 
@@ -80,8 +101,15 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r2 %}
-                        <li>{{ i.idpara.name }} {{ i.idgrp }}{{ i.idpredmet }} {{ i.idaud.name }}</li>
+                    {% for i in r5 %}
+                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
+                            {% if i.idgrp.id == 2 %}
+                                {{ i.idgrp }}
+                            {% else %}
+                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
+                            {% endif %}
+
+                        </li>
                     {% endfor %}
                 </ul>
 
@@ -94,8 +122,15 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r2 %}
-                        <li>{{ i.idpara.name }} {{ i.idgrp }} {{ i.idpredmet }} {{ i.idaud.name }}</li>
+                    {% for i in r6 %}
+                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
+                            {% if i.idgrp.id == 2 %}
+                                {{ i.idgrp }}
+                            {% else %}
+                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
+                            {% endif %}
+
+                        </li>
                     {% endfor %}
                 </ul>
 

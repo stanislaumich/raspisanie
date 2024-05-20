@@ -5,6 +5,7 @@
 {% endblock left %}
 {% block content %}
 <h1>Занятие</h1>
+    {{ res }}
     <form method="POST" class="post-form" action = ".">
         {% csrf_token %}
         {{ form.as_div }}

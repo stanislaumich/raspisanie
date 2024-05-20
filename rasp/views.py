@@ -91,20 +91,27 @@ def detailRaspPers(request, id, wd):
 
 
 def editRaspPers(request, id):
+    res = ""
     r = Rasp.objects.get(id=id)
     if request.method == "POST":
         form = EditRasp(request.POST)
         if form.is_valid():
             r.name = form.cleaned_data["name"]
             r.dt = form.cleaned_data["dt"]
+            r.idgrp = form.cleaned_data["idgrp"]
+            r.idpers = form.cleaned_data["idpers"]
+            r.idpara = form.cleaned_data["idpara"]
+            r.idaud = form.cleaned_data["idaud"]
+            r.idpredmet = form.cleaned_data["idpredmet"]
             r.save()
+            res="Сохранено"
         #r = Rasp.objects.get(id=id)
         #form = EditRasp(instance=r)
 
         return render(request, "rasp/editRasp.html",
-                  {'form': form})
+                  {'form': form, "res":res})
     else:
         r = Rasp.objects.get(id=id)
         form = EditRasp(instance=r)
         return render(request, "rasp/editRasp.html",
-                      {'form': form})
+                      {'form': form, "res":res})
