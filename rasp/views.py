@@ -69,7 +69,7 @@ def detailRasp(request, id):
 def detailRaspPers(request, id, wd):
     t = id
     # datetime.today().isocalendar()[1]
-    r = Rasp.objects.filter(idpers=t, dt__week=wd).order_by("dt", "idpara")
+    r = Rasp.objects.filter(idpers=t, dt__week=wd).order_by("dt", "idpara_id")
     grp = Grp.objects.get(id=2)
     pers = Person.objects.get(id=1)
     aud = Aud.objects.get(id=3)

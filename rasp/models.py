@@ -9,7 +9,7 @@ import datetime
 
 class Para(models.Model):
 	name = models.CharField("Название", max_length=100)
-	num = models.IntegerField(default = 0)
+	num = models.IntegerField(default=0)
 	def __str__(self):
 		return self.name
 	class Meta:
@@ -87,7 +87,8 @@ class Rasp(models.Model):
 	def __str__(self):
 		return self.name
 	class Meta:
-		ordering = ['name']
+		ordering = ['id']
+		#unique_together = ('idgrp', 'idpers', 'idpara','idaud', 'idpredmet','dt')
 	# Methods
 	def get_absolute_url(self):
 		return reverse('model-detail-view', args=[str(self.id)])
