@@ -70,10 +70,10 @@ def detailRaspPers(request, id, wd):
     t = id
     # datetime.today().isocalendar()[1]
     r = Rasp.objects.filter(idpers=t, dt__week=wd).order_by("dt", "idpara_id")
-    grp = Grp.objects.get(id=2)
-    pers = Person.objects.get(id=1)
-    aud = Aud.objects.get(id=3)
-    pred = Predmet.objects.get(id=4)
+    # grp = Grp.objects.get(id=2)
+    # pers = Person.objects.get(id=1)
+    # aud = Aud.objects.get(id=3)
+    # pred = Predmet.objects.get(id=4)
     dtb = r.first().dt
     cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "i": t,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
@@ -92,22 +92,20 @@ def detailRaspPers(request, id, wd):
 
 def editRaspPers(request, id):
     res = ""
-    r = Rasp.objects.get(id=id)
+    #form = EditRasp(request)
+    #r = Rasp.objects.get(id=id)
     if request.method == "POST":
-        form = EditRasp(request.POST)
+        #form = EditRasp(request.POST)
         if form.is_valid():
-            r.name = form.cleaned_data["name"]
-            r.dt = form.cleaned_data["dt"]
-            r.idgrp = form.cleaned_data["idgrp"]
-            r.idpers = form.cleaned_data["idpers"]
-            r.idpara = form.cleaned_data["idpara"]
-            r.idaud = form.cleaned_data["idaud"]
-            r.idpredmet = form.cleaned_data["idpredmet"]
-            r.save()
-            res="Сохранено"
-        #r = Rasp.objects.get(id=id)
-        #form = EditRasp(instance=r)
-
+            # r.name = form.cleaned_data["name"]
+            # r.dt = form.cleaned_data["dt"]
+            # r.idgrp = form.cleaned_data["idgrp"]
+            # r.idpers = form.cleaned_data["idpers"]
+            # r.idpara = form.cleaned_data["idpara"]
+            # r.idaud = form.cleaned_data["idaud"]
+            # r.idpredmet = form.cleaned_data["idpredmet"]
+            form.save()
+            res = "Сохранено"
         return render(request, "rasp/editRasp.html",
                   {'form': form, "res":res})
     else:
@@ -115,3 +113,32 @@ def editRaspPers(request, id):
         form = EditRasp(instance=r)
         return render(request, "rasp/editRasp.html",
                       {'form': form, "res":res})
+
+def delRaspPers(request, id):
+    pass
+
+def genRaspPers(request):
+    dt = datetime.today()
+    dte = dt + timedelta(200)
+    while dt < dte:
+        print(dt)
+        for i in range(7):
+            r = Rasp()
+            r.dt = dt
+            r.name = 'AUTO'
+            r.idgrp = Grp.objects.get(id=2)
+            r.idpers = Person.objects.get(id=1)
+            r.idaud = Aud.objects.get(id=3)
+            r.idpredmet = Predmet.objects.get(id=4)
+            r.idpara = Para.objects.get(id=i+1)
+            r.save()
+        dt = dt+timedelta(1)
+    return render(request, "rasp/detailRasp.html", context={"r": 1})
+
+# def delete(request, id):
+#     try:
+#         person = Person.objects.get(id=id)
+#         person.delete()
+#         return HttpResponseRedirect("/")
+#     except Person.DoesNotExist:
+#         return HttpResponseNotFound("<h2>Person not found</h2>")
