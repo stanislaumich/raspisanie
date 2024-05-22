@@ -91,7 +91,7 @@ class Rasp(models.Model):
 		#unique_together = ('idgrp', 'idpers', 'idpara','idaud', 'idpredmet','dt')
 	# Methods
 	def get_absolute_url(self):
-		return reverse('model-detail-view', args=[str(self.id)])
+		return f'/rasp/rasp/person/edit/{self.id}/'
 	class Meta:
 		verbose_name = "Расписание"
 		verbose_name_plural = "Расписания"

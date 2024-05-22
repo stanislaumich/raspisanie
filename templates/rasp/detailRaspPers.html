@@ -5,15 +5,16 @@
 {% endblock left %}
 {% block content %}
     <div>
-
         {{ fio }}
-        <a href="{% url 'rspperson' idp wdp %}"> пред </a>
-        <a href="{% url 'rspperson' idp wdn %}"> след </a>
+        <br><br>
+        <a href="{% url 'rspperson' idp wdp %}"> <<<Неделя назад </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'rspperson' idp wdn %}"> Неделя вперед>>> </a>
     </div>
     <div class="row row-cols-3 row-cols-md-1 mb-3">
         <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 bg-primary">
-                <h4 class="my-0 fw-normal text-light">{{ dt1 }}</h4>
+            <div class="card-header py-3 {{ bg1 }}">
+                <h4 class="my-0 fw-normal {{ light1 }}">{{ dt1 }}</h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
@@ -33,8 +34,8 @@
         </div>
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">{{ dt2 }}</h4>
+            <div class="card-header py-3 {{ bg2 }}">
+                <h4 class="my-0 fw-normal {{ light2 }}">{{ dt2 }}</h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
@@ -54,8 +55,8 @@
         </div>
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">{{ dt3 }}</h4>
+            <div class="card-header py-3 {{ bg3 }}">
+                <h4 class="my-0 fw-normal {{ light3 }}">{{ dt3 }}</h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
@@ -75,8 +76,8 @@
         </div>
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">{{ dt4 }}</h4>
+            <div class="card-header py-3 {{ bg4 }}">
+                <h4 class="my-0 fw-normal {{ light4 }}">{{ dt4 }}</h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
@@ -96,8 +97,8 @@
         </div>
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">{{ dt5 }}</h4>
+            <div class="card-header py-3 {{ bg5 }}">
+                <h4 class="my-0 fw-normal {{ light5 }}">{{ dt5 }}</h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
@@ -117,8 +118,8 @@
         </div>
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">{{ dt6 }}</h4>
+            <div class="card-header py-3 {{ bg6 }}">
+                <h4 class="my-0 fw-normal {{ light6 }}">{{ dt6 }}</h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
