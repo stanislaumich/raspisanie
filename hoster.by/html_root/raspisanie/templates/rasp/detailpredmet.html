@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-{% block title %}Предмет{% endblock title %}
-{% block content%}
-    <ul>
-            <li><a href="{% url 'predmet' %}{{ p.id }}/">{{ p.name }}</a></li>
-    </ul>
-{% endblock content %}
