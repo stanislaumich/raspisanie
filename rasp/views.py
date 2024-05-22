@@ -29,7 +29,10 @@ def detailPredmet(request, id):
 def indexPerson(request):
     people = Person.objects.order_by("fio")
     wd = datetime.today().isocalendar()[1]
-    return render(request, "rasp/indexPerson.html", context={"people": people, "wd": wd})
+    paginator = Paginator(people, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, "rasp/indexPerson.html", context={"people": people, "wd": wd,"page_obj": page_obj})
 
 
 def detailPerson(request, id):
@@ -62,7 +65,7 @@ def detailGrp(request, id):
 
 def indexRasp(request):
     r = Rasp.objects.order_by("id")
-    paginator = Paginator(r, 10)
+    paginator = Paginator(r, 12)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request, "rasp/indexRasp.html", context={"r": r,"page_obj": page_obj})
