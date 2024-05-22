@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from .models import Aud, Para
@@ -61,7 +62,10 @@ def detailGrp(request, id):
 
 def indexRasp(request):
     r = Rasp.objects.order_by("id")
-    return render(request, "rasp/indexRasp.html", context={"r": r})
+    paginator = Paginator(r, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, "rasp/indexRasp.html", context={"r": r,"page_obj": page_obj})
 
 
 def detailRasp(request, id):
