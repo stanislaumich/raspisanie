@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Преподаватель{% endblock title %}
+{% block content%}
+    <ul>
+            <li><a href="{%  url "rspperson"  p.id  %}">{{ p.fio }}</a></li>
+    </ul>
+{% endblock content %}

@@ -111,6 +111,8 @@ def editRaspPers(request, id):
     r = Rasp.objects.get(id=id)
     form = EditRasp(request.POST)
     wd = wd = r.dt.isocalendar()[1]
+    dt = r.dt
+    idpara = r.idpara
     if request.method == "POST":
         form = EditRasp(request.POST)
         if form.is_valid():
@@ -121,13 +123,15 @@ def editRaspPers(request, id):
             r.idaud = form.cleaned_data["idaud"]
             r.idpredmet = form.cleaned_data["idpredmet"]
             r.save()
-            res = "Сохранено"
-            return HttpResponseRedirect(f"/rasp/rasp/person/{r.idpers.id}/{wd}/")
-        #return render(request, "rasp/editRasp.html",
-        #          {'form': form, "res":res})
+            res = "cохранено"
+            return HttpResponseRedirect("/rasp/rasp/"+str(r.idpers.id))
+            #return render(request, "rasp/editRasp.html",
+            #       {'form': form, "res":res, "dt":dt, "idpara":idpara})
     else:
         form = EditRasp(instance=r)
-    return render(request, "rasp/editRasp.html",{'form': form, "res":res})
+        dt = r.dt
+        idpara = r.idpara
+    return render(request, "rasp/editRasp.html",{'form': form, "res":res, "dt":dt, "idpara":idpara})
 
 def genRaspPers(request):
     dt = datetime.today()
@@ -147,10 +151,10 @@ def genRaspPers(request):
         dt = dt+timedelta(1)
     return render(request, "rasp/detailRasp.html", context={"r": 1})
 
-# def delete(request, id):
-#     try:
-#         person = Person.objects.get(id=id)
-#         person.delete()
-#         return HttpResponseRedirect("/")
-#     except Person.DoesNotExist:
-#         return HttpResponseNotFound("<h2>Person not found</h2>")
+def delRaspPers(request, id):
+    try:
+        person = Person.objects.get(id=id)
+        person.delete()
+        return HttpResponseRedirect("/")
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Person not found</h2>")
