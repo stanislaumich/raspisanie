@@ -67,7 +67,7 @@ class Rasp(models.Model):
 	idaud = models.ForeignKey(Aud,verbose_name="Аудитория", on_delete=models.PROTECT, default = 0)
 	idpredmet = models.ForeignKey(Predmet,verbose_name="Предмет", on_delete=models.PROTECT, default = 0)
 	def __str__(self):
-		return self.name
+		return self.idpara.name
 	class Meta:
 		ordering = ['id']
 		#unique_together = ('idgrp', 'idpers', 'idpara','idaud', 'idpredmet','dt')

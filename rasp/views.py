@@ -94,7 +94,24 @@ def detailRaspPers(request, id, wd):
                   context=cntx)
 def detailRaspAud(request, id, wd):
     t = id
-    r = Rasp.objects.filter(idaud=t, dt__week=wd).order_by("dt", "idpara_id")
+    #r = Rasp.objects.filter(idaud=t, dt__week=wd).order_by("dt", "idpara_id")
+
+    #####
+    k = 0
+    w = []
+    dtb = datetime.today()
+    dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
+    for i in range(6):
+        for j in range(7):
+            try:
+                r = Rasp.objects.get(dt=dtb, idpara=j - 1, idpers=1)
+                w.append(r)
+            except:
+                w.append(0)
+            k = k + 1
+            print(dtb)
+        dtb = dtb + timedelta(1)
+    ######
     if not r:
         r = Aud.objects.get(id=t)
         cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": id, "fio": r.fio}
@@ -141,7 +158,7 @@ def editRaspPers(request, id):
     res = ""
     r = Rasp.objects.get(id=id)
     form = EditRasp(request.POST)
-    wd = wd = r.dt.isocalendar()[1]
+    wd = r.dt.isocalendar()[1]
     dt = r.dt
     idpara = r.idpara
     if request.method == "POST":
@@ -188,4 +205,19 @@ def delRaspPers(request, id):
     except Person.DoesNotExist:
         return HttpResponseNotFound("<h2>Person not found</h2>")
 def test (request):
-    return render(request, "rasp/test.html", context={"r": 1})
+    k = 0
+    w = []
+    dtb = datetime.today()
+    dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
+    for i in range(6):
+        for j in range(7):
+            try:
+                r = Rasp.objects.get(dt=dtb, idpara=j-1, idpers = 1)
+                w.append(r)
+            except:
+                w.append(0)
+            k = k+1
+            print(dtb)
+        dtb = dtb + timedelta(1)
+
+    return render(request, "rasp/test.html", context={"r": w})
