@@ -2,6 +2,6 @@
 {% block title %}Аудитория{% endblock title %}
 {% block content%}
     <ul>
-            <li><a href="/aud/{{ a.id }}/">{{ a.name }}</a> {{ a.descr }}</li>
+            <li><a href="{% url 'rspaud' idp wdp %}">{{ a.name }}</a> {{ a.descr }}</li>
     </ul>
 {% endblock content %}
