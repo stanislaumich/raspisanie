@@ -83,9 +83,32 @@ def detailRaspPers(request, id, wd):
     r = Rasp.objects.filter(idpers=t, dt__week=wd).order_by("dt", "idpara_id")
     if not r:
         r = Person.objects.get(id=t)
-        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp":id, "fio":r.fio}
+        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp":id, "fio": r.fio}
         return render(request, 'rasp/404pers.html', cntx)
     dtb = r.first().dt
+    # тут пробуем формировать 6 дней по 8 пар в день
+    dts = dtb + timedelta(-1 * dtb.weekday() + 0) # первый день недели
+    k = 0
+    resarr = []
+    tr = Rasp#.objects.get(id=0)
+
+    for i in range(6): # 6 дней
+        for p in range(7):# 8 пар в день
+            resarr.append(tr)
+            resarr[k].dt = '2024-05-23'
+            resarr[k].idpara_id = p+1
+            resarr[k].idgrp_id = 0
+            resarr[k].idpers_id = 0
+            resarr[k].idaud_id = 0
+            print (resarr[k])
+
+
+            k = k + 1
+            pass
+
+
+    #
+    r = resarr
     cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "i": t,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": 'Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
@@ -148,11 +171,11 @@ def genRaspPers(request):
         for i in range(7):
             r = Rasp()
             r.dt = dt
-            r.name = 'AUTO'
-            r.idgrp = Grp.objects.get(id=2)
-            r.idpers = Person.objects.get(id=1)
-            r.idaud = Aud.objects.get(id=3)
-            r.idpredmet = Predmet.objects.get(id=4)
+            r.name = '---'
+            r.idgrp = Grp.objects.get(id=0)
+            r.idpers = Person.objects.get(id=2)
+            r.idaud = Aud.objects.get(id=0)
+            r.idpredmet = Predmet.objects.get(id=0)
             r.idpara = Para.objects.get(id=i+1)
             r.save()
         dt = dt+timedelta(1)

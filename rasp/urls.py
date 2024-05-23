@@ -20,5 +20,5 @@ urlpatterns = [
     path("rasp/person/del/<int:id>/", views.delRaspPers, name="rspdel"),
     #path("rasp/person/check/", views.detailRaspPers, name="rspcheck"),
 
-    #path("rasp/gen/", views.genRaspPers, name="rspgen"),
+    path("rasp/gen/", views.genRaspPers, name="rspgen"),
 ]
