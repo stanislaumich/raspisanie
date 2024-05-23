@@ -131,7 +131,7 @@ def editRaspPers(request, id):
             r.idpredmet = form.cleaned_data["idpredmet"]
             r.save()
             res = "cохранено"
-            return HttpResponseRedirect("/rasp/rasp/"+str(r.idpers.id))
+            return HttpResponseRedirect("/rasp/rasp/person/"+str(r.idpers.id)+'/21/')
             #return render(request, "rasp/editRasp.html",
             #       {'form': form, "res":res, "dt":dt, "idpara":idpara})
     else:

@@ -4,9 +4,7 @@
 {% block content %}
     <h1>Занятие ({{ res }})</h1>
     <h4>{{ dt }} {{ idpara }}</h4>
-
-
-    <form method="POST" class="post-form" action="">
+   <form method="POST" class="post-form" action="">
         {% csrf_token %}
         <table class="table-sm  table-hover">
             <tr>

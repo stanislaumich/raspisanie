@@ -7,7 +7,9 @@
     <div>
         {{ fio }}
         <br><br>
-        <a href="{% url 'rspperson' idp wdp %}"> <<<Неделя назад </a>
+        <a href="{% url 'rspperson' idp wdp %}"> <<
+            <Неделя назад
+        </a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <a href="{% url 'rspperson' idp wdn %}"> Неделя вперед>>> </a>
     </div>
@@ -18,16 +20,35 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r1 %}
-                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
-                            {% if i.idgrp.id == 2 %}
-                                {{ i.idgrp }}
-                            {% else %}
-                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
-                            {% endif %}
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Пара 1</th>
+                            <th>Группа</th>
+                            <th>Предмет</th>
+                            <th>Ауд.</th>
+                        </tr>
+                        {% for i in r1 %}
+                            <tr>
+                                <li>
+                                    <td>
+                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    </td>
 
-                        </li>
-                    {% endfor %}
+
+                                    {% if i.idgrp.id == 0 %}
+                                        <td></td>
+                                        <td colspan=2></td>
+                                    {% else %}
+                                        <td>{{ i.idgrp.name }}</td>
+                                        <td>{{ i.idpredmet }}</td>
+                                        <td>{{ i.idaud.name }}</td>
+                                    {% endif %}
+
+                                </li>
+                            </tr>
+
+                        {% endfor %}
+                    </table>
                 </ul>
 
             </div>
@@ -39,16 +60,34 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r2 %}
-                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
-                            {% if i.idgrp.id == 2 %}
-                                {{ i.idgrp }}
-                            {% else %}
-                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
-                            {% endif %}
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Пара</th>
+                            <th>Группа</th>
+                            <th>Предмет</th>
+                            <th>Ауд.</th>
+                        </tr>
+                        {% for i in r2 %}
+                            <tr>
+                                <li>
+                                    <td>
+                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    </td>
 
-                        </li>
-                    {% endfor %}
+
+                                    {% if i.idgrp.id == 0 %}
+                                        <td></td>
+                                        <td colspan=2></td>
+                                    {% else %}
+                                        <td>{{ i.idgrp.name }}</td>
+                                        <td>{{ i.idpredmet }}</td>
+                                        <td>{{ i.idaud.name }}</td>
+                                    {% endif %}
+
+                                </li>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </ul>
 
             </div>
@@ -60,16 +99,34 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r3 %}
-                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
-                            {% if i.idgrp.id == 2 %}
-                                {{ i.idgrp }}
-                            {% else %}
-                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
-                            {% endif %}
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Пара</th>
+                            <th>Группа</th>
+                            <th>Предмет</th>
+                            <th>Ауд.</th>
+                        </tr>
+                        {% for i in r3 %}
+                            <tr>
+                                <li>
+                                    <td>
+                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    </td>
 
-                        </li>
-                    {% endfor %}
+
+                                    {% if i.idgrp.id == 0 %}
+                                        <td></td>
+                                        <td colspan=2></td>
+                                    {% else %}
+                                        <td>{{ i.idgrp.name }}</td>
+                                        <td>{{ i.idpredmet }}</td>
+                                        <td>{{ i.idaud.name }}</td>
+                                    {% endif %}
+
+                                </li>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </ul>
 
             </div>
@@ -81,16 +138,34 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r4 %}
-                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
-                            {% if i.idgrp.id == 2 %}
-                                {{ i.idgrp }}
-                            {% else %}
-                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
-                            {% endif %}
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Пара</th>
+                            <th>Группа</th>
+                            <th>Предмет</th>
+                            <th>Ауд.</th>
+                        </tr>
+                        {% for i in r4 %}
+                            <tr>
+                                <li>
+                                    <td>
+                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    </td>
 
-                        </li>
-                    {% endfor %}
+
+                                    {% if i.idgrp.id == 0 %}
+                                        <td></td>
+                                        <td colspan=2></td>
+                                    {% else %}
+                                        <td>{{ i.idgrp.name }}</td>
+                                        <td>{{ i.idpredmet }}</td>
+                                        <td>{{ i.idaud.name }}</td>
+                                    {% endif %}
+
+                                </li>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </ul>
 
             </div>
@@ -102,16 +177,34 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r5 %}
-                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
-                            {% if i.idgrp.id == 2 %}
-                                {{ i.idgrp }}
-                            {% else %}
-                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
-                            {% endif %}
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Пара</th>
+                            <th>Группа</th>
+                            <th>Предмет</th>
+                            <th>Ауд.</th>
+                        </tr>
+                        {% for i in r5 %}
+                            <tr>
+                                <li>
+                                    <td>
+                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    </td>
 
-                        </li>
-                    {% endfor %}
+
+                                    {% if i.idgrp.id == 0 %}
+                                        <td></td>
+                                        <td colspan=2></td>
+                                    {% else %}
+                                        <td>{{ i.idgrp.name }}</td>
+                                        <td>{{ i.idpredmet }}</td>
+                                        <td>{{ i.idaud.name }}</td>
+                                    {% endif %}
+
+                                </li>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </ul>
 
             </div>
@@ -123,16 +216,31 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
-                    {% for i in r6 %}
-                        <li><a href="{% url 'rspedit' i.id %}" >{{ i.idpara.name }}</a>
-                            {% if i.idgrp.id == 2 %}
-                                {{ i.idgrp }}
-                            {% else %}
-                                {{ i.idgrp.name }}  {{ i.idpredmet }}  {{ i.idaud.name }}
-                            {% endif %}
-
-                        </li>
-                    {% endfor %}
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Пара</th>
+                            <th>Группа</th>
+                            <th>Предмет</th>
+                            <th>Ауд.</th>
+                        </tr>
+                        {% for i in r6 %}
+                            <tr>
+                                <li>
+                                    <td>
+                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    </td>
+                                    {% if i.idgrp.id == 0 %}
+                                        <td ></td>
+                                        <td colspan=2></td>
+                                    {% else %}
+                                        <td>{{ i.idgrp.name }}</td>
+                                        <td>{{ i.idpredmet }}</td>
+                                        <td>{{ i.idaud.name }}</td>
+                                    {% endif %}
+                                </li>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </ul>
 
             </div>
