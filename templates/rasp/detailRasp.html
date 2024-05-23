@@ -1,7 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Расписание{% endblock title %}
-{% block content%}
+{% block content %}
     <ul>
-            <li><a href="/rasp/{{ r.id }}/">{{ r.id }} * {{ r.name }}</a></li>
+        <li>
+            <br>
+            <table class="table table-hover">
+                <tr>
+                    <td>Пара:</td>
+                    <td> {{ r.idpara }} </td>
+                </tr>
+                <tr>
+                    <td>Название:</td>
+                    <td> {{ r.name }} </td>
+                </tr>
+                <tr>
+                    <td>Преподаватель:</td>
+                    <td> {{ r.idpers }} </td>
+                </tr>
+                <tr>
+                    <td>Аудитория:</td>
+                    <td> {{ r.idaud }} </td>
+                </tr>
+                <tr>
+                    <td>Группа:</td>
+                    <td> {{ r.idgrp }} </td>
+                </tr>
+            </table>
+        </li>
     </ul>
 {% endblock content %}
