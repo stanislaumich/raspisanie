@@ -61,18 +61,36 @@ def detailRasp(request, id):
     t = id
     r = Rasp.objects.get(id=t)
     return render(request, "rasp/detailRasp.html", context={"r": r})
-def detailRaspPers(request, id, wd):
 
+
+def datefromiso(year, week, day):
+    return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
+
+
+#print(datefromiso(2012, 7, 4))
+
+def detailRaspPers(request, id, wd):
     t = id
     g = Rasp.objects.filter(idpers=t, dt__week=wd).order_by("dt", "idpara_id")
+    print(t)
+    print(wd)
+    print(g[0].dt)
+    print(datefromiso(2024, 21, 1))
+    print( date.today().year)
     if not g:
         r = Person.objects.get(id=t)
-        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": id, "fio": r.fio}
+        #dtb + timedelta(-1 * dtb.weekday() + 0)
+        #dt = (wd*7)/30 datetime.date(year=2020, month=1, day=4)
+        d = date.today()+timedelta(7)
+        d = d + timedelta(-1 * d.weekday())
+        dt = d.strftime("%Y-%m-%d")# datetime.strptime(d, '%Y-%m-%d').date()
+        np = 1
+        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": id, "fio": r.fio, "wd": wd, "np":1, "dt":dt}
         return render(request, 'rasp/404pers.html', cntx)
 
     k = 0
     w = []
-    dtb = datetime.today()
+    dtb = datefromiso(date.today().year, wd, 1).date()
     dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
     for i in range(6):
         for j in range(7):
@@ -84,9 +102,11 @@ def detailRaspPers(request, id, wd):
             k = k + 1
             #print(w)
         dtb = dtb + timedelta(1)
-
-    dtb = g.first().dt
-    cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t,
+    # if g:
+    #     dtb = g.first().dt
+    # else:
+    #     dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
+    cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": 'Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
             "dt3": 'Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%B %d "),

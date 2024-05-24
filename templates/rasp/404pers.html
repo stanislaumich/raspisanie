@@ -8,5 +8,8 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
         <a href="{% url 'rspperson' idp wdn %}"> Неделя вперед>>> </a>
     <br>
+
  404 не найдено записей расписания для этой персоны
+    <br>
+    <a href="{% url 'rspadd' idp %}?dt={{ dt }}&np={{ np }}">Давайте создадим</a>
 {% endblock content %}
