@@ -73,6 +73,6 @@ class Rasp(models.Model):
 		#unique_together = ('idgrp', 'idpers', 'idpara','idaud', 'idpredmet','dt')
 		verbose_name = "Расписание"
 		verbose_name_plural = "Расписания"
-
+		unique_together = ('dt', 'idpara', 'idgrp')
 
 

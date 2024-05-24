@@ -61,22 +61,16 @@ def detailRasp(request, id):
     t = id
     r = Rasp.objects.get(id=t)
     return render(request, "rasp/detailRasp.html", context={"r": r})
-
-
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
-
-
-#print(datefromiso(2012, 7, 4))
-
 def detailRaspPers(request, id, wd):
     t = id
     g = Rasp.objects.filter(idpers=t, dt__week=wd).order_by("dt", "idpara_id")
-    print(t)
-    print(wd)
-    print(g[0].dt)
-    print(datefromiso(2024, 21, 1))
-    print( date.today().year)
+    # print(t)
+    # print(wd)
+    # print(g[0].dt)
+    # print(datefromiso(2024, 21, 1))
+    # print( date.today().year)
     if not g:
         r = Person.objects.get(id=t)
         #dtb + timedelta(-1 * dtb.weekday() + 0)
