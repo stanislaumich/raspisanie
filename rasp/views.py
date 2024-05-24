@@ -1,3 +1,5 @@
+import time
+
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound
@@ -60,23 +62,46 @@ def detailRasp(request, id):
     r = Rasp.objects.get(id=t)
     return render(request, "rasp/detailRasp.html", context={"r": r})
 def detailRaspPers(request, id, wd):
+
     t = id
-    r = Rasp.objects.filter(idpers=t, dt__week=wd).order_by("dt", "idpara_id")
-    if not r:
+    g = Rasp.objects.filter(idpers=t, dt__week=wd).order_by("dt", "idpara_id")
+    if not g:
         r = Person.objects.get(id=t)
-        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp":id, "fio": r.fio}
+        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": id, "fio": r.fio}
         return render(request, 'rasp/404pers.html', cntx)
-    dtb = r.first().dt
-    cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "i": t,
+
+    k = 0
+    w = []
+    dtb = datetime.today()
+    dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
+    for i in range(6):
+        for j in range(7):
+            try:
+                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idpers=t)
+                w.append({'v': 1, 'i': r, "np":j})
+            except:
+                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np":j+1})
+            k = k + 1
+            #print(w)
+        dtb = dtb + timedelta(1)
+
+    dtb = g.first().dt
+    cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": 'Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
             "dt3": 'Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%B %d "),
             "dt4": 'Четверг,  ' + (dtb + timedelta(-1 * dtb.weekday() + 3)).strftime("%B %d "),
             "dt5": 'Пятница,  ' + (dtb + timedelta(-1 * dtb.weekday() + 4)).strftime("%B %d "),
             "dt6": 'Суббота,  ' + (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%B %d "),
-            "r1": r[:7], "r2": r[7:14], "r3": r[14:21],
-            "r4": r[21:28], "r5": r[28:35], "r6": r[35:42],
-            "fio": r[0].idpers.fio, "idp": r[0].idpers.id,
+            "d1": (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%Y-%m-%d"),
+            "d2": (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%Y-%m-%d"),
+            "d3": (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%Y-%m-%d"),
+            "d4": (dtb + timedelta(-1 * dtb.weekday() + 3)).strftime("%Y-%m-%d"),
+            "d5": (dtb + timedelta(-1 * dtb.weekday() + 4)).strftime("%Y-%m-%d"),
+            "d6": (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%Y-%m-%d"),
+            "r1": w[:7], "r2": w[7:14], "r3": w[14:21],
+            "r4": w[21:28], "r5": w[28:35], "r6": w[35:42],
+            "fio": g[0].idpers.fio, "idp": 1, "wd":wd,
             "light1":'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d ")==datetime.today().strftime("%B %d ") else '',
             "light2":'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d ")==datetime.today().strftime("%B %d ") else '',
             "light3":'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%B %d ")==datetime.today().strftime("%B %d ") else '',
@@ -154,6 +179,30 @@ def detailRaspAud(request, id, wd):
             }
     return render(request, "rasp/detailRaspPers.html",
                   context=cntx)
+def addRaspPers(request, id):
+    res = ""
+    dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
+    wd = dt.isocalendar()[1]
+    idpara = request.GET.get("np")
+    if request.method == "POST":
+        form = EditRasp(request.POST)
+        if form.is_valid():
+            form.paraid = Para.objects.get(id=idpara)
+            # r.name = form.cleaned_data["name"]
+            # r.idgrp = form.cleaned_data["idgrp"]
+            # r.idpers = form.cleaned_data["idpers"]
+            # r.idaud = form.cleaned_data["idaud"]
+            # r.idpredmet = form.cleaned_data["idpredmet"]
+            form.save()
+            res = "cохранено"
+            #return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
+            return HttpResponseRedirect("/rasp/rasp/person/" + str(id) + '/' + str(wd) + '/')
+    else:
+        r = Rasp()
+        r.idpara = Para.objects.get(id=idpara)
+        r.dt = dt
+        form = EditRasp(instance=r)
+    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
 def editRaspPers(request, id):
     res = ""
     r = Rasp.objects.get(id=id)
@@ -172,14 +221,12 @@ def editRaspPers(request, id):
             r.idpredmet = form.cleaned_data["idpredmet"]
             r.save()
             res = "cохранено"
-            return HttpResponseRedirect("/rasp/rasp/person/"+str(r.idpers.id)+'/'+str(wd)+'/')
-            #return render(request, "rasp/editRasp.html",
-            #       {'form': form, "res":res, "dt":dt, "idpara":idpara})
+            return HttpResponseRedirect("/rasp/rasp/person/" + str(r.idpers.id) + '/' + str(wd) + '/')
     else:
         form = EditRasp(instance=r)
         dt = r.dt
         idpara = r.idpara
-    return render(request, "rasp/editRasp.html",{'form': form, "res":res, "dt":dt, "idpara":idpara})
+    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
 def genRaspPers(request):
     dt = datetime.today() + timedelta(-10)
     dte = dt + timedelta(200)
@@ -212,12 +259,12 @@ def test (request):
     for i in range(6):
         for j in range(7):
             try:
-                r = Rasp.objects.get(dt=dtb, idpara=j-1, idpers = 1)
-                w.append(r)
+                r = Rasp.objects.get(dt=dtb, idpara=j+1, idpers = 1)
+                w.append({'v':1,'i':r})
             except:
-                w.append(0)
+                w.append({'v':0,'i':Para.objects.get(id=j+1)})
             k = k+1
-            print(dtb)
+            print(w)
         dtb = dtb + timedelta(1)
 
     return render(request, "rasp/test.html", context={"r": w})

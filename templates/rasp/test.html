@@ -2,8 +2,30 @@
 {% block title %}++{% endblock title %}
 
 {% block content %}
-{{ r }}
+<table class="table">
+{% for i in r %}
+                            <tr>
+                                <li>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="#">{{ i.i }}</a>
+                                        {% else %}
+                                        <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
+                                        {% endif %}
+                                    </td>
 
 
+                                    {% if i.v == 0 %}
+                                        <td>???</td>
+                                        <td colspan=2></td>
+                                    {% else %}
+                                        <td>{{ i.i.idgrp.name }}</td>
+                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idaud.name }}</td>
+                                    {% endif %}
 
+                                </li>
+                            </tr>
+
+                        {% endfor %}
+</table>
 {% endblock content %}

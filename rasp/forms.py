@@ -7,5 +7,5 @@ from .models import  Rasp
 class EditRasp(ModelForm):
     class Meta:
         model = Rasp
-        fields = ('name', 'idgrp', 'idpers', 'idaud', 'idpredmet')
+        fields = ('name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt')
 

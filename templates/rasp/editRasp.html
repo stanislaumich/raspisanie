@@ -3,13 +3,21 @@
 
 {% block content %}
     <h1>Занятие ({{ res }})</h1>
-    <h4>{{ dt }} {{ idpara }}</h4>
+    <h4>Дата: {{ dt }}  Пара: {{ idpara }}</h4>
    <form method="POST" class="post-form" action="">
         {% csrf_token %}
         <table class="table-sm  table-hover">
             <tr>
                 <td>Название:</td>
                 <td>{{ form.name }}</td>
+            </tr>
+            <tr>
+                <td>Дата:</td>
+                <td>{{ form.dt }}</td>
+            </tr>
+            <tr>
+                <td>Пара:</td>
+                <td>{{ form.idpara }}</td>
             </tr>
             <tr>
                 <td>Группа:</td>
