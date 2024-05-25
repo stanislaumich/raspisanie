@@ -6,8 +6,8 @@
     <h4>Дата: {{ dt }}  Пара: {{ idpara }}</h4>
    <form method="POST" class="post-form" action="">
         {% csrf_token %}
-   {{ form.non_field_errors }}
-       {% for field in form %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
         {{ field.errors }}
         {% endfor %}
         <table class="table-sm  table-hover">

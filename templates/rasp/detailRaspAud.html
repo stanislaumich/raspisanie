@@ -5,13 +5,13 @@
 {% endblock left %}
 {% block content %}
     <div>
-        {{ aud }}
+        {{ fio }}
         <br><br>
-        <a href="{% url 'rspaud' idp wdp %}"> <<
+        <a href="{% url 'rspperson' idp wdp %}"> <<
             <Неделя назад
         </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="{% url 'rspaud' idp wdn %}"> Неделя вперед>>> </a>
+        <{{ wd }}>
+        <a href="{% url 'rspperson' idp wdn %}"> Неделя вперед>>> </a>
     </div>
     <div class="row row-cols-3 row-cols-md-1 mb-3">
         <div class="card mb-4 rounded-3 shadow-sm">
@@ -30,18 +30,21 @@
                         {% for i in r1 %}
                             <tr>
                                 <li>
-                                    <td>
-                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="{% url 'rspadd' idp %}?dt={{ d1 }}&np={{ i.np }}">{{ i.i }}</a>
+                                        {% else %}
+                                        <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
+                                        {% endif %}
                                     </td>
 
 
-                                    {% if i.idgrp.id == 0 %}
-                                        <td></td>
+                                    {% if i.v == 0 %}
+                                        <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.idgrp.name }}</td>
-                                        <td>{{ i.idpredmet }}</td>
-                                        <td>{{ i.idaud.name }}</td>
+                                        <td>{{ i.i.idgrp.name }}</td>
+                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
                                 </li>
@@ -70,18 +73,21 @@
                         {% for i in r2 %}
                             <tr>
                                 <li>
-                                    <td>
-                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        {% else %}
+                                        <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
+                                        {% endif %}
                                     </td>
 
 
-                                    {% if i.idgrp.id == 0 %}
-                                        <td></td>
+                                    {% if i.v == 0 %}
+                                        <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.idgrp.name }}</td>
-                                        <td>{{ i.idpredmet }}</td>
-                                        <td>{{ i.idaud.name }}</td>
+                                        <td>{{ i.i.idgrp.name }}</td>
+                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
                                 </li>
@@ -109,18 +115,21 @@
                         {% for i in r3 %}
                             <tr>
                                 <li>
-                                    <td>
-                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        {% else %}
+                                        <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
+                                        {% endif %}
                                     </td>
 
 
-                                    {% if i.idgrp.id == 0 %}
-                                        <td></td>
+                                    {% if i.v == 0 %}
+                                        <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.idgrp.name }}</td>
-                                        <td>{{ i.idpredmet }}</td>
-                                        <td>{{ i.idaud.name }}</td>
+                                        <td>{{ i.i.idgrp.name }}</td>
+                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
                                 </li>
@@ -148,18 +157,21 @@
                         {% for i in r4 %}
                             <tr>
                                 <li>
-                                    <td>
-                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        {% else %}
+                                        <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
+                                        {% endif %}
                                     </td>
 
 
-                                    {% if i.idgrp.id == 0 %}
-                                        <td></td>
+                                    {% if i.v == 0 %}
+                                        <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.idgrp.name }}</td>
-                                        <td>{{ i.idpredmet }}</td>
-                                        <td>{{ i.idaud.name }}</td>
+                                        <td>{{ i.i.idgrp.name }}</td>
+                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
                                 </li>
@@ -187,18 +199,21 @@
                         {% for i in r5 %}
                             <tr>
                                 <li>
-                                    <td>
-                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        {% else %}
+                                        <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
+                                        {% endif %}
                                     </td>
 
 
-                                    {% if i.idgrp.id == 0 %}
-                                        <td></td>
+                                    {% if i.v == 0 %}
+                                        <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.idgrp.name }}</td>
-                                        <td>{{ i.idpredmet }}</td>
-                                        <td>{{ i.idaud.name }}</td>
+                                        <td>{{ i.i.idgrp.name }}</td>
+                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
                                 </li>
@@ -226,16 +241,20 @@
                         {% for i in r6 %}
                             <tr>
                                 <li>
-                                    <td>
-                                        <a href="{% url 'rspedit' i.id %}">{{ i.idpara.name }}</a>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        {% else %}
+                                        <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
+                                        {% endif %}
                                     </td>
-                                    {% if i.idgrp.id == 0 %}
-                                        <td ></td>
+
+                                    {% if i.v == 0 %}
+                                        <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.idgrp.name }}</td>
-                                        <td>{{ i.idpredmet }}</td>
-                                        <td>{{ i.idaud.name }}</td>
+                                        <td>{{ i.i.idgrp.name }}</td>
+                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
                                 </li>
                             </tr>
