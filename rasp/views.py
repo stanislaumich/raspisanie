@@ -84,9 +84,9 @@ def detailRaspPers(request, id, wd):
         for j in range(7):
             try:
                 r = Rasp.objects.get(dt=dtb, idpara=j + 1, idpers=t)
-                w.append({'v': 1, 'i': r, "np":j})
+                w.append({'v': 1, 'i': r, "np": j})
             except:
-                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np":j+1})
+                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j+1})
             k = k + 1
             #print(w)
         dtb = dtb + timedelta(1)

@@ -74,7 +74,7 @@
                             <tr>
                                 <li>
                                     <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        <a href="{% url 'rspadd' idp %}?dt={{ d2 }}&np={{ i.np }}">{{ i.i }}</a>
                                         {% else %}
                                         <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
                                         {% endif %}
@@ -116,7 +116,7 @@
                             <tr>
                                 <li>
                                     <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        <a href="{% url 'rspadd' idp %}?dt={{ d3 }}&np={{ i.np }}">{{ i.i }}</a>
                                         {% else %}
                                         <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
                                         {% endif %}
@@ -158,7 +158,7 @@
                             <tr>
                                 <li>
                                     <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        <a href="{% url 'rspadd' idp %}?dt={{ d4 }}&np={{ i.np }}">{{ i.i }}</a>
                                         {% else %}
                                         <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
                                         {% endif %}
@@ -200,7 +200,7 @@
                             <tr>
                                 <li>
                                     <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        <a href="{% url 'rspadd' idp %}?dt={{ d5 }}&np={{ i.np }}">{{ i.i }}</a>
                                         {% else %}
                                         <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
                                         {% endif %}
@@ -242,7 +242,7 @@
                             <tr>
                                 <li>
                                     <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspadd' idp %}">{{ i.i }}</a>
+                                        <a href="{% url 'rspadd' idp %}?dt={{ d6 }}&np={{ i.np }}">{{ i.i }}</a>
                                         {% else %}
                                         <a href="{% url 'rspedit' i.i.id %}">{{ i.i }}</a>
                                         {% endif %}
