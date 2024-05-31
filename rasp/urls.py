@@ -20,6 +20,11 @@ urlpatterns = [
     path("rasp/person/add/<int:id>/", views.addRaspPers, name="rspadd"),
     path("rasp/person/edit/<int:id>/", views.editRaspPers, name="rspedit"),
     path("rasp/person/del/<int:id>/", views.delRaspPers, name="rspdel"),
+# rasp for groups
+    path("rasp/group/<int:id>/<int:wd>/", views.detailRaspGroup, name="rspgroup"),
+    path("rasp/group/add/<int:id>/", views.addRaspGroup, name="rspaddgroup"),
+    path("rasp/group/edit/<int:id>/", views.editRaspGroup, name="rspeditgroup"),
+    path("rasp/group/del/<int:id>/", views.delRaspGroup, name="rspdelgroup"),
 # rasp for aud
     path("rasp/aud/<int:id>/<int:wd>/", views.detailRaspAud, name="rspaud"),
 # tests
