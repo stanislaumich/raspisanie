@@ -15,16 +15,16 @@
     </div>
     <div class="row row-cols-3 row-cols-md-1 mb-3">
         <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 {{ bg1 }}">
-                <h4 class="my-0 fw-normal {{ light1 }}">{{ dt1 }}</h4>
+            <div class="card-header py-3 {{ bg1 }} ">
+                <h4 class="my-0 fw-normal {{ light1 }}">{{ dt1 }} <b>({{ name }})</b></h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
                     <table class="table table-hover">
                         <tr>
                             <th>Пара</th>
-                            <th>Группа</th>
                             <th>Предмет</th>
+                            <th>Преподаватель</th>
                             <th>Ауд.</th>
                         </tr>
                         {% for i in r1 %}
@@ -42,8 +42,8 @@
                                         <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.i.idgrp.name }}</td>
                                         <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idpers }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
@@ -59,15 +59,15 @@
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3 {{ bg2 }}">
-                <h4 class="my-0 fw-normal {{ light2 }}">{{ dt2 }}</h4>
+                <h4 class="my-0 fw-normal {{ light2 }}">{{ dt2 }} <b>({{ name }})</b></h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
                     <table class="table table-hover">
                         <tr>
                             <th>Пара</th>
-                            <th>Группа</th>
                             <th>Предмет</th>
+                            <th>Преподаватель</th>
                             <th>Ауд.</th>
                         </tr>
                         {% for i in r2 %}
@@ -85,8 +85,8 @@
                                         <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.i.idgrp.name }}</td>
                                         <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idpers }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
@@ -101,15 +101,15 @@
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3 {{ bg3 }}">
-                <h4 class="my-0 fw-normal {{ light3 }}">{{ dt3 }}</h4>
+                <h4 class="my-0 fw-normal {{ light3 }}">{{ dt3 }} <b>({{ name }})</b></h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
                     <table class="table table-hover">
                         <tr>
                             <th>Пара</th>
-                            <th>Группа</th>
                             <th>Предмет</th>
+                            <th>Преподаватель</th>
                             <th>Ауд.</th>
                         </tr>
                         {% for i in r3 %}
@@ -127,8 +127,8 @@
                                         <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.i.idgrp.name }}</td>
                                         <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idpers }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
@@ -143,15 +143,15 @@
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3 {{ bg4 }}">
-                <h4 class="my-0 fw-normal {{ light4 }}">{{ dt4 }}</h4>
+                <h4 class="my-0 fw-normal {{ light4 }}">{{ dt4 }} <b>({{ name }})</b></h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
                     <table class="table table-hover">
                         <tr>
                             <th>Пара</th>
-                            <th>Группа</th>
                             <th>Предмет</th>
+                            <th>Преподаватель</th>
                             <th>Ауд.</th>
                         </tr>
                         {% for i in r4 %}
@@ -169,8 +169,8 @@
                                         <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.i.idgrp.name }}</td>
                                         <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idpers }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
@@ -185,15 +185,15 @@
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3 {{ bg5 }}">
-                <h4 class="my-0 fw-normal {{ light5 }}">{{ dt5 }}</h4>
+                <h4 class="my-0 fw-normal {{ light5 }}">{{ dt5 }} <b>({{ name }})</b></h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
                     <table class="table table-hover">
                         <tr>
                             <th>Пара</th>
-                            <th>Группа</th>
                             <th>Предмет</th>
+                            <th>Преподаватель</th>
                             <th>Ауд.</th>
                         </tr>
                         {% for i in r5 %}
@@ -211,8 +211,8 @@
                                         <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.i.idgrp.name }}</td>
                                         <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idpers }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
 
@@ -227,15 +227,15 @@
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3 {{ bg6 }}">
-                <h4 class="my-0 fw-normal {{ light6 }}">{{ dt6 }}</h4>
+                <h4 class="my-0 fw-normal {{ light6 }}">{{ dt6 }} <b>({{ name }})</b></h4>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mt-0 mb-0">
                     <table class="table table-hover">
                         <tr>
                             <th>Пара</th>
-                            <th>Группа</th>
                             <th>Предмет</th>
+                            <th>Преподаватель</th>
                             <th>Ауд.</th>
                         </tr>
                         {% for i in r6 %}
@@ -252,8 +252,8 @@
                                         <td>???</td>
                                         <td colspan=2></td>
                                     {% else %}
-                                        <td>{{ i.i.idgrp.name }}</td>
                                         <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idpers }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% endif %}
                                 </li>
