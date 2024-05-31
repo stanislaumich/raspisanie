@@ -1,18 +1,11 @@
 {% extends "base.html" %}
 {% block title %}++{% endblock title %}
-
-<script>
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
-
 {% block left %}
     {{ il }}
 {% endblock left %}
 {% block content %}
     <div>
-        <b>{{ name }}</b>
+        {{ name }}
         <br><br>
         <a href="{% url 'rspgroup' idp wdp %}"> <<
             <Неделя назад
@@ -20,7 +13,6 @@ $(document).ready(function(){
         <{{ wd }}>
         <a href="{% url 'rspgroup' idp wdn %}"> Неделя вперед>>> </a>
     </div>
-    <br>
     <div class="row row-cols-3 row-cols-md-1 mb-3">
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3 {{ bg1 }} ">
@@ -38,19 +30,12 @@ $(document).ready(function(){
                         {% for i in r1 %}
                             <tr>
                                 <li>
-                                    {% if i.v == 0 %}
-                                        <td>
-                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d1 }}&np={{ i.np }}" data-toggle="tooltip" title="СВОБОДНО"
-                                         class="btn btn-primary" role="button">
-                                           {{ i.i }}
-                                        </a>
-                                        </td>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d1 }}&np={{ i.np }}">{{ i.i }}</a>
                                         {% else %}
-                                        <td>
-                                        <a href="{% url 'rspeditgroup' i.i.id %}" class="btn btn-warning"  role="button" >{{ i.i }}</a>
-                                        </td>
+                                        <a href="{% url 'rspeditgroup' i.i.id %}">{{ i.i }}</a>
                                         {% endif %}
-
+                                    </td>
 
 
                                     {% if i.v == 0 %}
@@ -72,49 +57,6 @@ $(document).ready(function(){
             </div>
         </div>
         <!-- -->
-    <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 {{ bg4 }}">
-                <h4 class="my-0 fw-normal {{ light4 }}">{{ dt4 }} <b>({{ name }})</b></h4>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled mt-0 mb-0">
-                    <table class="table table-hover">
-                        <tr>
-                            <th>Пара</th>
-                            <th>Предмет</th>
-                            <th>Преподаватель</th>
-                            <th>Ауд.</th>
-                        </tr>
-                        {% for i in r4 %}
-                            <tr>
-                                <li>
-                                    <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d4 }}&np={{ i.np }}" data-toggle="tooltip" title="СВОБОДНО">
-                                            {{ i.i }}</a>
-                                        {% else %}
-                                        <a href="{% url 'rspeditgroup' i.i.id %} class="btn btn-warning"  role="button" ">{{ i.i }}</a>
-                                        {% endif %}
-                                    </td>
-
-
-                                    {% if i.v == 0 %}
-                                        <td>???</td>
-                                        <td colspan=2></td>
-                                    {% else %}
-                                        <td>{{ i.i.idpredmet }}</td>
-                                        <td>{{ i.i.idpers }}</td>
-                                        <td>{{ i.i.idaud.name }}</td>
-                                    {% endif %}
-
-                                </li>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </ul>
-
-            </div>
-        </div>
-    <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3 {{ bg2 }}">
                 <h4 class="my-0 fw-normal {{ light2 }}">{{ dt2 }} <b>({{ name }})</b></h4>
@@ -132,10 +74,9 @@ $(document).ready(function(){
                             <tr>
                                 <li>
                                     <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d2 }}&np={{ i.np }}" data-toggle="tooltip" title="СВОБОДНО">
-                                            {{ i.i }}</a>
+                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d2 }}&np={{ i.np }}">{{ i.i }}</a>
                                         {% else %}
-                                        <a href="{% url 'rspeditgroup' i.i.id %}" class="btn btn-warning"  role="button" >{{ i.i }}</a>
+                                        <a href="{% url 'rspeditgroup' i.i.id %}">{{ i.i }}</a>
                                         {% endif %}
                                     </td>
 
@@ -158,50 +99,6 @@ $(document).ready(function(){
             </div>
         </div>
         <!-- -->
-    <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 {{ bg5 }}">
-                <h4 class="my-0 fw-normal {{ light5 }}">{{ dt5 }} <b>({{ name }})</b></h4>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled mt-0 mb-0">
-                    <table class="table table-hover">
-                        <tr>
-                            <th>Пара</th>
-                            <th>Предмет</th>
-                            <th>Преподаватель</th>
-                            <th>Ауд.</th>
-                        </tr>
-                        {% for i in r5 %}
-                            <tr>
-                                <li>
-                                    <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d5 }}&np={{ i.np }}" data-toggle="tooltip" title="СВОБОДНО"
-                                         class="btn btn-primary" role="button">
-                                            {{ i.i }}</a>
-                                        {% else %}
-                                        <a href="{% url 'rspeditgroup' i.i.id %}" class="btn btn-warning"  role="button" >{{ i.i }}</a>
-                                        {% endif %}
-                                    </td>
-
-
-                                    {% if i.v == 0 %}
-                                        <td>???</td>
-                                        <td colspan=2></td>
-                                    {% else %}
-                                        <td>{{ i.i.idpredmet }}</td>
-                                        <td>{{ i.i.idpers }}</td>
-                                        <td>{{ i.i.idaud.name }}</td>
-                                    {% endif %}
-
-                                </li>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </ul>
-
-            </div>
-        </div>
-    <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3 {{ bg3 }}">
                 <h4 class="my-0 fw-normal {{ light3 }}">{{ dt3 }} <b>({{ name }})</b></h4>
@@ -219,10 +116,9 @@ $(document).ready(function(){
                             <tr>
                                 <li>
                                     <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d3 }}&np={{ i.np }}" data-toggle="tooltip" title="СВОБОДНО">
-                                            {{ i.i }}</a>
+                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d3 }}&np={{ i.np }}">{{ i.i }}</a>
                                         {% else %}
-                                        <a href="{% url 'rspeditgroup' i.i.id %}" class="btn btn-warning"  role="button" >{{ i.i }}</a>
+                                        <a href="{% url 'rspeditgroup' i.i.id %}">{{ i.i }}</a>
                                         {% endif %}
                                     </td>
 
@@ -245,9 +141,89 @@ $(document).ready(function(){
             </div>
         </div>
         <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3 {{ bg4 }}">
+                <h4 class="my-0 fw-normal {{ light4 }}">{{ dt4 }} <b>({{ name }})</b></h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Пара</th>
+                            <th>Предмет</th>
+                            <th>Преподаватель</th>
+                            <th>Ауд.</th>
+                        </tr>
+                        {% for i in r4 %}
+                            <tr>
+                                <li>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d4 }}&np={{ i.np }}">{{ i.i }}</a>
+                                        {% else %}
+                                        <a href="{% url 'rspeditgroup' i.i.id %}">{{ i.i }}</a>
+                                        {% endif %}
+                                    </td>
 
+
+                                    {% if i.v == 0 %}
+                                        <td>???</td>
+                                        <td colspan=2></td>
+                                    {% else %}
+                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idpers }}</td>
+                                        <td>{{ i.i.idaud.name }}</td>
+                                    {% endif %}
+
+                                </li>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </ul>
+
+            </div>
+        </div>
         <!-- -->
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3 {{ bg5 }}">
+                <h4 class="my-0 fw-normal {{ light5 }}">{{ dt5 }} <b>({{ name }})</b></h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-0 mb-0">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Пара</th>
+                            <th>Предмет</th>
+                            <th>Преподаватель</th>
+                            <th>Ауд.</th>
+                        </tr>
+                        {% for i in r5 %}
+                            <tr>
+                                <li>
+                                    <td>{% if i.v == 0 %}
+                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d5 }}&np={{ i.np }}">{{ i.i }}</a>
+                                        {% else %}
+                                        <a href="{% url 'rspeditgroup' i.i.id %}">{{ i.i }}</a>
+                                        {% endif %}
+                                    </td>
 
+
+                                    {% if i.v == 0 %}
+                                        <td>???</td>
+                                        <td colspan=2></td>
+                                    {% else %}
+                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{{ i.i.idpers }}</td>
+                                        <td>{{ i.i.idaud.name }}</td>
+                                    {% endif %}
+
+                                </li>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </ul>
+
+            </div>
+        </div>
         <!-- -->
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3 {{ bg6 }}">
@@ -266,10 +242,9 @@ $(document).ready(function(){
                             <tr>
                                 <li>
                                     <td>{% if i.v == 0 %}
-                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d6 }}&np={{ i.np }}" data-toggle="tooltip" title="СВОБОДНО">
-                                            {{ i.i }}</a>
+                                        <a href="{% url 'rspaddgroup' idp %}?dt={{ d6 }}&np={{ i.np }}">{{ i.i }}</a>
                                         {% else %}
-                                        <a href="{% url 'rspeditgroup' i.i.id %}" class="btn btn-warning"  role="button" >{{ i.i }}</a>
+                                        <a href="{% url 'rspeditgroup' i.i.id %}">{{ i.i }}</a>
                                         {% endif %}
                                     </td>
 
@@ -291,7 +266,6 @@ $(document).ready(function(){
         </div>
     </div>
 {% endblock content %}
-
 
 
 
