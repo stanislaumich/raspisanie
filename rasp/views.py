@@ -46,11 +46,13 @@ def detailAud(request, id):
     return render(request, "rasp/detailAud.html", context={"a": a})
 def indexGrp(request):
     g = Grp.objects.order_by("num")
-    return render(request, "rasp/indexGrp.html", context={"g": g})
+    wd = 22
+    return render(request, "rasp/indexGrp.html", context={"g": g, "wd": wd})
 def detailGrp(request, id):
     t = id
     g = Grp.objects.get(id=t)
-    return render(request, "rasp/detailGrp.html", context={"g": g, "wd": '22'})
+    wd = 22
+    return render(request, "rasp/detailGrp.html", context={"g": g, "wd": wd})
 def indexRasp(request):
     r = Rasp.objects.order_by("id")
     paginator = Paginator(r, 12)
@@ -284,7 +286,7 @@ def test (request):
             except:
                 w.append({'v':0,'i':Para.objects.get(id=j+1)})
             k = k+1
-            print(w)
+            #print(w)
         dtb = dtb + timedelta(1)
 
     return render(request, "rasp/test.html", context={"r": w})
