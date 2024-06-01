@@ -6,7 +6,7 @@
   <div class="row">
       {% for p in page_obj %}
 
-    <div class="col-sm-4" style="background-color:lavender;">
+    <!--div class="col-sm-4" style="background-color:lavender;">
 
         <a href="{% url 'rspperson' p.id wd %}" >
 
@@ -18,6 +18,23 @@
 
                 </a>
 
+    </div-->
+
+          <div class="col-sm">
+      <div class="col">
+          <div class="card shadow-sm">
+           <div class="card-body">
+              <p class="card-text">{{ p.fam }} <br>{{ p.name }}<br> {{ p.otch }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{% url 'rspperson' p.id wd %}" ><button type="button" class="btn btn-sm btn-outline-secondary">Расписание</button> </a>
+                   <a href="{% url 'rspperson' p.id wd %}" ><button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button> </a>
+                </div>
+                <small class="text-body-secondary">#</small>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 
    {% endfor %}

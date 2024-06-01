@@ -25,7 +25,7 @@ def detailPredmet(request, id):
 def indexPerson(request):
     people = Person.objects.order_by("fio")
     wd = datetime.today().isocalendar()[1]
-    paginator = Paginator(people, 10)
+    paginator = Paginator(people, 100)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request, "rasp/indexPerson.html", context={"people": people, "wd": wd, "page_obj": page_obj})
