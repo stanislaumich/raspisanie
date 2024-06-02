@@ -3,22 +3,22 @@
 {% block content %}
 
 <div class="container-fluid" >
-  <div class="row" >
+  <div class="row  mb-2" >
       {% for p in page_obj %}
           <div class="col-sm">
               <div class="col">
-                  <div class="card shadow-sm">
+                  <div class="card shadow-sm  mb-2" style="width: 10rem;">
                       <div class="card-body">
                           <p class="card-text">{{ p.fam }} <br>{{ p.name }}<br> {{ p.otch }}</p>
                           <div class="d-flex justify-content-between align-items-center">
                               <div class="btn-group">
                                   <a href="{% url 'rspperson' p.id wd %}">
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">Расписание</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary btn-primary"  style="color: white">Расписание</button>
                                   </a>
-                                  <a href="{% url 'rspperson' p.id wd %}">
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать
+                                  <!--a href="{% url 'rspperson' p.id wd %}">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary btn-warning">Редактировать
                                       </button>
-                                  </a>
+                                  </a-->
                               </div>
                               <small class="text-body-secondary">#</small>
                           </div>
