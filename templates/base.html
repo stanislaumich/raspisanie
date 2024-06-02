@@ -36,16 +36,14 @@
     <!-- /header -->
     <!-- End Navigation -->
     <!-- Begin Faux Columns -->
-    <div id="faux">
+    <div id="container">
         <!-- Begin Left Column -->
-        {% block left %}
-            {% include "baseleft.html" %}
-        {% endblock left %}
+
 
         <!-- End Left Column -->
         <!-- Begin Right Column -->
-        <div id="rightcolumn">
-            <div class="container">
+        <div id="container">
+            <div id="container" >
                 {% block content %}
                     <img src="{% static '3.png' %}">
                 {% endblock content %}
