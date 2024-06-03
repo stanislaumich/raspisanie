@@ -523,6 +523,15 @@ def rspmessSend(request,id):
             t.fromid = Person.objects.get(id=id)
             t.toid = Person.objects.get(id=form.cleaned_data["toid"].id)
             t.save()
+            return HttpResponseRedirect("/")
+    else:
+
+
+        if id!=0:
+            form = MessAdd(initial = {'toid': id})
+        else:
+            form = MessAdd()
+
 
     return render(request, "rasp/messadd.html", context={'form': form})
     #return HttpResponseRedirect("/")

@@ -50,7 +50,7 @@
                 <td>
                     {{ m.fromid }} </td>
                 <td>{{ m.long }}</td>
-                <td><a href="{% url 'rspperson' uid wd %}">
+                <td><a href="{% url 'rspmesssend' m.fromid.id %}">
                     <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
                             style="color: white">Ответить
                     </button>

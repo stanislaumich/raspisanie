@@ -1,17 +1,17 @@
 <div class="container">
     <header class="d-flex justify-content-center py-3">
+
         <ul class="nav nav-pills">
-            <h1>
-            <strong>[{{ fio }}]</strong>
-            <strong>({{ wd }})</strong>
-            </h1>
-            <li class="nav-item"><a href="/" class="nav-link" aria-current="page">Главная</a></li>
+        <li class="nav-item">
+            <a href="/" class="nav-link" aria-current="page"><strong>[{{ fio }}] ({{ wd }})</strong></a>
+        </li>
+    <li class="nav-item"><a href="/" class="nav-link" aria-current="page">Главная</a></li>
             <li class="nav-item"><a href="{% url 'personindex' %}" class="nav-link">Преподаватели</a></li>
             <li class="nav-item"><a href="{% url 'audindex' %}" class="nav-link">Аудитории</a></li>
             <li class="nav-item"><a href="{% url 'grpindex' %}" class="nav-link">Группы</a></li>
             <li class="nav-item"><a href="{% url 'predmetindex' %}" class="nav-link">Предметы</a></li>
             <li class="nav-item"><a href="{% url 'rspindex' %}" class="nav-link">Расписания</a></li>
-            <li class="nav-item"><a href="/admin" class="nav-link active">Админка</a></li>
+            <li class="nav-item"><a href="/admin" class="nav-link">Админка</a></li>
             <li class="nav-item"><a href="http://127.0.0.1:8000/rasp/rasp/test/" class="nav-link">Тест</a>
             </li>
             <li class="nav-item"><a href="/grid" class="nav-link">Grid</a></li>
