@@ -30,4 +30,7 @@ urlpatterns = [
 # tests
     path("rasp/gen/", views.genRaspPers, name="rspgen"),
     path("rasp/test/", views.test, name="rsptest"),
+# auth
+    path("login/", views.login, name="login"),
+
 ]

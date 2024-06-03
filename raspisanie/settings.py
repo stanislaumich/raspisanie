@@ -52,6 +52,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'rasp.context_processors.get_userfio',
+                'rasp.context_processors.get_week',
             ],
         },
     },

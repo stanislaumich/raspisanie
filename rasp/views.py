@@ -8,7 +8,7 @@ from .models import Grp
 from .models import Person
 from .models import Predmet, Rasp
 from datetime import timedelta, datetime, date
-from .forms import EditRasp
+from .forms import EditRasp, Login
 from django.views.generic import DetailView, UpdateView
 import locale
 
@@ -23,8 +23,10 @@ def detailPredmet(request, id):
     p = Predmet.objects.get(id=t)
     return render(request, "rasp/detailPredmet.html", context={"p": p})
 def indexPerson(request):
+    week = request.session.get('week', datetime.today().isocalendar()[1])
     people = Person.objects.order_by("fio")
-    wd = datetime.today().isocalendar()[1]
+    # wd = datetime.today().isocalendar()[1]  request.session['week'] = 'mini'
+    wd = week
     paginator = Paginator(people, 100)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -92,10 +94,7 @@ def detailRaspPers(request, id, wd):
             k = k + 1
             #print(w)
         dtb = dtb + timedelta(1)
-    # if g:
-    #     dtb = g.first().dt
-    # else:
-    #     dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
+    request.session['week'] = wd
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": 'Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
@@ -154,10 +153,7 @@ def detailRaspAud(request, id, wd):
             k = k + 1
             # print(w)
         dtb = dtb + timedelta(1)
-    # if g:
-    #     dtb = g.first().dt
-    # else:
-    #     dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
+
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": 'Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
@@ -415,3 +411,15 @@ def addRaspGroup(request, id):
         r.dt = dt
         form = EditRasp(instance=r)
     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
+
+def login(request):
+    wd = request.session['week']
+    form = Login(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            request.session['userid'] = form.cleaned_data["fio"].id
+            return HttpResponseRedirect("/")
+    else:
+        form = Login()
+    return render(request, "rasp/login.html", context={"wd": wd, 'form': form})
+    # return HttpResponseRedirect("/")

@@ -1,11 +1,18 @@
 from django.shortcuts import render
 from datetime import timedelta, datetime, date
 import locale
+
+from rasp.models import Person
+
 locale.setlocale(locale.LC_ALL, "")
 
 from django.http import HttpResponse
 def index(request):
-    data = {"header": "Hello Django", "message": "Welcome to Python"}
+    # uid = request.session['userid']
+    # p = Person.objects.get(id=uid)
+    # fio = p.fio
+    # fio = 'dfgb'#p.fio
+    data = {'a': 'fio'}
     return render(request, "index.html", context=data)
 
 
