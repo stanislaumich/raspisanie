@@ -10,7 +10,8 @@ from django.http import HttpResponse
 
 
 def index(request):
-    uid = request.session['userid']
+    #uid = request.session['userid']
+    uid = request.session.get('userid', 1)
     # p = Person.objects.get(id=uid)
     mes = Mess.objects.filter(toid=uid, isActive=1).all()
            #query.filter_by(topers=p).filter_by(isActive=1).all())

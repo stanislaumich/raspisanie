@@ -489,9 +489,12 @@ def listAdd(request):
             #print(form.fio)
             t.myid = Person.objects.get(id=request.session['userid'])
             t.persid = Person.objects.get(id=form.cleaned_data["fio"].id)
-            t.save()
-            # db.session.commit()
-            return HttpResponseRedirect("/")
+            try:
+                t.save()
+                return HttpResponseRedirect("/")
+            except:
+                error = 'Не удалось добавить в список повторно'
+                return render(request, "rasp/error.html", context={'error': error})
     else:
         form = Login()
     return render(request, "rasp/listadd.html", context={'form': form})
