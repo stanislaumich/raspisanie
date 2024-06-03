@@ -4,13 +4,13 @@
     {{ il }}
 {% endblock left %}
 {% block content %}
-    <div>
-        {{ fio }}
-        <br><br>
+    <div style="text-align: center">
+        <div><strong> {{ fio }}</strong></div>
+        <br>
         <a href="{% url 'rspperson' idp wdp %}"> <<
             <Неделя назад
         </a>
-        <{{ wd }}>
+        <strong> < {{ wd }} > </strong>
         <a href="{% url 'rspperson' idp wdn %}"> Неделя вперед>>> </a>
     </div>
     <div class="row row-cols-3 row-cols-md-1 mb-3">
