@@ -6,7 +6,7 @@ def get_userfio(request):
     p = Person.objects.get(id=uid)
     fio = p.fio
     # fio = request.session['fio']
-    return{'fio': fio}
+    return{'fio': fio, 'uid': uid}
 
 def get_week(request):
     wd = request.session['week']

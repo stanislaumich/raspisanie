@@ -20,6 +20,12 @@ urlpatterns = [
     path("rasp/person/add/<int:id>/", views.addRaspPers, name="rspadd"),
     path("rasp/person/edit/<int:id>/", views.editRaspPers, name="rspedit"),
     path("rasp/person/del/<int:id>/", views.delRaspPers, name="rspdel"),
+    path("rasp/person/listadd/", views.listAdd, name="rsplistadd"),
+    path("rasp/person/listdel/<int:id>/", views.listDel, name="rsplistdel"),
+# rasp for mess
+    path("rasp/mess/clear/<int:id>/", views.messClear, name="rspmessclear"),
+    path("rasp/mess/send/<int:id>/", views.rspmessSend, name="rspmesssend"),
+
 # rasp for groups
     path("rasp/group/<int:id>/<int:wd>/", views.detailRaspGroup, name="rspgroup"),
     path("rasp/group/add/<int:id>/", views.addRaspGroup, name="rspaddgroup"),

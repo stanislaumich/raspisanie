@@ -5,13 +5,13 @@
 {% endblock left %}
 {% block content %}
     <div style="text-align: center">
-        <div><strong> {{ fio }}</strong></div>
+        <div><strong> {{ fiop }}</strong></div>
         <br>
-        <a href="{% url 'rspperson' idp wdp %}"> <<
-            <Неделя назад
+        <a href="{% url 'rspperson' idp wdp %}" style="text-decoration: underline">
+            &lt;Неделя назад
         </a>
         <strong> < {{ wd }} > </strong>
-        <a href="{% url 'rspperson' idp wdn %}"> Неделя вперед>>> </a>
+        <a href="{% url 'rspperson' idp wdn %}" style="text-decoration: underline"> Неделя вперед&gt; </a>
     </div>
     <br>
     <center>

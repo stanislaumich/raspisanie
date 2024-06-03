@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Rasp, Person
+from .models import Rasp, Person, Mess
 
 
 class EditRasp(ModelForm):
@@ -9,9 +9,25 @@ class EditRasp(ModelForm):
         model = Rasp
         fields = ('name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt')
 
+
 class Login(ModelForm):
     fio = forms.ModelChoiceField(queryset=Person.objects.all())
+
     class Meta:
         model = Person
         fields = ('fio',)
 
+
+class List(ModelForm):
+    fio = forms.ModelChoiceField(queryset=Person.objects.all())
+
+    class Meta:
+        model = Person
+        fields = ('fio',)
+
+class MessAdd(ModelForm):
+    toid = forms.ModelChoiceField(queryset=Person.objects.all())
+
+    class Meta:
+        model = Mess
+        fields = ('short', 'long', 'warn', 'toid')
