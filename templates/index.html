@@ -33,7 +33,7 @@
                     <th>Управление</th>
                 </tr>
                 {% for m in mes %}
-                    {% if m.warn == 1 %}
+                    {% if m.warn == '1' %}
                         <tr class="table-danger">
                             {% else %}
                         <tr>
@@ -41,7 +41,7 @@
                 <td>{{ m.dt }}</td>
                 <td>{{ m }}</td>
 
-                {% if m.warn == 1 %}
+                {% if m.warn == '1' %}
                     <td> ВАЖНО</td>
                 {% else %}
                     <td>обычное</td>
