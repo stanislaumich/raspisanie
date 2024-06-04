@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Группы{% endblock title %}
+{% block content%}
+<div class="container-fluid">
+  <div class="row">
+{% for gg in g %}
+      <!--a href="{% url 'rspgroup' gg.id 22 %}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+
+      <div class="d-flex gap-2 w-100 justify-content-between">
+        <div>
+          <h6 class="mb-0">{{ gg.name }}</h6>
+          <p class="mb-0 opacity-75">{{ gg.name }} </p>
+        </div>
+        <small class="opacity-50 text-nowrap">{{ gg.num }}</small>
+      </div>
+    </a-->
+    <div class="col-sm">
+              <div class="col">
+                  <div class="card shadow-sm">
+                      <div class="card-body">
+                          <p class="card-text">{{ gg.name }}</p><br>
+                          <div class="d-flex justify-content-between align-items-center">
+                              <div class="btn-group">
+                                  <a href="{% url 'rspgroup' gg.id wd %}">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">Расписание</button>
+                                  </a>
+                                  <a href="{% url 'rspgroup' gg.id wd %}">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать
+                                      </button>
+                                  </a>
+                              </div>
+                              <small class="opacity-50 text-nowrap">{{ gg.num }}</small>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+  {% endfor %}
+  </div>
+</div>
+{% endblock content %}
