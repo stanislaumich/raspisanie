@@ -29,16 +29,15 @@ def detailAud(request, id):
 
 def detailRaspAud(request, id, wd):
     t = id
-    g = Rasp.objects.filter(idpers=t, dt__week=wd).order_by("dt", "idpara_id")
+    g = Rasp.objects.filter(idaud=t, dt__week=wd).order_by("dt", "idpara_id")
+    request.session['week'] = wd
     if not g:
         r = Aud.objects.get(id=t)
-        # dtb + timedelta(-1 * dtb.weekday() + 0)
-        # dt = (wd*7)/30 datetime.date(year=2020, month=1, day=4)
         d = date.today() + timedelta(7)
         d = d + timedelta(-1 * d.weekday())
-        dt = d.strftime("%Y-%m-%d")  # datetime.strptime(d, '%Y-%m-%d').date()
-        np = 1
-        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": id, "fio": r.name, "wd": wd, "np": 1, "dt": dt}
+        dt = d.strftime("%Y-%m-%d")
+        np = request.session.get('userid')
+        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": t, "aname": r.name, "np": np, "dt": dt}
         return render(request, 'aud/404.html', cntx)
     k = 0
     w = []
@@ -47,7 +46,7 @@ def detailRaspAud(request, id, wd):
     for i in range(6):
         for j in range(7):
             try:
-                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idpers=t)
+                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idaud=t)
                 w.append({'v': 1, 'i': r, "np": j})
             except:
                 w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
@@ -56,12 +55,12 @@ def detailRaspAud(request, id, wd):
         dtb = dtb + timedelta(1)
 
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
-            "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
-            "dt2": 'Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
-            "dt3": 'Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%B %d "),
-            "dt4": 'Четверг,  ' + (dtb + timedelta(-1 * dtb.weekday() + 3)).strftime("%B %d "),
-            "dt5": 'Пятница,  ' + (dtb + timedelta(-1 * dtb.weekday() + 4)).strftime("%B %d "),
-            "dt6": 'Суббота,  ' + (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%B %d "),
+            "dt1": '('+ g[0].idaud.name +')  -+-   Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
+            "dt2": '('+ g[0].idaud.name +')  -+-   Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
+            "dt3": '('+ g[0].idaud.name +')  -+-   Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%B %d "),
+            "dt4": '('+ g[0].idaud.name +')  -+-   Четверг,  ' + (dtb + timedelta(-1 * dtb.weekday() + 3)).strftime("%B %d "),
+            "dt5": '('+ g[0].idaud.name +')  -+-   Пятница,  ' + (dtb + timedelta(-1 * dtb.weekday() + 4)).strftime("%B %d "),
+            "dt6": '('+ g[0].idaud.name +')  -+-   Суббота,  ' + (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%B %d "),
             "d1": (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%Y-%m-%d"),
             "d2": (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%Y-%m-%d"),
             "d3": (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%Y-%m-%d"),
@@ -70,10 +69,10 @@ def detailRaspAud(request, id, wd):
             "d6": (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%Y-%m-%d"),
             "r1": w[:7], "r2": w[7:14], "r3": w[14:21],
             "r4": w[21:28], "r5": w[28:35], "r6": w[35:42],
-            "fio": g[0].idaud.name, "idp": 1, "wd": wd,
+            "aname": g[0].idaud.name, "idp": 1,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
-            "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
+            "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light3": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',

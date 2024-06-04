@@ -2,14 +2,21 @@
 {% block title %}++{% endblock title %}
 
 {% block content %}
-     {{ fio }}
-    <br><br>
-        <a href="{% url 'rspperson' idp wdp %}"> <<<Неделя назад </a>
-        <{{ wd }}>
-        <a href="{% url 'rspperson' idp wdn %}"> Неделя вперед>>> </a>
-    <br>
-
- 404 не найдено записей расписания для этой аудитории
-    <br>
-    <a href="{% url 'rspadd' idp %}?dt={{ dt }}&np={{ np }}">Давайте создадим</a>
+    <div style="text-align: center">
+        <div><strong> {{ aname }}</strong></div>
+        <br>
+        <a href="{% url 'audrasp' idp wdp %}" style="text-decoration: underline">
+            &lt;Неделя назад
+        </a>
+        <strong> < {{ wd }} > </strong>
+        <a href="{% url 'audrasp' idp wdn %}" style="text-decoration: underline"> Неделя вперед&gt; </a>
+        <br>
+        <strong> Не найдено записей расписания для этой аудитории</strong>
+        <br>
+        <a href="{% url 'rspadd' idp %}?dt={{ dt }}&np={{ np }}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-primary"
+                    style="color: white">Давайте создадим
+            </button>
+        </a>
+    </div>
 {% endblock content %}
