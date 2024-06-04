@@ -1,5 +1,7 @@
+from importlib.resources._common import _
+
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
 
 from .models import Rasp, Person, Mess
 
@@ -31,3 +33,10 @@ class MessAdd(ModelForm):
     class Meta:
         model = Mess
         fields = ('short', 'long', 'warn', 'toid')
+        widgets = {
+            "long": Textarea(attrs={"cols": 40, "rows": 10}),
+            "short": Textarea(attrs={"cols": 40, "rows": 3}),
+        }
+        labels = {
+            "long": "Writer",
+        }

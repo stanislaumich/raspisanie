@@ -13,7 +13,7 @@
                     style="color: white">Написать сообщение
             </button>
         </a>
-    <a href="{% url 'rsplistadd' %}">
+        <a href="{% url 'rsplistadd' %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
                     style="color: black">Добавить преподавателя
             </button>
@@ -22,13 +22,12 @@
         <!--  сообщения тут  -->
         {% if mes %}
             <br>
-            <strong>Сообщения:</strong><br>
+            <strong>Сообщения для меня:</strong><br>
             <table class="table table-hover table-sm">
                 <tr>
                     <th>Дата</th>
-                    <th>Кратко</th>
-                    <th>Важность</th>
                     <th>От кого</th>
+                    <th>Кратко</th>
                     <th>Содержание</th>
                     <th>Управление</th>
                 </tr>
@@ -38,23 +37,57 @@
                             {% else %}
                         <tr>
                     {% endif %}
-                <td>{{ m.dt }}</td>
-                <td>{{ m }}</td>
-
-                {% if m.warn == '1' %}
-                    <td> ВАЖНО</td>
-                {% else %}
-                    <td>обычное</td>
-                {% endif %}
-
                 <td>
-                    {{ m.fromid }} </td>
-                <td>{{ m.long }}</td>
+                    {{ m.dt }}
+                </td>
+                <td>
+                    {{ m.fromid }}
+                </td>
+                <td>
+                    {{ m }}
+                </td> <td>{{ m.long }}</td>
                 <td><a href="{% url 'rspmesssend' m.fromid.id %}">
                     <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
                             style="color: white">Ответить
                     </button>
                 </a>
+                    <a href="{% url 'rspmessclear' m.id %}">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                                style="color: black">Очистить
+                        </button>
+                    </a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% if mesmy %}
+            <br>
+            <strong>Сообщения мои:</strong><br>
+            <table class="table table-hover table-sm">
+                <tr>
+                    <th>Дата</th>
+                    <th>Кому</th>
+                    <th>Кратко</th>
+                    <th>Содержание</th>
+                    <th>Управление</th>
+                </tr>
+                {% for m in mesmy %}
+                    {% if m.warn == '1' %}
+                        <tr class="table-danger">
+                            {% else %}
+                        <tr>
+                    {% endif %}
+                <td>
+                    {{ m.dt }}
+                </td>
+                <td>
+                    {{ m.toid }}
+                </td>
+                <td>
+                    {{ m }}
+                </td> <td>{{ m.long }}</td>
+                <td>
+
                     <a href="{% url 'rspmessclear' m.id %}">
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
                                 style="color: black">Очистить
