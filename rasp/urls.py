@@ -10,8 +10,7 @@ urlpatterns = [
     path("person/", views.indexPerson, name="personindex"),
     path("person/<int:id>/", views.detailPerson, name="persondetail"),
 
-    path("grp/", views.indexGrp, name="grpindex"),
-    path("grp/<int:id>/", views.detailGrp, name="grpdetail"),
+
     path("rasp/", views.indexRasp, name="rspindex"),
     path("rasp/<int:id>/", views.detailRasp, name="rspdetail"),
 
@@ -22,12 +21,6 @@ urlpatterns = [
     path("rasp/person/del/<int:id>/", views.delRaspPers, name="rspdel"),
     path("rasp/person/listadd/", views.listAdd, name="rsplistadd"),
     path("rasp/person/listdel/<int:id>/", views.listDel, name="rsplistdel"),
-
-    # rasp for groups
-    path("rasp/group/<int:id>/<int:wd>/", views.detailRaspGroup, name="rspgroup"),
-    path("rasp/group/add/<int:id>/", views.addRaspGroup, name="rspaddgroup"),
-    path("rasp/group/edit/<int:id>/", views.editRaspGroup, name="rspeditgroup"),
-    path("rasp/group/del/<int:id>/", views.delRaspGroup, name="rspdelgroup"),
 
         # tests
     path("rasp/gen/", views.genRaspPers, name="rspgen"),
