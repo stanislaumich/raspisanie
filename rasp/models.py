@@ -108,5 +108,21 @@ class MyPers(models.Model):
     class Meta:
         ordering = ['id']
         unique_together = ('myid', 'persid')
-        verbose_name = "Список"
-        verbose_name_plural = "Списки"
+        verbose_name = "Список преподавателей"
+        verbose_name_plural = "Списки преподавателей"
+
+
+class MyAud(models.Model):
+    myid = models.ForeignKey(Person, related_name='me', verbose_name="Хозяин", on_delete=models.PROTECT,
+                             default=0)
+    audid = models.ForeignKey(Aud, related_name='anyaud', verbose_name="Аудитория", on_delete=models.PROTECT,
+                               default=0)
+
+    def __str__(self):
+        return self.myid.fio
+
+    class Meta:
+        ordering = ['id']
+        unique_together = ('myid', 'audid')
+        verbose_name = "Список аудиторий"
+        verbose_name_plural = "Списки аудиторий"
