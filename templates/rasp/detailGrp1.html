@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Группа{% endblock title %}
+{% block content%}
+    <ul>
+            <li><a href="{%   url 'rspgroup' id wd %}">{{g.num }} * {{ g.name }}</a></li>
+    </ul>
+{% endblock content %}
