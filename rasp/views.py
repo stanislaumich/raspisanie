@@ -32,7 +32,7 @@ def detailPredmet(request, id):
 
 def indexPerson(request):
     week = request.session.get('week', datetime.today().isocalendar()[1])
-    people = MyPers.objects.filter(myid=request.session['userid']).all()
+    people = MyPers.objects.filter(myid=request.session.get('userid',1)).all()
     # print(people)
     # wd = datetime.today().isocalendar()[1]  request.session['week'] = 'mini'
     #wd = week
