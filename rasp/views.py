@@ -506,35 +506,3 @@ def listDel(request,id):
     # db.session.commit()
     return HttpResponseRedirect("/")
     pass
-def messClear(request, id):
-    m = Mess.objects.get(pk=id)
-    m.isActive = 0
-    m.save()
-    #db.session.commit()
-    return HttpResponseRedirect("/")
-
-
-def rspmessSend(request,id):
-    form = MessAdd(request.POST)
-    if request.method == "POST":
-        if form.is_valid():
-            t = Mess()
-            # print(form.fio)
-            t.long =form.cleaned_data["long"]
-            t.short =form.cleaned_data["short"]
-            t.warn = form.cleaned_data["warn"]
-            t.fromid = Person.objects.get(id=id)
-            t.toid = Person.objects.get(id=form.cleaned_data["toid"].id)
-            t.save()
-            return HttpResponseRedirect("/")
-    else:
-
-
-        if id!=0:
-            form = MessAdd(initial = {'toid': id})
-        else:
-            form = MessAdd()
-
-
-    return render(request, "rasp/messadd.html", context={'form': form})
-    #return HttpResponseRedirect("/")

@@ -8,7 +8,7 @@
                     style="color: white">Моё расписание
             </button>
         </a>
-        <a href="{% url 'rspmesssend' uid %}">
+        <a href="{% url 'messsend' uid %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
                     style="color: white">Написать сообщение
             </button>
@@ -46,12 +46,12 @@
                 <td>
                     {{ m }}
                 </td> <td>{{ m.long }}</td>
-                <td><a href="{% url 'rspmesssend' m.fromid.id %}">
+                <td><a href="{% url 'messsend' m.fromid.id %}">
                     <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
                             style="color: white">Ответить
                     </button>
                 </a>
-                    <a href="{% url 'rspmessclear' m.id %}">
+                    <a href="{% url 'messclear' m.id %}">
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
                                 style="color: black">Очистить
                         </button>
@@ -88,7 +88,7 @@
                 </td> <td>{{ m.long }}</td>
                 <td>
 
-                    <a href="{% url 'rspmessclear' m.id %}">
+                    <a href="{% url 'messclear' m.id %}">
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
                                 style="color: black">Очистить
                         </button>

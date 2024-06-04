@@ -15,6 +15,7 @@ urlpatterns = [
     path("grp/<int:id>/", views.detailGrp, name="grpdetail"),
     path("rasp/", views.indexRasp, name="rspindex"),
     path("rasp/<int:id>/", views.detailRasp, name="rspdetail"),
+
 # rasp for person
     path("rasp/person/<int:id>/<int:wd>/", views.detailRaspPers, name="rspperson"),
     path("rasp/person/add/<int:id>/", views.addRaspPers, name="rspadd"),
@@ -22,20 +23,20 @@ urlpatterns = [
     path("rasp/person/del/<int:id>/", views.delRaspPers, name="rspdel"),
     path("rasp/person/listadd/", views.listAdd, name="rsplistadd"),
     path("rasp/person/listdel/<int:id>/", views.listDel, name="rsplistdel"),
-# rasp for mess
-    path("rasp/mess/clear/<int:id>/", views.messClear, name="rspmessclear"),
-    path("rasp/mess/send/<int:id>/", views.rspmessSend, name="rspmesssend"),
 
 # rasp for groups
     path("rasp/group/<int:id>/<int:wd>/", views.detailRaspGroup, name="rspgroup"),
     path("rasp/group/add/<int:id>/", views.addRaspGroup, name="rspaddgroup"),
     path("rasp/group/edit/<int:id>/", views.editRaspGroup, name="rspeditgroup"),
     path("rasp/group/del/<int:id>/", views.delRaspGroup, name="rspdelgroup"),
+
 # rasp for aud
     path("rasp/aud/<int:id>/<int:wd>/", views.detailRaspAud, name="rspaud"),
+
 # tests
     path("rasp/gen/", views.genRaspPers, name="rspgen"),
     path("rasp/test/", views.test, name="rsptest"),
+
 # auth
     path("login/", views.login, name="login"),
 
