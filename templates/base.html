@@ -30,39 +30,34 @@
 </head>
 <body>
 
-<div id="container">
+<div class="container">
     <!-- header wrapper   -->
     {% include "header.html" %}
     <!-- /header -->
     <!-- End Navigation -->
-    <!-- Begin Faux Columns -->
-    <div id="container">
-        <!-- Begin Left Column -->
-
-
-        <!-- End Left Column -->
-        <!-- Begin Right Column -->
-        <div id="container">
-            <div id="container" >
+    <div class="container">
+        <div class="container">
+            <div class="container">
+                <div class="container">
+                    {% block header2 %}
+                        Не сработал блок хидер2
+                    {% endblock header2 %}
+                </div>
                 {% block content %}
-                    <img src="{% static '3.png' %}">
+                    Не сработал блок контента
                 {% endblock content %}
             </div>
         </div>
-        <!-- End Right Column -->
-        <div class="clear"></div>
-
+        <div class="clear">
+        </div>
         <!-- Begin Footer -->
-        <div id="footer">
+        <div class="footer">
             <!-- footer -->
             {% include "footer.html" %}
-            <!-- /footer --> </div>
-
+            <!-- /footer -->
+        </div>
     </div>
     <!-- End Footer -->
-    <!-- End Faux Columns -->
-
 </div>
-<!-- End Wrapper -->
 </body>
 </html>

@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ fio }} ({{ wd }}){% endblock title %}
-{% block content %}
-    <div class="container">
-        <br>
+{% block header2 %}
+<br>
         <a href="{% url 'rspperson' uid wd %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-primary"
                     style="color: white">Моё расписание
@@ -19,6 +18,10 @@
             </button>
         </a>
         <br>
+{% endblock header2 %}
+{% block content %}
+    <div class="container">
+
         <!--  сообщения тут  -->
         {% if mes %}
             <br>
@@ -45,13 +48,14 @@
                 </td>
                 <td>
                     {{ m }}
-                </td> <td>{{ m.long }}</td>
+                </td>
+                <td>{{ m.long }}</td>
                 <td>
                     <a href="{% url 'messsend' m.fromid.id %}">
-                    <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
-                            style="color: white">Ответить
-                    </button>
-                </a>
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                                style="color: white">Ответить
+                        </button>
+                    </a>
                     <a href="{% url 'messclear' m.id %}">
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
                                 style="color: black">Очистить
@@ -61,7 +65,7 @@
                 {% endfor %}
             </table>
         {% endif %}
-    {% if mesmy %}
+        {% if mesmy %}
             <br>
             <strong>Сообщения мои:</strong><br>
             <table class="table table-hover table-sm">
@@ -86,13 +90,14 @@
                 </td>
                 <td>
                     {{ m }}
-                </td> <td>{{ m.long }}</td>
+                </td>
+                <td>{{ m.long }}</td>
                 <td>
-                <a href="{% url 'messsend' m.toid.id %}">
-                    <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
-                            style="color: white">Написать
-                    </button>
-                </a>
+                    <a href="{% url 'messsend' m.toid.id %}">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                                style="color: white">Написать
+                        </button>
+                    </a>
                     <a href="{% url 'messclear' m.id %}">
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
                                 style="color: black">Очистить

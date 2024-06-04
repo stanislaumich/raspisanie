@@ -1,48 +1,50 @@
 {% extends "base.html" %}
-{% block title %}Преподаватели{% endblock title %}
-{% block content %}
-<div style="text-align: center">
-    <div><strong> ПРЕПОДАВАТЕЛИ</strong><br>
-    <a href="{% url 'rsplistadd' %}">
+{% block header2 %}
+    <div style="text-align: center">
+        <strong> ПРЕПОДАВАТЕЛИ</strong><br>
+        <a href="{% url 'rsplistadd' %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
                     style="color: black">Добавить преподавателя
             </button>
-        </a></div>
+        </a>
+    </div>
     <br>
-</div>
-<div class="container-fluid">
-    <div class="row  mb-2">
-        {% for p in people %}
-            <div class="col-sm">
-                <div class="col">
-                    <div class="card shadow-sm  mb-2" style="width: 15rem;">
-                        <div class="card-body">
-                            <p class="card-text">{{ p.persid.fam }} <br>{{ p.persid.name }}<br> {{ p.persid.otch }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'rspperson' p.persid.id wd %}">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary btn-primary"
-                                                style="color: white">Расписание
-                                        </button>
-                                    </a>&nbsp;&nbsp;
-                                    <a href="{% url 'messsend' p.persid.id %}">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary btn-warning"
-                                                style="color: black">Написать
-                                        </button>
-                                    </a>&nbsp;&nbsp;
-                                    <a href="{% url 'rsplistdel' p.id %}">
-                                      <button type="button" class="btn btn-sm btn-outline-secondary btn-danger" style="color: black">X
-                                      </button>
-                                  </a>
+{% endblock header2 %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row  mb-2">
+            {% for p in people %}
+                <div class="col-sm">
+                    <div class="col">
+                        <div class="card shadow-sm  mb-2" style="width: 15rem;">
+                            <div class="card-body">
+                                <p class="card-text">{{ p.persid.fam }} <br>{{ p.persid.name }}<br> {{ p.persid.otch }}
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="{% url 'rspperson' p.persid.id wd %}">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-primary"
+                                                    style="color: white">Расписание
+                                            </button>
+                                        </a>&nbsp;&nbsp;
+                                        <a href="{% url 'messsend' p.persid.id %}">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-warning"
+                                                    style="color: black">Написать
+                                            </button>
+                                        </a>&nbsp;&nbsp;
+                                        <a href="{% url 'rsplistdel' p.id %}">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                                                    style="color: black">X
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <!--small class="text-body-secondary">#</small-->
                                 </div>
-                                <!--small class="text-body-secondary">#</small-->
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-</div>
-
 {% endblock content %}

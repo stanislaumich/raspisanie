@@ -14,6 +14,8 @@ import locale
 
 locale.setlocale(locale.LC_ALL, "")
 
+def datefromiso(year, week, day):
+    return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
 
 def page_not_found_view(request, exception):
     return render(request, 'rasp/404.html', status=404)

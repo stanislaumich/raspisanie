@@ -1,26 +1,30 @@
 {% extends "base.html" %}
 {% block title %}++{% endblock title %}
+{% block header2 %}
 
+{% endblock header2 %}
 {% block content %}
 
     <div class="container" style="width: 50%; text-align: center">
         <strong>Отправить сообщение пользователю</strong>
-    <br><br>
+        <br><br>
         <form method="POST" class="post-form form-control">
             {% csrf_token %}
-        {{ form.id }}
+            {{ form.id }}
             {{ form.non_field_errors }}
             {% for field in form %}
                 {{ field.errors }}
             {% endfor %}
-<br>
-        <ul>
-            <li style ="background-color: #e4ed5d ">Кому: {{ form.toid }}</li><br />
-            <li style ="background-color: #89f6f6 ">Кратко: {{ form.short }}</li>
-            <li style ="background-color: #95eaf1 ">Полно: {{ form.long }}</li>
-            <li style ="background-color: #c3cdf3 ">Важно: {{ form.warn }}</li>
-            <li><button class="btn btn-primary py-2 " type="submit">Отправить</button>
-        </ul>
+            <br>
+            <ul>
+                <li style="background-color: #e4ed5d ">Кому: {{ form.toid }}</li>
+                <br/>
+                <li style="background-color: #89f6f6 ">Кратко: {{ form.short }}</li>
+                <li style="background-color: #95eaf1 ">Полно: {{ form.long }}</li>
+                <li style="background-color: #c3cdf3 ">Важно: {{ form.warn }}</li>
+                <li>
+                    <button class="btn btn-primary py-2 " type="submit">Отправить</button>
+            </ul>
         </form>
     </div>
 {% endblock content %}
