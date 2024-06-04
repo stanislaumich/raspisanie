@@ -4,17 +4,6 @@
 <div class="container-fluid">
   <div class="row">
 {% for a in aud %}
-
-    <!--a href="{% url 'rspaud' a.id wd %}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-
-      <div class="d-flex gap-2 w-100 justify-content-between">
-        <div>
-          <h6 class="mb-0">{{ a.name }}</h6>
-          <p class="mb-0 opacity-75">{{ a.name }} </p>
-        </div>
-        <small class="opacity-50 text-nowrap">{{ a.id }}</small>
-      </div>
-    </a-->
     <div class="col-sm">
         <div class="col">
             <div class="card shadow-sm">
@@ -22,10 +11,10 @@
                     <p class="card-text">{{ a.name }}</p><br>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a href="{% url 'rspaud' a.id wd %}">
+                            <a href="{% url 'audrasp' a.id wd %}">
                                 <button type="button" class="btn btn-sm btn-outline-secondary">Расписание</button>
                             </a>
-                            <a href="{% url 'rspaud' a.id wd %}">
+                            <a href="{% url 'audrasp' a.id wd %}">
                                 <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать
                                 </button>
                             </a>

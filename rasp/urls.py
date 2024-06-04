@@ -9,8 +9,7 @@ urlpatterns = [
     path("predmet/<int:id>/", views.detailPredmet, name="predmetdetail"),
     path("person/", views.indexPerson, name="personindex"),
     path("person/<int:id>/", views.detailPerson, name="persondetail"),
-    path("aud/", views.indexAud, name="audindex"),
-    path("aud/<int:id>/", views.detailAud, name="auddetail"),
+
     path("grp/", views.indexGrp, name="grpindex"),
     path("grp/<int:id>/", views.detailGrp, name="grpdetail"),
     path("rasp/", views.indexRasp, name="rspindex"),
@@ -30,10 +29,7 @@ urlpatterns = [
     path("rasp/group/edit/<int:id>/", views.editRaspGroup, name="rspeditgroup"),
     path("rasp/group/del/<int:id>/", views.delRaspGroup, name="rspdelgroup"),
 
-    # rasp for aud
-    path("rasp/aud/<int:id>/<int:wd>/", views.detailRaspAud, name="rspaud"),
-
-    # tests
+        # tests
     path("rasp/gen/", views.genRaspPers, name="rspgen"),
     path("rasp/test/", views.test, name="rsptest"),
 

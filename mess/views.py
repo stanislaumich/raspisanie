@@ -1,15 +1,14 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
-from rasp.forms import MessAdd
-from rasp.models import Mess, Person
+from mess.forms import MessAdd
+from mess.models import Mess
+from rasp.models import  Person
 
 
 def messClear(request, id):
     m = Mess.objects.get(pk=id)
     m.isActive = 0
     m.save()
-    #db.session.commit()
     return HttpResponseRedirect("/")
 
 
@@ -33,5 +32,4 @@ def messSend(request, id):
         else:
             form = MessAdd()
 
-    return render(request, "rasp/messadd.html", context={'form': form})
-    #return HttpResponseRedirect("/")
+    return render(request, "mess/messadd.html", context={'form': form})

@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'rasp.apps.RaspConfig',
     'bootstrap5',
     'mess.apps.MessConfig',
+    'aud.apps.AudConfig',
 ]
 
 MIDDLEWARE = [

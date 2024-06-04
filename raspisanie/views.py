@@ -2,7 +2,8 @@ from django.shortcuts import render
 from datetime import timedelta, datetime, date
 import locale
 
-from rasp.models import Person, Mess
+from mess.models import Mess
+from rasp.models import Person
 
 locale.setlocale(locale.LC_ALL, "")
 
