@@ -46,7 +46,8 @@
                 <td>
                     {{ m }}
                 </td> <td>{{ m.long }}</td>
-                <td><a href="{% url 'messsend' m.fromid.id %}">
+                <td>
+                    <a href="{% url 'messsend' m.fromid.id %}">
                     <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
                             style="color: white">Ответить
                     </button>
@@ -87,6 +88,11 @@
                     {{ m }}
                 </td> <td>{{ m.long }}</td>
                 <td>
+                <a href="{% url 'messsend' m.toid.id %}">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                            style="color: white">Написать
+                    </button>
+                </a>
                     <a href="{% url 'messclear' m.id %}">
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
                                 style="color: black">Очистить

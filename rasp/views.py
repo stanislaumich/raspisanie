@@ -39,7 +39,7 @@ def indexPerson(request):
     # paginator = Paginator(people, 100)
     # page_number = request.GET.get("page")
     # page_obj = paginator.get_page(page_number)
-    return render(request, "rasp/indexPerson.html", context={"people": people})# ,  "page_obj": page_obj
+    return render(request, "rasp/indexPerson.html", context={"people": people})  # ,  "page_obj": page_obj
 
 
 def detailPerson(request, id):
@@ -376,7 +376,7 @@ def detailRaspGroup(request, id, wd):
             "r5": w[28:35],
             "r6": w[35:42],
             "name": g[0].idgrp.name,
-            "idp": t, #"wd": wd,
+            "idp": t,  #"wd": wd,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
@@ -492,14 +492,17 @@ def listAdd(request):
             try:
                 t.save()
                 return HttpResponseRedirect("/")
+                # render(request, "rasp/indexPerson.html")
             except:
                 error = 'Не удалось добавить в список повторно'
                 return render(request, "rasp/error.html", context={'error': error})
+
     else:
         form = Login()
     return render(request, "rasp/listadd.html", context={'form': form})
 
-def listDel(request,id):
+
+def listDel(request, id):
     m = MyPers.objects.get(pk=id)
     m.delete()
     #m.save()
