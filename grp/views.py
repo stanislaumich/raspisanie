@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta, date
 
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 
 from aud.views import gen_rasp
-from grp.forms import EditRasp
+from grp.forms import EditRasp, GrpList
 from grp.models import MyGrp
 from rasp.models import Grp, Para, Rasp, Person
 
@@ -16,15 +17,13 @@ def datefromiso(year, week, day):
 def indexGrp(request):
     g = MyGrp.objects.filter(myid=request.session.get('userid', 0)).all()
     return render(request, "grp/indexGrp.html", context={"g": g})
-def indexAud(request):
-    a = MyGrp.objects.filter(myid=request.session.get('userid', 1)).all()
-    return render(request, "aud/indexAud.html", context={"aud": a})
+
 
 def detailGrp(request, id):
     t = id
     g = Grp.objects.get(id=t)
     wd = 22
-    return render(request, "grp/detailGrp.html", context={"g": g, "wd": wd})
+    return render(request, "grp/detailGrp.html", context={"g": g})
 
 
 # ++++++++++++++++++
@@ -146,3 +145,31 @@ def addRaspGroup(request, id):
         r.dt = dt
         form = EditRasp(instance=r)
     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
+
+
+def grpadd(request):
+    form = GrpList(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            t = MyGrp()
+            t.myid = Person.objects.get(id=request.session['userid'])
+            t.grpid = Grp.objects.get(id=form.cleaned_data["name"].id)
+            try:
+                t.save()
+                messages.success(request, f"Аудитория  {t.grpid.name} добавлена")
+                return HttpResponseRedirect('/grp')
+            except:
+                messages.error(request, 'Не удалось добавить аудиторию в список повторно')
+                error = form.errors()
+                return render(request, "grp/error.html", context={'error': error})
+
+    else:
+        form = GrpList()
+    return render(request, "grp/listadd.html", context={'form': form})
+
+
+def grpdel(request, id):
+    m = MyGrp.objects.get(pk=id)
+    messages.success(request, f"Группа {m.grpid.name} удалена")
+    m.delete()
+    return HttpResponseRedirect('/grp')

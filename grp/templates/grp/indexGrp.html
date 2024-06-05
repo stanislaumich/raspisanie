@@ -3,7 +3,7 @@
     <div style="text-align: center">
         <strong> ГРУППЫ</strong>
         <br><br>
-        <a href="{% url 'rsplistadd' %}">
+        <a href="{% url 'grpadd' %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
                     style="color: black">Добавить группу
             </button>
@@ -11,33 +11,37 @@
     </div>
     <br>
 {% endblock header2 %}
-{% block content%}
-<div class="container-fluid">
-  <div class="row">
-{% for gg in g %}
-    <div class="col-sm">
-              <div class="col">
-                  <div class="card shadow-sm">
-                      <div class="card-body">
-                          <p class="card-text">{{ gg.name }}</p><br>
-                          <div class="d-flex justify-content-between align-items-center">
-                              <div class="btn-group">
-                                  <a href="{% url 'grpdetailrasp' gg.id wd %}">
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">Расписание</button>
-                                  </a>
-                                  <a href="{% url 'grpdetailrasp' gg.id wd %}">
-                                      <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать
-                                      </button>
-                                  </a>
-                              </div>
-                              <small class="opacity-50 text-nowrap">{{ gg.num }}</small>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for gg in g %}
+                <div class="col-sm">
+                    <div class="col" style="width: 10rem;">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <p class="card-text"
+                                   style="text-align: center; font-weight: bold">{{ gg.grpid.name }}</p><br>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="{% url 'grpdetailrasp' gg.grpid.id wd %}">
+                                            <button type="button" class="btn btn-sm btn-primary">Расписание</button>
+                                        </a>
+                                        &nbsp;
+                                        <a href="{% url 'grpdel' gg.id %}">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                                                    style="color: black">X
+                                            </button>
+                                        </a>
 
-  {% endfor %}
-  </div>
-</div>
+                                    </div>
+                                    <small class="opacity-50 text-nowrap">{{ gg.num }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}

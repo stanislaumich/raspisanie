@@ -1,5 +1,6 @@
 from datetime import datetime, date, timedelta
 
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.template.defaulttags import url
@@ -154,12 +155,14 @@ def listAdd(request):
             t.persid = Person.objects.get(id=form.cleaned_data["fio"].id)
             try:
                 t.save()
-                # return HttpResponseRedirect('/')# url('personindex')
+                messages.success(request, f"Преподаватель  {t.persid.fio} добавлен")
                 return HttpResponseRedirect('/person')
                 # return render(request, url('personindex'))
             except:
+                messages.error(request, f"Ошибка, преподаватель  {t.persid.fio} не добавлен!!!")
                 error = 'Не удалось добавить в список повторно'
-                return render(request, "person/error.html", context={'error': error})
+                # return render(request, "person/error.html", context={'error': error})
+                return HttpResponseRedirect('/person')
 
     else:
         form = Login()
@@ -168,6 +171,7 @@ def listAdd(request):
 
 def listDel(request, id):
     m = MyPers.objects.get(pk=id)
+    messages.success(request, f"Преподаватель  {m.fio} удален из списка")
     m.delete()
     return HttpResponseRedirect("/")
 
