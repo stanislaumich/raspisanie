@@ -1,11 +1,16 @@
 {% extends "base.html" %}
-{% block title %}++{% endblock title %}
-
+{% block title %}Добавление преподавателя в свой список{% endblock title %}
+{% block header2 %}
+    <div style="text-align: center">
+        <strong>Добавление преподавателя в свой список</strong>
+    <br><br>
+    </div>
+    <br>
+{% endblock header2 %}
 {% block content %}
 
     <div class="container" style="width: 50%; text-align: center">
-        <strong>Добавление преподавателя в свой список</strong>
-    <br><br>
+
         <form method="POST" class="post-form form-control">
             {% csrf_token %}
             {{ form.non_field_errors }}

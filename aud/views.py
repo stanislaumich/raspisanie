@@ -1,5 +1,6 @@
 from datetime import datetime, date, timedelta
 
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -14,16 +15,8 @@ def datefromiso(year, week, day):
 
 
 def indexAud(request):
-    a = MyAud.objects.filter(myid=request.session.get('userid', 1)).all()
+    a = MyAud.objects.filter(myid=request.session.get('userid', 0)).all()
     return render(request, "aud/indexAud.html", context={"aud": a})
-
-    # a = Aud.objects.order_by("name")
-    # # wd = datetime.today().isocalendar()[1]
-    # paginator = Paginator(a, 10)
-    # page_number = request.GET.get("page")
-    # page_obj = paginator.get_page(page_number)
-    # print(a)
-    # return render(request, "aud/indexAud.html", context={"aud": a, "page_obj": page_obj})
 
 
 def detailAud(request, id):
@@ -125,10 +118,11 @@ def audadd(request):
             t.audid = Aud.objects.get(id=form.cleaned_data["name"].id)
             try:
                 t.save()
+                messages.success(request, f"Аудитория  {t.audid.name} добавлена")
                 return HttpResponseRedirect('/aud')
-                # render(request, "rasp/indexPerson.html")
             except:
-                error = 'Не удалось добавить в список повторно'
+                messages.error(request, 'Не удалось добавить аудиторию в список повторно')
+                error = form.errors
                 return render(request, "aud/error.html", context={'error': error})
 
     else:
@@ -138,5 +132,6 @@ def audadd(request):
 
 def auddel(request, id):
     m = MyAud.objects.get(pk=id)
+    messages.success(request, f"Аудитория {m.audid.name} удалена")
     m.delete()
     return HttpResponseRedirect('/aud')

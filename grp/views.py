@@ -5,6 +5,7 @@ from django.shortcuts import render
 
 from aud.views import gen_rasp
 from grp.forms import EditRasp
+from grp.models import MyGrp
 from rasp.models import Grp, Para, Rasp, Person
 
 
@@ -13,10 +14,11 @@ def datefromiso(year, week, day):
 
 
 def indexGrp(request):
-    g = Grp.objects.order_by("num")
-    wd = 22
-    return render(request, "grp/indexGrp.html", context={"g": g, "wd": wd})
-
+    g = MyGrp.objects.filter(myid=request.session.get('userid', 0)).all()
+    return render(request, "grp/indexGrp.html", context={"g": g})
+def indexAud(request):
+    a = MyGrp.objects.filter(myid=request.session.get('userid', 1)).all()
+    return render(request, "aud/indexAud.html", context={"aud": a})
 
 def detailGrp(request, id):
     t = id
@@ -134,11 +136,6 @@ def addRaspGroup(request, id):
         form = EditRasp(request.POST)
         if form.is_valid():
             form.paraid = Para.objects.get(id=idpara)
-            # r.name = form.cleaned_data["name"]
-            # r.idgrp = form.cleaned_data["idgrp"]
-            # r.idpers = form.cleaned_data["idpers"]
-            # r.idaud = form.cleaned_data["idaud"]
-            # r.idpredmet = form.cleaned_data["idpredmet"]
             form.save()
             res = "cохранено"
             # return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")

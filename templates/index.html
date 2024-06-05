@@ -1,25 +1,28 @@
 {% extends "base.html" %}
 {% block title %}{{ fio }} ({{ wd }}){% endblock title %}
 {% block header2 %}
-<br>
-        <a href="{% url 'rspperson' uid wd %}">
-            <button type="button" class="btn btn-sm btn-outline-secondary btn-primary"
-                    style="color: white">Моё расписание
-            </button>
-        </a>
-        <a href="{% url 'messsend' uid %}">
-            <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
-                    style="color: white">Написать сообщение
-            </button>
-        </a>
-        <a href="{% url 'rsplistadd' %}">
-            <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
-                    style="color: black">Добавить преподавателя
-            </button>
-        </a>
-        <br>
+    <br>
+    <a href="{% url 'rspperson' uid wd %}">
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-primary"
+                style="color: white">Моё расписание
+        </button>
+    </a>
+    <a href="{% url 'messsend' uid %}">
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                style="color: white">Написать сообщение
+        </button>
+    </a>
+    <a href="{% url 'rsplistadd' %}">
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
+                style="color: black">Добавить преподавателя
+        </button>
+    </a>
+    <br>
 {% endblock header2 %}
+
 {% block content %}
+    <br>
+        <hr>
     <div class="container">
 
         <!--  сообщения тут  -->
@@ -64,6 +67,9 @@
                 </tr>
                 {% endfor %}
             </table>
+
+        {% else %}
+            <strong>Сообщений для меня нет</strong><br>
         {% endif %}
         {% if mesmy %}
             <br>
@@ -106,6 +112,8 @@
                 </tr>
                 {% endfor %}
             </table>
+        {% else %}
+            <strong>Сообщений от меня нет</strong><br>
         {% endif %}
     </div>
 {% endblock content %}

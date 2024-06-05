@@ -87,7 +87,7 @@ def detailRaspPers(request, id, wd):
             "bg6": 'bg-primary' if (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             }
-    return render(request, "rasp/detailRaspPers.html",
+    return render(request, "person/detailRaspPers.html",
                   context=cntx)
 
 
@@ -154,15 +154,16 @@ def listAdd(request):
             t.persid = Person.objects.get(id=form.cleaned_data["fio"].id)
             try:
                 t.save()
-                return HttpResponseRedirect('/')# url('personindex')
+                # return HttpResponseRedirect('/')# url('personindex')
+                return HttpResponseRedirect('/person')
                 # return render(request, url('personindex'))
             except:
                 error = 'Не удалось добавить в список повторно'
-                return render(request, "rasp/error.html", context={'error': error})
+                return render(request, "person/error.html", context={'error': error})
 
     else:
         form = Login()
-    return render(request, "rasp/listadd.html", context={'form': form})
+    return render(request, "person/listadd.html", context={'form': form})
 
 
 def listDel(request, id):
