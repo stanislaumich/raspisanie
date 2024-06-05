@@ -1,12 +1,8 @@
 {% extends "base.html" %}
 {% block title %}++{% endblock title %}
-{% block left %}
-    {{ il }}
-{% endblock left %}
-{% block content %}
+{% block header2 %}
     <div style="text-align: center">
-        <div><strong> {{ fiop }}</strong></div>
-        <br>
+        <strong> {{ fiop }}</strong><br>
         <a href="{% url 'rspperson' idp wdp %}" style="text-decoration: underline">
             &lt;Неделя назад
         </a>
@@ -14,6 +10,18 @@
         <a href="{% url 'rspperson' idp wdn %}" style="text-decoration: underline"> Неделя вперед&gt; </a>
     </div>
     <br>
+{% endblock header2 %}
+{% block content %}
+{#    <div style="text-align: center">#}
+{#        <div><strong> {{ fiop }}</strong></div>#}
+{#        <br>#}
+{#        <a href="{% url 'rspperson' idp wdp %}" style="text-decoration: underline">#}
+{#            &lt;Неделя назад#}
+{#        </a>#}
+{#        <strong> < {{ wd }} > </strong>#}
+{#        <a href="{% url 'rspperson' idp wdn %}" style="text-decoration: underline"> Неделя вперед&gt; </a>#}
+{#    </div>#}
+{#    <br>#}
     <center>
         <div class="row row-cols-3 row-cols-md-1 mb-3" style="width: 50%; align: center">
             <div class="card mb-4 rounded-3 shadow-sm">

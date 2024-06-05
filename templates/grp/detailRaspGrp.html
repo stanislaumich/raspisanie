@@ -7,13 +7,10 @@
     });
 </script>
 
-{% block left %}
-    {{ il }}
-{% endblock left %}
-{% block content %}
-    <div>
-        <b>{{ name }}</b>
-        <br><br>
+{% block header2 %}
+    <div style="text-align: center">
+        <strong> {{ name }}</strong>
+        <br>
         <a href="{% url 'grpdetailrasp' idp wdp %}"> <<
             <Неделя назад
         </a>
@@ -21,6 +18,8 @@
         <a href="{% url 'grpdetailrasp' idp wdn %}"> Неделя вперед>>> </a>
     </div>
     <br>
+{% endblock header2 %}
+{% block content %}
     <div class="row row-cols-3 row-cols-md-1 mb-3">
         <table width="100%" height="100%">
             <tr>

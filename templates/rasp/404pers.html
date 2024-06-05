@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% block title %}++{% endblock title %}
-
-{% block content %}
-     {{ fio }}
-    <br><br>
-        <a href="{% url 'rspperson' idp wdp %}"> <<<Неделя назад </a>
-        <{{ wd }}>
-        <a href="{% url 'rspperson' idp wdn %}"> Неделя вперед>>> </a>
+{% block header2 %}
+    <div style="text-align: center">
+        <strong> {{ fio }}</strong><br>
+        <a href="{% url 'rspperson' idp wdp %}" style="text-decoration: underline">
+            &lt;Неделя назад
+        </a>
+        <strong> < {{ wd }} > </strong>
+        <a href="{% url 'rspperson' idp wdn %}" style="text-decoration: underline"> Неделя вперед&gt; </a>
+    </div>
     <br>
-
- 404 не найдено записей расписания для этой персоны
+    Не найдено записей расписания для этой персоны
     <br>
     <a href="{% url 'rspadd' idp %}?dt={{ dt }}&np={{ np }}">Давайте создадим</a>
+{% endblock header2 %}
+{% block content %}
+
 {% endblock content %}
