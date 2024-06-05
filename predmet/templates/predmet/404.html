@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}++{% endblock title %}
+{% block header2 %}
+    <div style="text-align: center">
+        <strong> {{ name }}</strong>
+        <br>
+        <a href="{% url 'predmetrasp' idp wdp %}"> <<
+            <Неделя назад
+        </a>
+        <{{ wd }}>
+        <a href="{% url 'predmetrasp' idp wdn %}"> Неделя вперед>>> </a>
+    <br>
+    <a href="{% url 'rspadd' idp %}?dt={{ dt }}&np={{ np }}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
+                    style="color: black">Давайте создадим
+            </button>
+        </a>
+    </div>
+{% endblock header2 %}
+{% block content %}
+{% endblock content %}

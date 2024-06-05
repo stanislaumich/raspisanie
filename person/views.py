@@ -21,7 +21,7 @@ def datefromiso(year, week, day):
 
 def indexPerson(request):
     people = MyPers.objects.filter(myid=request.session.get('userid',1)).all()
-    return render(request, "rasp/indexPerson.html", context={"people": people})
+    return render(request, "person/indexPerson.html", context={"people": people})
 
 
 def detailPerson(request, id):

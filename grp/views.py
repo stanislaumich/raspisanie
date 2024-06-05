@@ -160,7 +160,7 @@ def grpadd(request):
                 return HttpResponseRedirect('/grp')
             except:
                 messages.error(request, 'Не удалось добавить аудиторию в список повторно')
-                error = form.errors()
+                error = ''
                 return render(request, "grp/error.html", context={'error': error})
 
     else:

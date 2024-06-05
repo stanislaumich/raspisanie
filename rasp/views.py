@@ -20,17 +20,6 @@ def page_not_found_view(request, exception):
     return render(request, 'rasp/404.html', status=404)
 
 
-def indexPredmet(request):
-    p = Predmet.objects.order_by("name")
-    return render(request, "rasp/indexPredmet.html", context={"p": p})
-
-
-def detailPredmet(request, id):
-    t = id
-    p = Predmet.objects.get(id=t)
-    return render(request, "rasp/detailPredmet.html", context={"p": p})
-
-
 
 
 
