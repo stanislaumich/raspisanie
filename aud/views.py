@@ -27,6 +27,22 @@ def detailAud(request, id):
     return render(request, "aud/detailAud.html", context={"a": a})
 
 
+def gen_rasp(wd,dtb):
+    k = 0
+    w = []
+
+    for i in range(6):
+        for j in range(7):
+            try:
+                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idgrp=t)
+                w.append({'v': 1, 'i': r, "np": j})
+            except:
+                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
+            k = k + 1
+            # print(w)
+        dtb = dtb + timedelta(1)
+    return w
+
 def detailRaspAud(request, id, wd):
     t = id
     g = Rasp.objects.filter(idaud=t, dt__week=wd).order_by("dt", "idpara_id")
@@ -39,20 +55,9 @@ def detailRaspAud(request, id, wd):
         np = request.session.get('userid')
         cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": t, "aname": r.name, "np": np, "dt": dt}
         return render(request, 'aud/404.html', cntx)
-    k = 0
-    w = []
     dtb = datefromiso(date.today().year, wd, 1).date()
     dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
-    for i in range(6):
-        for j in range(7):
-            try:
-                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idaud=t)
-                w.append({'v': 1, 'i': r, "np": j})
-            except:
-                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
-            k = k + 1
-            # print(w)
-        dtb = dtb + timedelta(1)
+    w = gen_rasp(wd,dtb)
 
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
             "dt1": '('+ g[0].idaud.name +')  -+-   Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),

@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, date
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 
+from aud.views import gen_rasp
 from rasp.forms import EditRasp
 from rasp.models import Grp, Para, Rasp, Person
 
@@ -22,6 +23,8 @@ def detailGrp(request, id):
     g = Grp.objects.get(id=t)
     wd = 22
     return render(request, "grp/detailGrp.html", context={"g": g, "wd": wd})
+
+
 # ++++++++++++++++++
 def detailRaspGroup(request, id, wd):
     t = id
@@ -34,20 +37,9 @@ def detailRaspGroup(request, id, wd):
         np = 1
         cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": t, "name": r.name, "wd": wd, "np": 1, "dt": dt}
         return render(request, 'grp/404.html', cntx)
-    k = 0
-    w = []
     dtb = datefromiso(date.today().year, wd, 1).date()
     dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
-    for i in range(6):
-        for j in range(7):
-            try:
-                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idgrp=t)
-                w.append({'v': 1, 'i': r, "np": j})
-            except:
-                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
-            k = k + 1
-            #print(w)
-        dtb = dtb + timedelta(1)
+    w = gen_rasp(wd,dtb)
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": 'Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
@@ -68,7 +60,7 @@ def detailRaspGroup(request, id, wd):
             "r5": w[28:35],
             "r6": w[35:42],
             "name": g[0].idgrp.name,
-            "idp": t,  #"wd": wd,
+            "idp": t,  # "wd": wd,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
@@ -149,7 +141,7 @@ def addRaspGroup(request, id):
             # r.idpredmet = form.cleaned_data["idpredmet"]
             form.save()
             res = "cохранено"
-            #return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
+            # return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
             return HttpResponseRedirect("/rasp/rasp/person/" + str(id) + '/' + str(wd) + '/')
     else:
         r = Rasp()
@@ -157,5 +149,3 @@ def addRaspGroup(request, id):
         r.dt = dt
         form = EditRasp(instance=r)
     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
-
-

@@ -12,12 +12,10 @@
 {% endblock header2 %}
 {% block content %}
     <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
-        <!--div class="list-group"-->
-    <div class="columns-3 ">
+        <div class="columns-3 ">
             {% for rr in page_obj %}
                 <a href="{% url 'rspdetail' rr.id %}" class="list-group-item list-group-item-action d-flex gap-3 py-3"
                    aria-current="true">
-
                     <div class="d-flex gap-2 w-100 justify-content-between w-full">
                         <div>
                             <h6 class="mb-0">{{ rr.name }}</h6>
@@ -28,16 +26,6 @@
                 </a>
             {% endfor %}
         </div>
-
-
-    <!--div class="columns-3 ...">
-  <img class="w-full aspect-video ..." src="..." />
-  <img class="w-full aspect-square ..." src="..." />
-
-</div-->
-
-
-
     </div>
     <div class="pagination">
     <span class="step-links">
