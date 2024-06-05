@@ -47,7 +47,7 @@ class Person(models.Model):
     otch = models.CharField("Отчество", max_length=100)
     born = models.IntegerField("Год. рожд.", null=True, blank=True)
     dolg = models.CharField("Должность", max_length=100)
-
+    password = models.CharField("Пароль", max_length=100, default='1111')
     def __str__(self):
         return self.fio
 

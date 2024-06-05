@@ -1,10 +1,12 @@
 from datetime import datetime, date, timedelta
 
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
+from aud.forms import AudList
 from aud.models import Aud
-from rasp.models import Rasp, Para
+from rasp.models import Rasp, Para, MyAud, Person
 
 
 def datefromiso(year, week, day):
@@ -12,13 +14,16 @@ def datefromiso(year, week, day):
 
 
 def indexAud(request):
-    a = Aud.objects.order_by("name")
-    # wd = datetime.today().isocalendar()[1]
-    paginator = Paginator(a, 10)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    print(a)
-    return render(request, "aud/indexAud.html", context={"aud": a,  "page_obj": page_obj})
+    a = MyAud.objects.filter(myid=request.session.get('userid', 1)).all()
+    return render(request, "aud/indexAud.html", context={"aud": a})
+
+    # a = Aud.objects.order_by("name")
+    # # wd = datetime.today().isocalendar()[1]
+    # paginator = Paginator(a, 10)
+    # page_number = request.GET.get("page")
+    # page_obj = paginator.get_page(page_number)
+    # print(a)
+    # return render(request, "aud/indexAud.html", context={"aud": a, "page_obj": page_obj})
 
 
 def detailAud(request, id):
@@ -27,7 +32,7 @@ def detailAud(request, id):
     return render(request, "aud/detailAud.html", context={"a": a})
 
 
-def gen_rasp(wd,dtb):
+def gen_rasp(wd, dtb):
     k = 0
     w = []
 
@@ -43,6 +48,7 @@ def gen_rasp(wd,dtb):
         dtb = dtb + timedelta(1)
     return w
 
+
 def detailRaspAud(request, id, wd):
     t = id
     g = Rasp.objects.filter(idaud=t, dt__week=wd).order_by("dt", "idpara_id")
@@ -57,15 +63,21 @@ def detailRaspAud(request, id, wd):
         return render(request, 'aud/404.html', cntx)
     dtb = datefromiso(date.today().year, wd, 1).date()
     dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
-    w = gen_rasp(wd,dtb)
+    w = gen_rasp(wd, dtb)
 
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
-            "dt1": '('+ g[0].idaud.name +')  -+-   Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
-            "dt2": '('+ g[0].idaud.name +')  -+-   Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
-            "dt3": '('+ g[0].idaud.name +')  -+-   Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%B %d "),
-            "dt4": '('+ g[0].idaud.name +')  -+-   Четверг,  ' + (dtb + timedelta(-1 * dtb.weekday() + 3)).strftime("%B %d "),
-            "dt5": '('+ g[0].idaud.name +')  -+-   Пятница,  ' + (dtb + timedelta(-1 * dtb.weekday() + 4)).strftime("%B %d "),
-            "dt6": '('+ g[0].idaud.name +')  -+-   Суббота,  ' + (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%B %d "),
+            "dt1": '(' + g[0].idaud.name + ')  -+-   Понедельник,  ' + (
+                        dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
+            "dt2": '(' + g[0].idaud.name + ')  -+-   Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
+                "%B %d "),
+            "dt3": '(' + g[0].idaud.name + ')  -+-   Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime(
+                "%B %d "),
+            "dt4": '(' + g[0].idaud.name + ')  -+-   Четверг,  ' + (dtb + timedelta(-1 * dtb.weekday() + 3)).strftime(
+                "%B %d "),
+            "dt5": '(' + g[0].idaud.name + ')  -+-   Пятница,  ' + (dtb + timedelta(-1 * dtb.weekday() + 4)).strftime(
+                "%B %d "),
+            "dt6": '(' + g[0].idaud.name + ')  -+-   Суббота,  ' + (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime(
+                "%B %d "),
             "d1": (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%Y-%m-%d"),
             "d2": (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%Y-%m-%d"),
             "d3": (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime("%Y-%m-%d"),
@@ -102,3 +114,29 @@ def detailRaspAud(request, id, wd):
             }
     return render(request, "aud/detailRaspAud.html",
                   context=cntx)
+
+
+def audadd(request):
+    form = AudList(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            t = MyAud()
+            t.myid = Person.objects.get(id=request.session['userid'])
+            t.audid = Aud.objects.get(id=form.cleaned_data["name"].id)
+            try:
+                t.save()
+                return HttpResponseRedirect('/aud')
+                # render(request, "rasp/indexPerson.html")
+            except:
+                error = 'Не удалось добавить в список повторно'
+                return render(request, "aud/error.html", context={'error': error})
+
+    else:
+        form = AudList()
+    return render(request, "aud/listadd.html", context={'form': form})
+
+
+def auddel(request, id):
+    m = MyAud.objects.get(pk=id)
+    m.delete()
+    return HttpResponseRedirect('/aud')

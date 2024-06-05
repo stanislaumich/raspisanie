@@ -8,5 +8,7 @@ urlpatterns = [
     path("", views.indexAud, name="audindex"),
     path("<int:id>/", views.detailAud, name="auddetail"),
     path("<int:id>/<int:wd>/", views.detailRaspAud, name="audrasp"),
+    path("audadd/", views.audadd, name="audadd"),
+    path("auddel/<int:id>/", views.auddel, name="auddel"),
 
 ]

@@ -13,7 +13,7 @@ class Mess(models.Model):
 
     dt = models.DateTimeField("Дата", default=datetime.now)  #models.DateField("Дата", null=True)
     short = models.CharField("Кратко", max_length=100)
-    long = models.CharField("Полно", max_length=255)
+    long = models.CharField("Полно", max_length=255, null=True, blank=True)
     isActive = models.IntegerField("Активно", default=1)
     # warn = models.IntegerField("Важно", default=0)
     warn = models.CharField(

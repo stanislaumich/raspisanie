@@ -2,7 +2,7 @@
 {% block header2 %}
     <div style="text-align: center">
         <strong> АУДИТОРИИ</strong><br>
-        <a href="{% url 'rsplistadd' %}">
+        <a href="{% url 'audadd' %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
                     style="color: black">Добавить аудиторию
             </button>
@@ -15,20 +15,21 @@
   <div class="row">
 {% for a in aud %}
     <div class="col-sm">
-        <div class="col" style="width: 8rem;">
+        <div class="col" style="width: 9.5rem;">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <p class="card-text">{{ a.name }}</p><br>
+                    <p class="card-text">{{ a.audid.name }}</p><br>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <a href="{% url 'audrasp' a.id wd %}">
                                 <button type="button" class="btn btn-sm btn-primary">Расписание</button>
                             </a>
-                            <!--&nbsp;
-                            <a href="{% url 'audrasp' a.id wd %}">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать
-                                </button>
-                            </a-->
+                            &nbsp;
+                            <a href="{% url 'auddel' a.id %}">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                                                    style="color: black">X
+                                            </button>
+                                        </a>
                         </div>
                         <!--small class="text-body-secondary">#</small-->
                     </div>
