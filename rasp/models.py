@@ -2,71 +2,11 @@ from datetime import datetime
 
 from django.db import models
 
-from aud.models import Aud
-
-
-# from .models import Person, Para, Aud, Predmet, Grp
-
-class Para(models.Model):
-    name = models.CharField("Название", max_length=100)
-    num = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['num']
-        verbose_name = "Пара"
-        verbose_name_plural = "Пары"
-
-
-# def get_absolute_url(self):
-#	return reverse('model-detail-view', args=[str(self.id)])
-
-
-class Grp(models.Model):
-    num = models.CharField("Номер", max_length=30)
-    name = models.CharField("Название", max_length=100)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name']
-        verbose_name = "Группа"
-        verbose_name_plural = "Группы"
-
-
-# def get_absolute_url(self):
-#	return reverse('model-detail-view', args=[str(self.id)])
-
-class Person(models.Model):
-    fio = models.CharField("ФИО", max_length=100)
-    fam = models.CharField("Фамилия", max_length=100)
-    name = models.CharField("Имя", max_length=100)
-    otch = models.CharField("Отчество", max_length=100)
-    born = models.IntegerField("Год. рожд.", null=True, blank=True)
-    dolg = models.CharField("Должность", max_length=100)
-    password = models.CharField("Пароль", max_length=100, default='1111')
-    def __str__(self):
-        return self.fio
-
-    class Meta:
-        ordering = ['fio']
-        verbose_name = "Преподаватель"
-        verbose_name_plural = "Преподаватели"
-
-
-class Predmet(models.Model):
-    name = models.CharField("Название", max_length=100)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['id']
-        verbose_name = "Предмет"
-        verbose_name_plural = "Предметы"
+from aud.models import Aud, MyAud
+from grp.models import Grp
+from para.models import Para
+from person.models import Person, MyPers
+from predmet.models import Predmet
 
 
 class Rasp(models.Model):
@@ -96,33 +36,3 @@ class Rasp(models.Model):
         ]
 
 
-class MyPers(models.Model):
-    myid = models.ForeignKey(Person, related_name='mypers', verbose_name="Хозяин", on_delete=models.PROTECT,
-                             default=0)
-    persid = models.ForeignKey(Person, related_name='anypers', verbose_name="Персона", on_delete=models.PROTECT,
-                               default=0)
-
-    def __str__(self):
-        return self.myid.fio
-
-    class Meta:
-        ordering = ['id']
-        unique_together = ('myid', 'persid')
-        verbose_name = "Список преподавателей"
-        verbose_name_plural = "Списки преподавателей"
-
-
-class MyAud(models.Model):
-    myid = models.ForeignKey(Person, related_name='me', verbose_name="Хозяин", on_delete=models.PROTECT,
-                             default=0)
-    audid = models.ForeignKey(Aud, related_name='anyaud', verbose_name="Аудитория", on_delete=models.PROTECT,
-                               default=0)
-
-    def __str__(self):
-        return self.myid.fio
-
-    class Meta:
-        ordering = ['id']
-        unique_together = ('myid', 'audid')
-        verbose_name = "Список аудиторий"
-        verbose_name_plural = "Списки аудиторий"

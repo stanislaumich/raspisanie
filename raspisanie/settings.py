@@ -25,10 +25,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rasp.apps.RaspConfig',
     'bootstrap5',
     'mess.apps.MessConfig',
+    'para.apps.ParaConfig',
+    'person.apps.PersonConfig',
+    'predmet.apps.PredmetConfig',
     'aud.apps.AudConfig',
+    'grp.apps.GrpConfig',
+    'rasp.apps.RaspConfig',
+
 ]
 
 MIDDLEWARE = [

@@ -2,7 +2,10 @@ from datetime import datetime
 
 from django.db import models
 
-from rasp.models import Person
+from person.models import Person
+
+
+# from rasp.models import Person
 
 
 class Mess(models.Model):
@@ -21,9 +24,9 @@ class Mess(models.Model):
         choices=CHOICES,
         default=0,
     )
-    fromid = models.ForeignKey(Person, related_name='frompers', verbose_name="От кого", on_delete=models.PROTECT,
+    fromid = models.ForeignKey(Person, related_name='messmfrom', verbose_name="От кого", on_delete=models.PROTECT,
                                default=0)
-    toid = models.ForeignKey(Person, related_name='topers', verbose_name="Кому", on_delete=models.PROTECT, default=0)
+    toid = models.ForeignKey(Person, related_name='messto', verbose_name="Кому", on_delete=models.PROTECT, default=0)
 
     def __str__(self):
         return self.short

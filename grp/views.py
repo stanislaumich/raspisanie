@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 
 from aud.views import gen_rasp
-from rasp.forms import EditRasp
+from grp.forms import EditRasp
 from rasp.models import Grp, Para, Rasp, Person
 
 
