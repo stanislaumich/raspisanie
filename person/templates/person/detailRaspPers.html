@@ -103,8 +103,11 @@
                                                class="btn btn-danger"
                                                role="button" data-toggle="tooltip" title="ЗАРЕЗЕРВИРОВАТЬ">R</a>
                                         {% elif i.v == 1 %}
-                                            <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
+                                           <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
+                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                               class="btn btn-dark"
+                                               role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
                                             <a href="#" class="btn btn-danger"
                                                role="button" data-toggle="tooltip"
@@ -164,6 +167,9 @@
                                         {% elif i.v == 1 %}
                                             <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
+                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                               class="btn btn-dark"
+                                               role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
                                             <a href="#" class="btn btn-danger"
                                                role="button" data-toggle="tooltip"
@@ -223,6 +229,9 @@
                                         {% elif i.v == 1 %}
                                             <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
+                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                               class="btn btn-dark"
+                                               role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
                                             <a href="#" class="btn btn-danger"
                                                role="button" data-toggle="tooltip"
@@ -282,6 +291,9 @@
                                         {% elif i.v == 1 %}
                                             <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
+                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                               class="btn btn-dark"
+                                               role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
                                             <a href="#" class="btn btn-danger"
                                                role="button" data-toggle="tooltip"
@@ -341,6 +353,9 @@
                                         {% elif i.v == 1 %}
                                             <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
+                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                               class="btn btn-dark"
+                                               role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
                                             <a href="#" class="btn btn-danger"
                                                role="button" data-toggle="tooltip"

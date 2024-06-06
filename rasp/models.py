@@ -19,7 +19,7 @@ class Rasp(models.Model):
     idpredmet = models.ForeignKey(Predmet, verbose_name="Предмет", on_delete=models.PROTECT, default=0)
 
     def __str__(self):
-        return self.idpara.name + ' (' + str(self.idpara.num) + ') ' + str(self.dt)
+        return self.idpara.name
 
     class Meta:
         ordering = ['id']

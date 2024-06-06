@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 
-from aud.views import gen_rasp
+# from aud.views import gen_rasp
 from grp.forms import EditRasp, GrpList
 from grp.models import MyGrp
 from rasp.models import Grp, Para, Rasp, Person
@@ -33,18 +33,23 @@ def detailGrp(request, id):
 # ++++++++++++++++++
 def detailRaspGroup(request, id, wd):
     t = id
-    g = Rasp.objects.filter(idgrp=t, dt__week=wd).order_by("dt", "idpara_id")
-    if not g:
-        r = Grp.objects.get(id=t)
-        d = date.today() + timedelta(7)
-        d = d + timedelta(-1 * d.weekday())
-        dt = d.strftime("%Y-%m-%d")  # datetime.strptime(d, '%Y-%m-%d').date()
-        np = 1
-        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": t, "name": r.name, "wd": wd, "np": 1, "dt": dt}
-        return render(request, 'grp/404.html', cntx)
+    a = Grp.objects.get(pk=id)
     dtb = datefromiso(date.today().year, wd, 1).date()
     dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
-    w = gen_rasp(wd,dtb)
+    k = 0
+    w = []
+    for i in range(6):
+        for j in range(7):
+            try:
+                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idgrp=t)
+                w.append({'v': 1, 'i': r, "np": j})
+            except:
+                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
+            k = k + 1
+        dtb = dtb + timedelta(1)
+
+    request.session['week'] = wd
+
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": 'Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%B %d "),
@@ -64,8 +69,8 @@ def detailRaspGroup(request, id, wd):
             "r4": w[21:28],
             "r5": w[28:35],
             "r6": w[35:42],
-            "name": g[0].idgrp.name,
-            "idp": t,  # "wd": wd,
+            "name": a.name,
+            "idp": t,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(

@@ -21,7 +21,7 @@
                     <p class="card-text" style="text-align: center;"><strong>{{ a.audid.name }}</strong></p><br>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a href="{% url 'audrasp' a.id wd %}">
+                            <a href="{% url 'audrasp' a.audid.id wd %}">
                                 <button type="button" class="btn btn-sm btn-primary">Расписание</button>
                             </a>
                             &nbsp;
