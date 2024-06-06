@@ -1,8 +1,12 @@
 {% extends "base.html" %}
-{% block title %}++{% endblock title %}
-
+{% block title %} LOGIN {% endblock title %}
+{% block header2 %}
+    <div style="text-align: center">
+        <strong>Вход в систему</strong>
+    </div>
+{% endblock header2 %}
 {% block content %}
-    <div class="container" style="width: 50%">
+    <div class="container" style="width: 50%; text-align : center;">
         <form method="POST" class="post-form form-control">
             {% csrf_token %}
             {{ form.non_field_errors }}
@@ -11,6 +15,7 @@
             {% endfor %}
 
             ФИО: {{ form.fio }}<br>
+            Пароль: {{ form.password }}<br>
             <button class="btn btn-primary py-2" type="submit">Войти</button>
         </form>
     </div>

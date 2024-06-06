@@ -2,7 +2,7 @@ from django.db import models
 
 class Para(models.Model):
     name = models.CharField("Название", max_length=100)
-    num = models.IntegerField(default=0)
+    num = models.IntegerField("Номер",default=0)
 
     def __str__(self):
         return self.name

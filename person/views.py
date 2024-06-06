@@ -7,20 +7,29 @@ from django.shortcuts import render
 from grp.forms import EditRasp
 from para.models import Para
 from person.models import Person, MyPers
-from person.forms import Login
-from rasp.models import Rasp
+from person.forms import Login, List
+from rasp.models import Rasp, Reserv
 
 
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
+
+def isAdmin(request):
+    return Person.objects.get(pk=request.session.get('userid', 0)).isAdmin == 1
 
 
 def getuser(request):
     return request.session.get('userid', 0)
 
 
+def getme(request):
+    return Person.objects.get(pk=getuser(request))
+
 def indexPerson(request):
     people = MyPers.objects.filter(myid=getuser(request)).all()
+    # if isAdmin(request):
+    #     messages.success(request, f"Администратор!!!!")
+
     return render(request, "person/indexPerson.html", context={"people": people})
 
 
@@ -43,9 +52,14 @@ def detailRaspPers(request, id, wd):
                 r = Rasp.objects.get(dt=dtb, idpara=j + 1, idpers=t)
                 w.append({'v': 1, 'i': r, "np": j})
             except:
-                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
+                try:
+                    r = Reserv.objects.get(dt=dtb, idpara=j + 1, idpers=t)
+                    w.append({'v': 2, 'i': r, "np": j})
+                except:
+                    w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
             k = k + 1
         dtb = dtb + timedelta(1)
+
     request.session['week'] = wd
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
@@ -62,7 +76,7 @@ def detailRaspPers(request, id, wd):
             "d6": (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%Y-%m-%d"),
             "r1": w[:7], "r2": w[7:14], "r3": w[14:21],
             "r4": w[21:28], "r5": w[28:35], "r6": w[35:42],
-            "fiop": pr.fio, "idp": t, "wd": wd,
+            "fiop": pr.fio, "idp": t, #"wd": wd,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
@@ -103,12 +117,14 @@ def addRaspPers(request, id):
             form.paraid = Para.objects.get(id=idpara)
             form.save()
             res = "cохранено"
-            # return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
-            return HttpResponseRedirect("/rasp/rasp/person/" + str(id) + '/' + str(wd) + '/')
+            messages.success(request, f"Занятие сохранено")
+            # return HttpResponseRedirect(request.META.get('HTTP_REFERER')) работает только со ссылками
+            return HttpResponseRedirect('/')
     else:
         r = Rasp()
         r.idpara = Para.objects.get(id=idpara)
         r.dt = dt
+        r.idpers = Person.objects.get(pk=id)
         form = EditRasp(instance=r)
     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
 
@@ -116,7 +132,8 @@ def addRaspPers(request, id):
 def editRaspPers(request, id):
     res = ""
     r = Rasp.objects.get(id=id)
-    form = EditRasp(request.POST)
+    rsp = r
+    # form = EditRasp(request.POST)
     wd = r.dt.isocalendar()[1]
     dt = r.dt
     idpara = r.idpara
@@ -136,7 +153,7 @@ def editRaspPers(request, id):
         form = EditRasp(instance=r)
         dt = r.dt
         idpara = r.idpara
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
+    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'rid' : rsp})
 
 
 def delRaspPers(request, id):
@@ -149,7 +166,7 @@ def delRaspPers(request, id):
 
 
 def listAdd(request):
-    form = Login(request.POST)
+    form = List(request.POST)
     if request.method == "POST":
         if form.is_valid():
             t = MyPers()
@@ -167,7 +184,7 @@ def listAdd(request):
                 return HttpResponseRedirect('/person')
 
     else:
-        form = Login()
+        form = List()
     return render(request, "person/listadd.html", context={'form': form})
 
 
@@ -175,23 +192,76 @@ def listDel(request, id):
     m = MyPers.objects.get(pk=id)
     messages.success(request, f"Преподаватель  {m.persid.fio} удален из списка")
     m.delete()
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect("/person")
 
 
 def login(request):
     form = Login(request.POST)
     if request.method == "POST":
         if form.is_valid():
-            request.session['userid'] = form.cleaned_data["fio"].id
-            messages.success(request, f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
-            return HttpResponseRedirect("/")
+            p = Person.objects.get(pk=form.cleaned_data["fio"].id)
+            if form.cleaned_data["password"] == p.password:
+                request.session['userid'] = form.cleaned_data["fio"].id
+                messages.success(request, f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
+                return HttpResponseRedirect("/")
+            else:
+                messages.success(request,
+                                 f"В полном доступе отказано, разрешены только действия анонима")
+                return HttpResponseRedirect("/")
     else:
-        form = Login()
-    return render(request, "rasp/login.html", context={'form': form})
+
+        form = Login(initial={'fio': 0, 'password': '0'})
+    return render(request, "person/login.html", context={'form': form})
     # return HttpResponseRedirect("/")
+
+def badlogin():
+    pass
+'''
+<input type="hidden" name="return_to" value="{{ return_to_url }}">
+return redirect(request.POST['return_to']))
+
+
+
+'''
 
 
 def logout(request):
     messages.success(request, f"Преподаватель  {Person.objects.get(pk=getuser(request))} вышел из системы")
     request.session['userid'] = 0
+    request.session['password'] = ''
     return HttpResponseRedirect("/")
+
+
+def delRaspPersReserv (request, id):
+    # res = Reserv.objects.get(pk=id)
+    # res.delete()
+    messages.success(request, f"Кнопка R для снятия и установки резерва")
+    return HttpResponseRedirect("/")
+
+
+def addRaspPersReserv(request, id):
+    if id==0:
+        dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
+        idpara = request.GET.get("np")
+        idp = request.GET.get("idp")
+        r = Reserv()
+        r.name = 'РЕЗЕРВ'
+        r.idpara = Para.objects.get(id=idpara)
+        r.dt = dt
+        r.idpers = Person.objects.get(pk=idp)
+        r.idmaster = getme(request)
+        r.save()
+        messages.success(request, f"Резерв установлен")
+    else:
+        res = Reserv.objects.get(pk=id)
+        if res.idmaster == getme(request):
+            res.delete()
+            messages.success(request, f"Резерв снят")
+        elif res.idpers == getme(request):
+            res.delete()
+            messages.success(request, f"Резерв снят")
+        else:
+            # res.delete()
+            messages.error(request, f"Резерв можно снять только с себя или с тех на кого вы его установили. Чужой нельзя.")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+

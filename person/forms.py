@@ -9,8 +9,7 @@ class Login(ModelForm):
 
     class Meta:
         model = Person
-        fields = ('fio',)
-
+        fields = ('fio', 'password')
 
 class List(ModelForm):
     fio = forms.ModelChoiceField(queryset=Person.objects.all())

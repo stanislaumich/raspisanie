@@ -49,7 +49,7 @@ def detailRaspAud(request, id, wd):
     g = Rasp.objects.filter(idaud=t, dt__week=wd).order_by("dt", "idpara_id")
     request.session['week'] = wd
     if not g:
-        r = Aud.objects.get(id=t)
+        r = Aud.objects.get(id=MyAud.objects.get(pk=t).audid.id)
         d = date.today() + timedelta(7)
         d = d + timedelta(-1 * d.weekday())
         dt = d.strftime("%Y-%m-%d")

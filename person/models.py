@@ -9,7 +9,7 @@ class Person(models.Model):
     born = models.IntegerField("Год. рожд.", null=True, blank=True)
     dolg = models.CharField("Должность", max_length=100)
     password = models.CharField("Пароль", max_length=100, default='1111')
-
+    isAdmin = models.IntegerField("Админ", blank=True, default='0')
     def __str__(self):
         return self.fio
 

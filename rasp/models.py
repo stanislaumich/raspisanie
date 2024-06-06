@@ -11,7 +11,7 @@ from predmet.models import Predmet
 
 class Rasp(models.Model):
     dt = models.DateField("Дата", null=True)
-    name = models.CharField("Название", max_length=100)
+    name = models.CharField("Название", max_length=100, null=True, blank=True)
     idgrp = models.ForeignKey(Grp, verbose_name="Группа", on_delete=models.PROTECT, default=0)
     idpers = models.ForeignKey(Person, verbose_name="Преподаватель", on_delete=models.PROTECT, default=0)
     idpara = models.ForeignKey(Para, verbose_name="Пара", on_delete=models.PROTECT, default=0)
@@ -35,4 +35,19 @@ class Rasp(models.Model):
             models.UniqueConstraint(fields=['dt', 'idpara', 'idpers'], name='cidpers')
         ]
 
+
+class Reserv(models.Model):
+    dt = models.DateField("Дата", null=True)
+    name = models.CharField("Название", max_length=100, null=True, blank=True)
+    idpers = models.ForeignKey(Person, related_name = 'iddest', verbose_name="Преподаватель", on_delete=models.PROTECT, default=0)
+    idpara = models.ForeignKey(Para, verbose_name ="Пара", on_delete=models.PROTECT, default=0)
+    idmaster = models.ForeignKey(Person, related_name = 'idmaster', verbose_name="Хозяин", on_delete=models.PROTECT, default=0)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = "Резерв"
+        verbose_name_plural = "Резерв"
 

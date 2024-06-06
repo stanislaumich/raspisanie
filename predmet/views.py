@@ -127,12 +127,13 @@ def predmetadd(request):
             t.predmetid = Predmet.objects.get(id=form.cleaned_data["name"].id)
             try:
                 t.save()
-                messages.success(request, f"предмет  {t.predmetid.name} добавлен")
+                messages.success(request, f"Предмет  {t.predmetid.name} добавлен")
                 return HttpResponseRedirect('/predmet')
             except:
                 messages.error(request, 'Не удалось добавить предмет в список повторно')
                 error = form.errors
-                return render(request, "predmet/error.html", context={'error': error})
+                # return render(request, "predmet/error.html", context={'error': error})
+                return HttpResponseRedirect('/predmet')
 
     else:
         form = PredmetList()

@@ -1,5 +1,6 @@
 import time
 
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound
@@ -42,7 +43,14 @@ def detailRasp(request, id):
 
 
 
-
+def delRaspPers(request, id):
+    try:
+        r = Rasp.objects.get(id=id)
+        r.delete()
+        messages.info(request, 'Запись расписания удалена')
+        return HttpResponseRedirect("/")
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Person not found</h2>")
 
 
 

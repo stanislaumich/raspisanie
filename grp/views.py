@@ -160,12 +160,13 @@ def grpadd(request):
             t.grpid = Grp.objects.get(id=form.cleaned_data["name"].id)
             try:
                 t.save()
-                messages.success(request, f"Аудитория  {t.grpid.name} добавлена")
+                messages.success(request, f"Группа  {t.grpid.name} добавлена")
                 return HttpResponseRedirect('/grp')
             except:
-                messages.error(request, 'Не удалось добавить аудиторию в список повторно')
+                messages.error(request, 'Не удалось добавить группу в список повторно')
                 error = ''
-                return render(request, "grp/error.html", context={'error': error})
+                # return render(request, "grp/error.html", context={'error': error})
+                return HttpResponseRedirect('/grp')
 
     else:
         form = GrpList()

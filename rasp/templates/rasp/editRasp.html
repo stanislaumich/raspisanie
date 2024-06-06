@@ -3,12 +3,12 @@
 
 {% block content %}
     <h1>Занятие ({{ res }})</h1>
-    <h4>Дата: {{ dt }}  Пара: {{ idpara }}</h4>
-   <form method="POST" class="post-form" action="">
+    <h4>Дата: {{ dt }} Пара: {{ idpara }}</h4>
+    <form method="POST" class="post-form" action="">
         {% csrf_token %}
         {{ form.non_field_errors }}
         {% for field in form %}
-        {{ field.errors }}
+            {{ field.errors }}
         {% endfor %}
         <table class="table-sm  table-hover">
             <tr>
@@ -40,8 +40,15 @@
                 <td>{{ form.idpredmet }}</td>
             </tr>
             <tr>
-                <td colspan=2>
+                <td colspan=1>
                     <button class="btn btn-primary w-100 py-2" type="submit">Записать</button>
+                </td>
+                <td colspan=1 align="right">
+                    <a href="{% url 'rspindex'  %}">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                                style="color: white">Удалить
+                        </button>
+                    </a>
                 </td>
             </tr>
         </table>
