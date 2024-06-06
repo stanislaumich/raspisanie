@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'aud.apps.AudConfig',
     'grp.apps.GrpConfig',
     'rasp.apps.RaspConfig',
+    'api.apps.ApiConfig',
 
 ]
 
