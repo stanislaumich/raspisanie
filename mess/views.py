@@ -4,6 +4,9 @@ from mess.forms import MessAdd
 from mess.models import Mess
 from rasp.models import  Person
 
+def getuser(request):
+    return request.session.get('userid', 0)
+
 
 def messClear(request, id):
     m = Mess.objects.get(pk=id)
@@ -21,7 +24,7 @@ def messSend(request, id):
             t.long = form.cleaned_data["long"]
             t.short = form.cleaned_data["short"]
             t.warn = form.cleaned_data["warn"]
-            t.fromid = Person.objects.get(id=request.session.get('userid'))
+            t.fromid = Person.objects.get(id=getuser(request))
             t.toid = Person.objects.get(id=form.cleaned_data["toid"].id)
             t.save()
             return HttpResponseRedirect("/")

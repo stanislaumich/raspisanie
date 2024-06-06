@@ -13,6 +13,10 @@ import locale
 
 locale.setlocale(locale.LC_ALL, "")
 
+def getuser(request):
+    return request.session.get('userid', 0)
+
+
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
 

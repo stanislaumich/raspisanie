@@ -12,15 +12,16 @@ from person.forms import Login
 from rasp.models import Rasp
 
 
-
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
 
 
+def getuser(request):
+    return request.session.get('userid', 0)
 
 
 def indexPerson(request):
-    people = MyPers.objects.filter(myid=request.session.get('userid',1)).all()
+    people = MyPers.objects.filter(myid=getuser(request)).all()
     return render(request, "person/indexPerson.html", context={"people": people})
 
 
@@ -103,7 +104,7 @@ def addRaspPers(request, id):
             form.paraid = Para.objects.get(id=idpara)
             form.save()
             res = "cохранено"
-            #return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
+            # return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
             return HttpResponseRedirect("/rasp/rasp/person/" + str(id) + '/' + str(wd) + '/')
     else:
         r = Rasp()
@@ -111,6 +112,7 @@ def addRaspPers(request, id):
         r.dt = dt
         form = EditRasp(instance=r)
     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
+
 
 def editRaspPers(request, id):
     res = ""
@@ -146,12 +148,13 @@ def delRaspPers(request, id):
     except Person.DoesNotExist:
         return HttpResponseNotFound("<h2>Person not found</h2>")
 
+
 def listAdd(request):
     form = Login(request.POST)
     if request.method == "POST":
         if form.is_valid():
             t = MyPers()
-            t.myid = Person.objects.get(id=request.session.get('userid',0))
+            t.myid = Person.objects.get(id=getuser(request))
             t.persid = Person.objects.get(id=form.cleaned_data["fio"].id)
             try:
                 t.save()
@@ -175,6 +178,7 @@ def listDel(request, id):
     m.delete()
     return HttpResponseRedirect("/")
 
+
 def login(request):
     form = Login(request.POST)
     if request.method == "POST":
@@ -185,4 +189,3 @@ def login(request):
         form = Login()
     return render(request, "rasp/login.html", context={'form': form})
     # return HttpResponseRedirect("/")
-

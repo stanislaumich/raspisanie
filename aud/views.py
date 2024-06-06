@@ -9,13 +9,15 @@ from aud.forms import AudList
 from aud.models import Aud
 from rasp.models import Rasp, Para, MyAud, Person
 
+def getuser(request):
+    return request.session.get('userid', 0)
 
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
 
 
 def indexAud(request):
-    a = MyAud.objects.filter(myid=request.session.get('userid', 0)).all()
+    a = MyAud.objects.filter(myid=getuser(request)).all()
     return render(request, "aud/indexAud.html", context={"aud": a})
 
 
@@ -114,7 +116,7 @@ def audadd(request):
     if request.method == "POST":
         if form.is_valid():
             t = MyAud()
-            t.myid = Person.objects.get(id=request.session['userid'])
+            t.myid = Person.objects.get(id=getuser(request))
             t.audid = Aud.objects.get(id=form.cleaned_data["name"].id)
             try:
                 t.save()

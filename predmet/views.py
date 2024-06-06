@@ -13,10 +13,11 @@ from rasp.models import Rasp
 
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
-
+def getuser(request):
+    return request.session.get('userid', 0)
 
 def indexPredmet(request):
-    p = MyPredmet.objects.filter(myid=request.session.get('userid', 0)).all()
+    p = MyPredmet.objects.filter(myid=getuser(request)).all()
     return render(request, "predmet/indexPredmet.html", context={"p": p})
 
 
@@ -115,7 +116,7 @@ def predmetadd(request):
     if request.method == "POST":
         if form.is_valid():
             t = MyPredmet()
-            t.myid = Person.objects.get(id=request.session['userid'])
+            t.myid = Person.objects.get(id=getuser(request))
             t.predmetid = Predmet.objects.get(id=form.cleaned_data["name"].id)
             try:
                 t.save()

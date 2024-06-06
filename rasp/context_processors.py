@@ -2,9 +2,12 @@ from datetime import datetime
 
 from rasp.models import Person
 
+def getuser(request):
+    return request.session.get('userid', 0)
+
 
 def get_userfio(request):
-    uid = request.session.get('userid', 1)
+    uid = getuser(request)
     p = Person.objects.get(id=uid)
     fio = p.fio
     return {'fio': fio, 'uid': uid}

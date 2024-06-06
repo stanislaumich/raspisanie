@@ -10,12 +10,16 @@ from grp.models import MyGrp
 from rasp.models import Grp, Para, Rasp, Person
 
 
+def getuser(request):
+    return request.session.get('userid', 0)
+
+
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
 
 
 def indexGrp(request):
-    g = MyGrp.objects.filter(myid=request.session.get('userid', 0)).all()
+    g = MyGrp.objects.filter(myid=getuser(request)).all()
     return render(request, "grp/indexGrp.html", context={"g": g})
 
 
@@ -152,7 +156,7 @@ def grpadd(request):
     if request.method == "POST":
         if form.is_valid():
             t = MyGrp()
-            t.myid = Person.objects.get(id=request.session['userid'])
+            t.myid = Person.objects.get(id=getuser(request))
             t.grpid = Grp.objects.get(id=form.cleaned_data["name"].id)
             try:
                 t.save()
