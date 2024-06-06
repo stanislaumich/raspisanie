@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}++{% endblock title %}
+
+{% block content %}
+
+    <form method="POST" class="post-form" action="">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            {{ field.errors }}
+        {% endfor %}
+        <table class="table-sm  table-hover">
+            <tr>
+                <td>Название:</td>
+                <td>{{ form.name }}</td>
+            </tr>
+            <tr>
+                <td>Дата:</td>
+                <td>{{ form.dt }}</td>
+            </tr>
+            <tr>
+                <td>Пара:</td>
+                <td>{{ form.idpara }}</td>
+            </tr>
+            <tr>
+                <td>Группа:</td>
+                <td>{{ form.idgrp }}</td>
+            </tr>
+            <tr>
+                <td>Преподаватель:</td>
+                <td>{{ form.idpers }}</td>
+            </tr>
+            <tr>
+                <td>Аудитория:</td>
+                <td>{{ form.idaud }}</td>
+            </tr>
+            <tr>
+                <td>Предмет:</td>
+                <td>{{ form.idpredmet }}</td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <button class="btn btn-primary w-100 py-2" type="submit">Записать</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock content %}

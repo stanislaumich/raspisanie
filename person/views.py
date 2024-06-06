@@ -3,16 +3,18 @@ from datetime import datetime, date, timedelta
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
+from django.urls import reverse, reverse_lazy
+from django.views.generic import FormView, UpdateView
 
-from grp.forms import EditRasp
 from para.models import Para
 from person.models import Person, MyPers
-from person.forms import Login, List
+from person.forms import Login, List, EditRasp
 from rasp.models import Rasp, Reserv
 
 
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
+
 
 def isAdmin(request):
     return Person.objects.get(pk=request.session.get('userid', 0)).isAdmin == 1
@@ -24,6 +26,7 @@ def getuser(request):
 
 def getme(request):
     return Person.objects.get(pk=getuser(request))
+
 
 def indexPerson(request):
     people = MyPers.objects.filter(myid=getuser(request)).all()
@@ -76,7 +79,7 @@ def detailRaspPers(request, id, wd):
             "d6": (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%Y-%m-%d"),
             "r1": w[:7], "r2": w[7:14], "r3": w[14:21],
             "r4": w[21:28], "r5": w[28:35], "r6": w[35:42],
-            "fiop": pr.fio, "idp": t, #"wd": wd,
+            "fiop": pr.fio, "idp": t,  #"wd": wd,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
@@ -106,6 +109,7 @@ def detailRaspPers(request, id, wd):
                   context=cntx)
 
 
+# --------------------------------
 def addRaspPers(request, id):
     res = ""
     dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
@@ -126,7 +130,7 @@ def addRaspPers(request, id):
         r.dt = dt
         r.idpers = Person.objects.get(pk=id)
         form = EditRasp(instance=r)
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'zid':0})
+    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'zid': 0})
 
 
 def editRaspPers(request, id):
@@ -155,7 +159,8 @@ def editRaspPers(request, id):
         form = EditRasp(instance=r)
         dt = r.dt
         idpara = r.idpara
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'rid' : rsp, 'zid':id})
+    return render(request, "rasp/editRasp.html",
+                  {'form': form, "res": res, "dt": dt, "idpara": idpara, 'rid': rsp, 'zid': id})
 
 
 def delRaspPers(request, id):
@@ -167,6 +172,19 @@ def delRaspPers(request, id):
         return HttpResponseNotFound("<h2>Person not found</h2>")
 
 
+# ----------------------------------
+class EditRaspPers(UpdateView):
+    # form_class = EditRasp
+    model = Rasp
+    queryset = Rasp.objects.all()
+    fields = ['name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt']
+    template_name = "rasp/testform.html"
+    success_url = reverse_lazy('personindex')
+
+
+
+
+# --------------------------------
 def listAdd(request):
     form = List(request.POST)
     if request.method == "POST":
@@ -204,7 +222,8 @@ def login(request):
             p = Person.objects.get(pk=form.cleaned_data["fio"].id)
             if form.cleaned_data["password"] == p.password:
                 request.session['userid'] = form.cleaned_data["fio"].id
-                messages.success(request, f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
+                messages.success(request,
+                                 f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
                 return HttpResponseRedirect("/")
             else:
                 messages.success(request,
@@ -216,14 +235,14 @@ def login(request):
     return render(request, "person/login.html", context={'form': form})
     # return HttpResponseRedirect("/")
 
+
 def badlogin():
     pass
+
+
 '''
 <input type="hidden" name="return_to" value="{{ return_to_url }}">
 return redirect(request.POST['return_to']))
-
-
-
 '''
 
 
@@ -234,7 +253,7 @@ def logout(request):
     return HttpResponseRedirect("/")
 
 
-def delRaspPersReserv (request, id):
+def delRaspPersReserv(request, id):
     # res = Reserv.objects.get(pk=id)
     # res.delete()
     messages.success(request, f"Кнопка R для снятия и установки резерва")
@@ -242,7 +261,7 @@ def delRaspPersReserv (request, id):
 
 
 def addRaspPersReserv(request, id):
-    if id==0:
+    if id == 0:
         dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
         idpara = request.GET.get("np")
         idp = request.GET.get("idp")
@@ -264,6 +283,6 @@ def addRaspPersReserv(request, id):
             messages.success(request, f"Резерв снят")
         else:
             # res.delete()
-            messages.error(request, f"Резерв можно снять только с себя или с тех на кого вы его установили. Чужой нельзя.")
+            messages.error(request,
+                           f"Резерв можно снять только с себя или с тех на кого вы его установили. Чужой нельзя.")
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
