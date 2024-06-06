@@ -5,16 +5,13 @@ from django.db import models
 from person.models import Person
 
 
-# from rasp.models import Person
-
-
 class Mess(models.Model):
     CHOICES = [
         ("0", "ОБЫЧНОЕ"),
         ("1", "ВАЖНОЕ"),
     ]
 
-    dt = models.DateTimeField("Дата", default=datetime.now)  #models.DateField("Дата", null=True)
+    dt = models.DateTimeField("Дата", default=datetime.now)
     short = models.CharField("Кратко", max_length=100)
     long = models.CharField("Полно", max_length=255, null=True, blank=True)
     isActive = models.IntegerField("Активно", default=1)
@@ -33,6 +30,5 @@ class Mess(models.Model):
 
     class Meta:
         ordering = ['id']
-        # unique_together = ('idgrp', 'idpers', 'idpara','idaud', 'idpredmet','dt')
         verbose_name = "Сообщение"
         verbose_name_plural = "Сообщения"

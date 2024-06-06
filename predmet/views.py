@@ -13,8 +13,11 @@ from rasp.models import Rasp
 
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
+
+
 def getuser(request):
     return request.session.get('userid', 0)
+
 
 def indexPredmet(request):
     p = MyPredmet.objects.filter(myid=getuser(request)).all()
@@ -53,7 +56,7 @@ def predmetRasp(request, id, wd):
         d = date.today() + timedelta(7)
         d = d + timedelta(-1 * d.weekday())
         dt = d.strftime("%Y-%m-%d")
-        np = request.session.get('userid',0)
+        np = request.session.get('userid', 0)
         cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": t, "name": r.name, "np": np, "dt": dt}
         return render(request, 'predmet/404.html', cntx)
     dtb = datefromiso(date.today().year, wd, 1).date()
@@ -63,15 +66,19 @@ def predmetRasp(request, id, wd):
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
             "dt1": '(' + g[0].idpredmet.name + ')  -+-   Понедельник,  ' + (
                     dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
-            "dt2": '(' + g[0].idpredmet.name + ')  -+-   Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
+            "dt2": '(' + g[0].idpredmet.name + ')  -+-   Вторник,  ' + (
+                        dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
                 "%B %d "),
             "dt3": '(' + g[0].idpredmet.name + ')  -+-   Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime(
                 "%B %d "),
-            "dt4": '(' + g[0].idpredmet.name + ')  -+-   Четверг,  ' + (dtb + timedelta(-1 * dtb.weekday() + 3)).strftime(
+            "dt4": '(' + g[0].idpredmet.name + ')  -+-   Четверг,  ' + (
+                        dtb + timedelta(-1 * dtb.weekday() + 3)).strftime(
                 "%B %d "),
-            "dt5": '(' + g[0].idpredmet.name + ')  -+-   Пятница,  ' + (dtb + timedelta(-1 * dtb.weekday() + 4)).strftime(
+            "dt5": '(' + g[0].idpredmet.name + ')  -+-   Пятница,  ' + (
+                        dtb + timedelta(-1 * dtb.weekday() + 4)).strftime(
                 "%B %d "),
-            "dt6": '(' + g[0].idpredmet.name + ')  -+-   Суббота,  ' + (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime(
+            "dt6": '(' + g[0].idpredmet.name + ')  -+-   Суббота,  ' + (
+                        dtb + timedelta(-1 * dtb.weekday() + 5)).strftime(
                 "%B %d "),
             "d1": (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%Y-%m-%d"),
             "d2": (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%Y-%m-%d"),

@@ -3,7 +3,6 @@ from datetime import datetime, date, timedelta
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
-from django.template.defaulttags import url
 
 from grp.forms import EditRasp
 from para.models import Para
@@ -66,7 +65,7 @@ def detailRaspPers(request, id, wd):
             "fiop": pr.fio, "idp": t, "wd": wd,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
-            "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
+            "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light3": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
@@ -174,7 +173,7 @@ def listAdd(request):
 
 def listDel(request, id):
     m = MyPers.objects.get(pk=id)
-    messages.success(request, f"Преподаватель  {m.fio} удален из списка")
+    messages.success(request, f"Преподаватель  {m.persid.fio} удален из списка")
     m.delete()
     return HttpResponseRedirect("/")
 
