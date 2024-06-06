@@ -15,4 +15,5 @@ urlpatterns = [
     path("listdel/<int:id>/", views.listDel, name="rsplistdel"),
     # auth
     path("login/", views.login, name="login"),
+    path("logout/", views.logout, name="logout"),
 ]

@@ -183,8 +183,15 @@ def login(request):
     if request.method == "POST":
         if form.is_valid():
             request.session['userid'] = form.cleaned_data["fio"].id
+            messages.success(request, f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
             return HttpResponseRedirect("/")
     else:
         form = Login()
     return render(request, "rasp/login.html", context={'form': form})
     # return HttpResponseRedirect("/")
+
+
+def logout(request):
+    messages.success(request, f"Преподаватель  {Person.objects.get(pk=getuser(request))} вышел из системы")
+    request.session['userid'] = 0
+    return HttpResponseRedirect("/")
