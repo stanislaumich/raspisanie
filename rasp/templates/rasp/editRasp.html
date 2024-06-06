@@ -44,10 +44,14 @@
                     <button class="btn btn-primary w-100 py-2" type="submit">Записать</button>
                 </td>
                 <td colspan=1 align="right">
-                    <a href="{% url 'rspindex'  %}">
+                    {% if zid == 0 %}
+                        </td><td></td>
+                    {% else %}
+                       <a href="{% url 'rspdelete' zid  %}">
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
                                 style="color: white">Удалить
                         </button>
+                    {% endif %}
                     </a>
                 </td>
             </tr>

@@ -26,24 +26,6 @@ def detailAud(request, id):
     a = Aud.objects.get(id=t)
     return render(request, "aud/detailAud.html", context={"a": a})
 
-
-# def gen_rasp(wd, dtb, t):
-#     k = 0
-#     w = []
-#
-#     for i in range(6):
-#         for j in range(7):
-#             try:
-#                 r = Rasp.objects.get(dt=dtb, idpara=j + 1, idaud=t)
-#                 w.append({'v': 1, 'i': r, "np": j})
-#             except:
-#                 w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
-#             k = k + 1
-#             # print(w)
-#         dtb = dtb + timedelta(1)
-#     return w
-
-
 def detailRaspAud(request, id, wd):
     t = id
     # g = Rasp.objects.filter(idaud=t, dt__week=wd).order_by("dt", "idpara_id")

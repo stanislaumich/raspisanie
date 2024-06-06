@@ -44,16 +44,12 @@ def detailRasp(request, id):
 
 
 def delRaspPers(request, id):
-    try:
-        r = Rasp.objects.get(id=id)
-        r.delete()
-        messages.info(request, 'Запись расписания удалена')
-        return HttpResponseRedirect("/")
-    except Person.DoesNotExist:
-        return HttpResponseNotFound("<h2>Person not found</h2>")
+    r = Rasp.objects.get(id=id)
+    r.delete()
+    messages.info(request, 'Запись расписания удалена')
+    # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
-
+    return render(request, "index.html")
 
 def genRaspPers(request):
     dt = datetime.today() + timedelta(-10)

@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 from para.models import Para
 from person.models import Person
-from predmet.forms import PredmetList
+from predmet.forms import PredmetList, EditPredmet
 from predmet.models import Predmet, MyPredmet
 from rasp.models import Rasp
 
@@ -30,54 +30,42 @@ def detailPredmet(request, id):
     return render(request, "predmet/detailPredmet.html", context={"p": p})
 
 
-def gen_rasp(wd, dtb):
-    k = 0
-    w = []
-
-    for i in range(6):
-        for j in range(7):
-            try:
-                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idpredmet=t)
-                w.append({'v': 1, 'i': r, "np": j})
-            except:
-                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
-            k = k + 1
-            # print(w)
-        dtb = dtb + timedelta(1)
-    return w
 
 
 def predmetRasp(request, id, wd):
     t = id
-    g = Rasp.objects.filter(idpredmet=t, dt__week=wd).order_by("dt", "idpara_id")
-    request.session['week'] = wd
-    if not g:
-        r = Predmet.objects.get(id=t)
-        d = date.today() + timedelta(7)
-        d = d + timedelta(-1 * d.weekday())
-        dt = d.strftime("%Y-%m-%d")
-        np = request.session.get('userid', 0)
-        cntx = {"r": r, "wdn": wd + 1, "wdp": wd - 1, "idp": t, "name": r.name, "np": np, "dt": dt}
-        return render(request, 'predmet/404.html', cntx)
+    a = Predmet.objects.get(pk=id)
     dtb = datefromiso(date.today().year, wd, 1).date()
     dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
-    w = gen_rasp(wd, dtb)
+    k = 0
+    w = []
+    for i in range(6):
+        for j in range(7):
+            try:
+                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idgrp=t)
+                w.append({'v': 1, 'i': r, "np": j})
+            except:
+                w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
+            k = k + 1
+        dtb = dtb + timedelta(1)
+
+    request.session['week'] = wd
 
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
-            "dt1": '(' + g[0].idpredmet.name + ')  -+-   Понедельник,  ' + (
+            "dt1": '(' + a.name + ')  -+-   Понедельник,  ' + (
                     dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
-            "dt2": '(' + g[0].idpredmet.name + ')  -+-   Вторник,  ' + (
+            "dt2": '(' + a.name + ')  -+-   Вторник,  ' + (
                         dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
                 "%B %d "),
-            "dt3": '(' + g[0].idpredmet.name + ')  -+-   Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime(
+            "dt3": '(' + a.name + ')  -+-   Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime(
                 "%B %d "),
-            "dt4": '(' + g[0].idpredmet.name + ')  -+-   Четверг,  ' + (
+            "dt4": '(' + a.name + ')  -+-   Четверг,  ' + (
                         dtb + timedelta(-1 * dtb.weekday() + 3)).strftime(
                 "%B %d "),
-            "dt5": '(' + g[0].idpredmet.name + ')  -+-   Пятница,  ' + (
+            "dt5": '(' + a.name + ')  -+-   Пятница,  ' + (
                         dtb + timedelta(-1 * dtb.weekday() + 4)).strftime(
                 "%B %d "),
-            "dt6": '(' + g[0].idpredmet.name + ')  -+-   Суббота,  ' + (
+            "dt6": '(' + a.name + ')  -+-   Суббота,  ' + (
                         dtb + timedelta(-1 * dtb.weekday() + 5)).strftime(
                 "%B %d "),
             "d1": (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%Y-%m-%d"),
@@ -88,7 +76,7 @@ def predmetRasp(request, id, wd):
             "d6": (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%Y-%m-%d"),
             "r1": w[:7], "r2": w[7:14], "r3": w[14:21],
             "r4": w[21:28], "r5": w[28:35], "r6": w[35:42],
-            "aname": g[0].idpredmet.name, "idp": 1,
+            "aname": a.name, "idp": t,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
@@ -114,8 +102,61 @@ def predmetRasp(request, id, wd):
             "bg6": 'bg-primary' if (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             }
-    return render(request, "aud/detailRaspAud.html",
+    return render(request, "predmet/detailRaspPredmet.html",
                   context=cntx)
+
+
+def addRaspPredmet(request,id):
+    res = ""
+    dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
+    wd = dt.isocalendar()[1]
+    idpara = request.GET.get("np")
+    if request.method == "POST":
+        form = EditPredmet(request.POST)
+        if form.is_valid():
+            form.paraid = Para.objects.get(id=idpara)
+            form.save()
+            res = "cохранено"
+            # return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
+            # return HttpResponseRedirect("/rasp/rasp/person/" + str(id) + '/' + str(wd) + '/')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+        r = Rasp()
+        r.idpara = Para.objects.get(id=idpara)
+        r.dt = dt
+        form = EditPredmet(instance=r)
+    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
+
+def editRaspPredmet(request,id):
+    res = ""
+    r = Rasp.objects.get(id=id)
+    form = EditPredmet(request.POST)
+    wd = r.dt.isocalendar()[1]
+    dt = r.dt
+    idpara = r.idpara
+    if request.method == "POST":
+        form = EditPredmet(request.POST)
+        if form.is_valid():
+            # r.id = id
+            r = Rasp.objects.get(id=id)
+            r.name = form.cleaned_data["name"]
+            r.idgrp = form.cleaned_data["idgrp"]
+            r.idpers = form.cleaned_data["idpers"]
+            r.idaud = form.cleaned_data["idaud"]
+            r.idpredmet = form.cleaned_data["idpredmet"]
+            r.save(force_update=True)
+
+            # res = "cохранено"
+            messages.success('Сохранено')
+            # return HttpResponseRedirect("/rasp/rasp/person/" + str(r.idpers.id) + '/' + str(wd) + '/')
+            # return HttpResponseRedirect('/')
+            return render(request, "predmet/indexPredmet.html")
+    else:
+        form = EditPredmet(instance=r)
+        dt = r.dt
+        idpara = r.idpara
+    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'zid': id})
+
 
 
 def predmetadd(request):

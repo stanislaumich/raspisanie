@@ -109,7 +109,7 @@ def detailRaspPers(request, id, wd):
 def addRaspPers(request, id):
     res = ""
     dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
-    wd = dt.isocalendar()[1]
+    # wd = dt.isocalendar()[1]
     idpara = request.GET.get("np")
     if request.method == "POST":
         form = EditRasp(request.POST)
@@ -126,7 +126,7 @@ def addRaspPers(request, id):
         r.dt = dt
         r.idpers = Person.objects.get(pk=id)
         form = EditRasp(instance=r)
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
+    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'zid':0})
 
 
 def editRaspPers(request, id):
@@ -148,12 +148,14 @@ def editRaspPers(request, id):
             r.idpredmet = form.cleaned_data["idpredmet"]
             r.save()
             res = "cохранено"
-            return HttpResponseRedirect("/rasp/rasp/person/" + str(r.idpers.id) + '/' + str(wd) + '/')
+            # return HttpResponseRedirect("/rasp/rasp/person/" + str(r.idpers.id) + '/' + str(wd) + '/')
+            return HttpResponseRedirect("/")
     else:
+
         form = EditRasp(instance=r)
         dt = r.dt
         idpara = r.idpara
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'rid' : rsp})
+    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'rid' : rsp, 'zid':id})
 
 
 def delRaspPers(request, id):
