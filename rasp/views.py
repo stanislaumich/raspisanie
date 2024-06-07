@@ -90,7 +90,7 @@ class AddRasp(CreateView):
             toid=Person.objects.get(pk=form.instance.idpers.pk),
             fromid=Person.objects.get(pk=self.request.session.get('userid')),
             warn=0,
-            short='добавлено  расписание')
+            short='Добавлено  расписание')
         form.save()
         return super().form_valid(form)
 
