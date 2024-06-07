@@ -3,9 +3,10 @@ import time
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response
 from django.urls import reverse_lazy
 
+from para.models import Para
 from person.models import Person
 from .models import Rasp
 from datetime import datetime
@@ -57,17 +58,23 @@ class EditRasp(UpdateView):
 class AddRasp(CreateView):
     # form_class = EditRasp
     model = Rasp
-    queryset = Rasp.objects.all()
+    # queryset = Rasp.objects.all()
     fields = ['name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt']
     template_name = "rasp/editRasp.html"
     success_url = reverse_lazy('home')
     extra_context = {'zid': 0}
 
-    # def get_initial(self):
-    #     initial = super(AddRasp, self).get_initial()
-    #     initial['idpers'] = Person.objects.get(id=self.kwargs['person_id'])
-    #     return initial
-    # def save(self):
+    # def get_success_url(self):
+    #     return self.request.META.get('HTTP_REFERER')
+    def get_initial(self):
+        initial = super(AddRasp, self).get_initial()
+        initial['dt'] = self.request.GET.get('dt')
+        initial['idpara'] = Para.objects.get(id=self.request.GET.get('np'))
+        if self.request.GET.get('idpers'):
+            initial['idpers'] = Person.objects.get(id=self.request.GET.get('idpers'))
+
+        return initial
+
 
 
 class DelRasp(DeleteView):
