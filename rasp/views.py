@@ -6,7 +6,7 @@ from django.forms import SelectDateWidget
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response
 from django.urls import reverse_lazy
-# from suit.widgets import HTML5Input, SuitSplitDateTimeWidget
+from alert import utils
 
 from aud.models import Aud
 from grp.models import Grp
@@ -61,26 +61,16 @@ class EditRasp(UpdateView):
     extra_context = {'zid': 0}
 
 
-
-# class AddRasp(CreateView):
-#     model = Rasp
-#     # context_object_name = 'user_object'
-#     template_name = "rasp/editRasp.html"
-#     form_class = AddRaspForm
-#
-#     success_url = reverse_lazy('home')
-#     extra_context = {'zid': 0}
-
-
 class AddRasp(CreateView):
     # form_class = EditRasp
     model = Rasp
     queryset = Rasp.objects.all()
     template_name = "rasp/editRasp.html"
     fields = ('name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt')
-    widgets = {'dt': SelectDateWidget(years=range(2024, 2100)) }
+    widgets = {'dt': SelectDateWidget(years=range(2024, 2100))}
     success_url = reverse_lazy('home')
     extra_context = {'zid': 0}
+
     def get_initial(self):
         initial = super(AddRasp, self).get_initial()
         initial['dt'] = self.request.GET.get('dt')
@@ -94,6 +84,18 @@ class AddRasp(CreateView):
         if self.request.GET.get('idgrp'):
             initial['idgrp'] = Grp.objects.get(id=self.request.GET.get('idgrp'))
         return initial
+
+    def form_valid(self, form):
+        print('ddfsdfsdfds')
+        utils.send(
+            toid=Person.objects.get(pk=1),
+            fromid=Person.objects.get(pk=1),
+            # toid = 1,
+            # fromid = 1,
+            warn=0,
+            short='добавлено  расписание')
+        form.save()
+        return super().form_valid(form)
 
 
 class DelRasp(DeleteView):
