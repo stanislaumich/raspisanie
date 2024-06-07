@@ -109,51 +109,51 @@ def delRaspGroup(request, id):
         return HttpResponseNotFound("<h2>Group not found</h2>")
 
 
-def editRaspGroup(request, id):
-    res = ""
-    r = Rasp.objects.get(id=id)
-    form = EditRasp(request.POST)
-    wd = r.dt.isocalendar()[1]
-    dt = r.dt
-    idpara = r.idpara
-    if request.method == "POST":
-        form = EditRasp(request.POST)
-        if form.is_valid():
-            r.id = id
-            r.name = form.cleaned_data["name"]
-            r.idgrp = form.cleaned_data["idgrp"]
-            r.idpers = form.cleaned_data["idpers"]
-            r.idaud = form.cleaned_data["idaud"]
-            r.idpredmet = form.cleaned_data["idpredmet"]
-            r.save()
-            res = "cохранено"
-            return HttpResponseRedirect("/rasp/rasp/person/" + str(r.idpers.id) + '/' + str(wd) + '/')
-    else:
-        form = EditRasp(instance=r)
-        dt = r.dt
-        idpara = r.idpara
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
-
-
-def addRaspGroup(request, id):
-    res = ""
-    dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
-    wd = dt.isocalendar()[1]
-    idpara = request.GET.get("np")
-    if request.method == "POST":
-        form = EditRasp(request.POST)
-        if form.is_valid():
-            form.paraid = Para.objects.get(id=idpara)
-            form.save()
-            res = "cохранено"
-            # return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
-            return HttpResponseRedirect("/rasp/rasp/person/" + str(id) + '/' + str(wd) + '/')
-    else:
-        r = Rasp()
-        r.idpara = Para.objects.get(id=idpara)
-        r.dt = dt
-        form = EditRasp(instance=r)
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
+# def editRaspGroup(request, id):
+#     res = ""
+#     r = Rasp.objects.get(id=id)
+#     form = EditRasp(request.POST)
+#     wd = r.dt.isocalendar()[1]
+#     dt = r.dt
+#     idpara = r.idpara
+#     if request.method == "POST":
+#         form = EditRasp(request.POST)
+#         if form.is_valid():
+#             r.id = id
+#             r.name = form.cleaned_data["name"]
+#             r.idgrp = form.cleaned_data["idgrp"]
+#             r.idpers = form.cleaned_data["idpers"]
+#             r.idaud = form.cleaned_data["idaud"]
+#             r.idpredmet = form.cleaned_data["idpredmet"]
+#             r.save()
+#             res = "cохранено"
+#             return HttpResponseRedirect("/rasp/rasp/person/" + str(r.idpers.id) + '/' + str(wd) + '/')
+#     else:
+#         form = EditRasp(instance=r)
+#         dt = r.dt
+#         idpara = r.idpara
+#     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
+#
+#
+# def addRaspGroup(request, id):
+#     res = ""
+#     dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
+#     wd = dt.isocalendar()[1]
+#     idpara = request.GET.get("np")
+#     if request.method == "POST":
+#         form = EditRasp(request.POST)
+#         if form.is_valid():
+#             form.paraid = Para.objects.get(id=idpara)
+#             form.save()
+#             res = "cохранено"
+#             # return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
+#             return HttpResponseRedirect("/rasp/rasp/person/" + str(id) + '/' + str(wd) + '/')
+#     else:
+#         r = Rasp()
+#         r.idpara = Para.objects.get(id=idpara)
+#         r.dt = dt
+#         form = EditRasp(instance=r)
+#     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
 
 
 def grpadd(request):

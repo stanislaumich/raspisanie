@@ -6,8 +6,11 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response
 from django.urls import reverse_lazy
 
+from aud.models import Aud
+from grp.models import Grp
 from para.models import Para
 from person.models import Person
+from predmet.models import Predmet
 from .models import Rasp
 from datetime import datetime
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
@@ -72,7 +75,12 @@ class AddRasp(CreateView):
         initial['idpara'] = Para.objects.get(id=self.request.GET.get('np'))
         if self.request.GET.get('idpers'):
             initial['idpers'] = Person.objects.get(id=self.request.GET.get('idpers'))
-
+        if self.request.GET.get('idpredmet'):
+            initial['idpredmet'] = Predmet.objects.get(id=self.request.GET.get('idpredmet'))
+        if self.request.GET.get('idaud'):
+            initial['idaud'] = Aud.objects.get(id=self.request.GET.get('idaud'))
+        if self.request.GET.get('idgrp'):
+            initial['idgrp'] = Grp.objects.get(id=self.request.GET.get('idgrp'))
         return initial
 
 

@@ -28,8 +28,6 @@ def detailAud(request, id):
 
 def detailRaspAud(request, id, wd):
     t = id
-    # g = Rasp.objects.filter(idaud=t, dt__week=wd).order_by("dt", "idpara_id")
-
     a = Aud.objects.get(pk = id)
     k = 0
     w = []
@@ -47,7 +45,7 @@ def detailRaspAud(request, id, wd):
         dtb = dtb + timedelta(1)
 
     request.session['week'] = wd
-    cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
+    cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t , "wd": wd,
             "dt1": '(' + a.name + ')  -+-   Понедельник,  ' + (
                         dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": '(' + a.name + ')  -+-   Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
@@ -68,7 +66,7 @@ def detailRaspAud(request, id, wd):
             "d6": (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%Y-%m-%d"),
             "r1": w[:7], "r2": w[7:14], "r3": w[14:21],
             "r4": w[21:28], "r5": w[28:35], "r6": w[35:42],
-            "aname": a.name, "idp": 1,
+            "aname": a.name, "idp": 1, "ia": t,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(

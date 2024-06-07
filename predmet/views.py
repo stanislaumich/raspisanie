@@ -106,52 +106,52 @@ def predmetRasp(request, id, wd):
                   context=cntx)
 
 
-def addRaspPredmet(request,id):
-    res = ""
-    dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
-    wd = dt.isocalendar()[1]
-    idpara = request.GET.get("np")
-    if request.method == "POST":
-        form = EditPredmet(request.POST)
-        if form.is_valid():
-            form.paraid = Para.objects.get(id=idpara)
-            form.save()
-            res = "cохранено"
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    else:
-        r = Rasp()
-        r.idpara = Para.objects.get(id=idpara)
-        r.dt = dt
-        form = EditPredmet(instance=r)
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
-
-def editRaspPredmet(request,id):
-    res = ""
-    r = Rasp.objects.get(id=id)
-    form = EditPredmet(request.POST)
-    wd = r.dt.isocalendar()[1]
-    dt = r.dt
-    idpara = r.idpara
-    if request.method == "POST":
-        form = EditPredmet(request.POST)
-        if form.is_valid():
-            # r.id = id
-            r = Rasp.objects.get(id=id)
-            r.name = form.cleaned_data["name"]
-            r.idgrp = form.cleaned_data["idgrp"]
-            r.idpers = form.cleaned_data["idpers"]
-            r.idaud = form.cleaned_data["idaud"]
-            r.idpredmet = form.cleaned_data["idpredmet"]
-            r.save(force_update=True)
-
-            # res = "cохранено"
-            messages.success('Сохранено')
-            return render(request, "predmet/indexPredmet.html")
-    else:
-        form = EditPredmet(instance=r)
-        dt = r.dt
-        idpara = r.idpara
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'zid': id})
+# def addRaspPredmet(request,id):
+#     res = ""
+#     dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
+#     wd = dt.isocalendar()[1]
+#     idpara = request.GET.get("np")
+#     if request.method == "POST":
+#         form = EditPredmet(request.POST)
+#         if form.is_valid():
+#             form.paraid = Para.objects.get(id=idpara)
+#             form.save()
+#             res = "cохранено"
+#             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+#     else:
+#         r = Rasp()
+#         r.idpara = Para.objects.get(id=idpara)
+#         r.dt = dt
+#         form = EditPredmet(instance=r)
+#     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
+#
+# def editRaspPredmet(request,id):
+#     res = ""
+#     r = Rasp.objects.get(id=id)
+#     form = EditPredmet(request.POST)
+#     wd = r.dt.isocalendar()[1]
+#     dt = r.dt
+#     idpara = r.idpara
+#     if request.method == "POST":
+#         form = EditPredmet(request.POST)
+#         if form.is_valid():
+#             # r.id = id
+#             r = Rasp.objects.get(id=id)
+#             r.name = form.cleaned_data["name"]
+#             r.idgrp = form.cleaned_data["idgrp"]
+#             r.idpers = form.cleaned_data["idpers"]
+#             r.idaud = form.cleaned_data["idaud"]
+#             r.idpredmet = form.cleaned_data["idpredmet"]
+#             r.save(force_update=True)
+#
+#             # res = "cохранено"
+#             messages.success('Сохранено')
+#             return render(request, "predmet/indexPredmet.html")
+#     else:
+#         form = EditPredmet(instance=r)
+#         dt = r.dt
+#         idpara = r.idpara
+#     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'zid': id})
 
 
 
