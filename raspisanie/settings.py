@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'grp.apps.GrpConfig',
     'rasp.apps.RaspConfig',
     'api.apps.ApiConfig',
+    'alert.apps.AlertConfig',
 
 ]
 

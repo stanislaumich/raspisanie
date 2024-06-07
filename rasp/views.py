@@ -2,15 +2,18 @@ import time
 
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.forms import SelectDateWidget
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response
 from django.urls import reverse_lazy
+# from suit.widgets import HTML5Input, SuitSplitDateTimeWidget
 
 from aud.models import Aud
 from grp.models import Grp
 from para.models import Para
 from person.models import Person
 from predmet.models import Predmet
+
 from .models import Rasp
 from datetime import datetime
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
@@ -58,17 +61,26 @@ class EditRasp(UpdateView):
     extra_context = {'zid': 0}
 
 
+
+# class AddRasp(CreateView):
+#     model = Rasp
+#     # context_object_name = 'user_object'
+#     template_name = "rasp/editRasp.html"
+#     form_class = AddRaspForm
+#
+#     success_url = reverse_lazy('home')
+#     extra_context = {'zid': 0}
+
+
 class AddRasp(CreateView):
     # form_class = EditRasp
     model = Rasp
-    # queryset = Rasp.objects.all()
-    fields = ['name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt']
+    queryset = Rasp.objects.all()
     template_name = "rasp/editRasp.html"
+    fields = ('name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt')
+    widgets = {'dt': SelectDateWidget(years=range(2024, 2100)) }
     success_url = reverse_lazy('home')
     extra_context = {'zid': 0}
-
-    # def get_success_url(self):
-    #     return self.request.META.get('HTTP_REFERER')
     def get_initial(self):
         initial = super(AddRasp, self).get_initial()
         initial['dt'] = self.request.GET.get('dt')
@@ -82,7 +94,6 @@ class AddRasp(CreateView):
         if self.request.GET.get('idgrp'):
             initial['idgrp'] = Grp.objects.get(id=self.request.GET.get('idgrp'))
         return initial
-
 
 
 class DelRasp(DeleteView):

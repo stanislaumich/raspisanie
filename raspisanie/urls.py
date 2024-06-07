@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.index, name='home'),
     # path('grid/', views.grid, name='grid'),
     path('mess/', include('mess.urls'), name='mess'),
+    path('alert/', include('alert.urls'), name='alert'),
     path('aud/', include('aud.urls'), name='aud'),
     path('grp/', include('grp.urls'), name='grp'),
     path('person/', include('person.urls'), name='person'),

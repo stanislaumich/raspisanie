@@ -30,8 +30,6 @@ def detailPredmet(request, id):
     return render(request, "predmet/detailPredmet.html", context={"p": p})
 
 
-
-
 def predmetRasp(request, id, wd):
     t = id
     a = Predmet.objects.get(pk=id)
@@ -55,18 +53,18 @@ def predmetRasp(request, id, wd):
             "dt1": '(' + a.name + ')  -+-   Понедельник,  ' + (
                     dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": '(' + a.name + ')  -+-   Вторник,  ' + (
-                        dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
+                    dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
                 "%B %d "),
             "dt3": '(' + a.name + ')  -+-   Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime(
                 "%B %d "),
             "dt4": '(' + a.name + ')  -+-   Четверг,  ' + (
-                        dtb + timedelta(-1 * dtb.weekday() + 3)).strftime(
+                    dtb + timedelta(-1 * dtb.weekday() + 3)).strftime(
                 "%B %d "),
             "dt5": '(' + a.name + ')  -+-   Пятница,  ' + (
-                        dtb + timedelta(-1 * dtb.weekday() + 4)).strftime(
+                    dtb + timedelta(-1 * dtb.weekday() + 4)).strftime(
                 "%B %d "),
             "dt6": '(' + a.name + ')  -+-   Суббота,  ' + (
-                        dtb + timedelta(-1 * dtb.weekday() + 5)).strftime(
+                    dtb + timedelta(-1 * dtb.weekday() + 5)).strftime(
                 "%B %d "),
             "d1": (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%Y-%m-%d"),
             "d2": (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime("%Y-%m-%d"),
@@ -104,55 +102,6 @@ def predmetRasp(request, id, wd):
             }
     return render(request, "predmet/detailRaspPredmet.html",
                   context=cntx)
-
-
-# def addRaspPredmet(request,id):
-#     res = ""
-#     dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
-#     wd = dt.isocalendar()[1]
-#     idpara = request.GET.get("np")
-#     if request.method == "POST":
-#         form = EditPredmet(request.POST)
-#         if form.is_valid():
-#             form.paraid = Para.objects.get(id=idpara)
-#             form.save()
-#             res = "cохранено"
-#             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-#     else:
-#         r = Rasp()
-#         r.idpara = Para.objects.get(id=idpara)
-#         r.dt = dt
-#         form = EditPredmet(instance=r)
-#     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
-#
-# def editRaspPredmet(request,id):
-#     res = ""
-#     r = Rasp.objects.get(id=id)
-#     form = EditPredmet(request.POST)
-#     wd = r.dt.isocalendar()[1]
-#     dt = r.dt
-#     idpara = r.idpara
-#     if request.method == "POST":
-#         form = EditPredmet(request.POST)
-#         if form.is_valid():
-#             # r.id = id
-#             r = Rasp.objects.get(id=id)
-#             r.name = form.cleaned_data["name"]
-#             r.idgrp = form.cleaned_data["idgrp"]
-#             r.idpers = form.cleaned_data["idpers"]
-#             r.idaud = form.cleaned_data["idaud"]
-#             r.idpredmet = form.cleaned_data["idpredmet"]
-#             r.save(force_update=True)
-#
-#             # res = "cохранено"
-#             messages.success('Сохранено')
-#             return render(request, "predmet/indexPredmet.html")
-#     else:
-#         form = EditPredmet(instance=r)
-#         dt = r.dt
-#         idpara = r.idpara
-#     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'zid': id})
-
 
 
 def predmetadd(request):
