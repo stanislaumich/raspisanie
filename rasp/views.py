@@ -52,7 +52,6 @@ def detailRasp(request, id):
 
 
 class EditRasp(UpdateView):
-    # form_class = EditRasp
     model = Rasp
     queryset = Rasp.objects.all()
     fields = ['name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt']
@@ -62,7 +61,6 @@ class EditRasp(UpdateView):
 
 
 class AddRasp(CreateView):
-    # form_class = EditRasp
     model = Rasp
     queryset = Rasp.objects.all()
     template_name = "rasp/editRasp.html"
@@ -86,12 +84,11 @@ class AddRasp(CreateView):
         return initial
 
     def form_valid(self, form):
-        print('ddfsdfsdfds')
+        f = super(AddRasp, self)
+        print(f)
         utils.send(
-            toid=Person.objects.get(pk=1),
-            fromid=Person.objects.get(pk=1),
-            # toid = 1,
-            # fromid = 1,
+            toid=Person.objects.get(pk=form.instance.idpers.pk),
+            fromid=Person.objects.get(pk=self.request.session.get('userid')),
             warn=0,
             short='добавлено  расписание')
         form.save()

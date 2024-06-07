@@ -111,12 +111,6 @@ def detailRaspPers(request, id, wd):
 
 
 # --------------------------------
-
-
-# ----------------------------------
-
-
-# --------------------------------
 def listAdd(request):
     form = List(request.POST)
     if request.method == "POST":
