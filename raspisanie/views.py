@@ -2,6 +2,7 @@ from django.shortcuts import render
 from datetime import timedelta, datetime, date
 import locale
 
+from alert.models import Alert
 from mess.models import Mess
 from rasp.models import Person
 
@@ -11,13 +12,11 @@ from django.http import HttpResponse
 
 
 def index(request):
-    #uid = request.session['userid']
     uid = request.session.get('userid', 1)
-    # p = Person.objects.get(id=uid)
     mes = Mess.objects.filter(toid=uid, isActive=1).all()
     mesmy = Mess.objects.filter(fromid=uid, isActive=1).all()
-           #query.filter_by(topers=p).filter_by(isActive=1).all())
-    data = {'a': 'fio', 'mes': mes, 'mesmy': mesmy}
+    messys = Alert.objects.filter(toid=uid, isActive=1).all()
+    data = {'a': 'fio', 'mes': mes, 'mesmy': mesmy, 'messys':messys}
     return render(request, "index.html", context=data)
 
 

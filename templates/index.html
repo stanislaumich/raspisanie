@@ -120,5 +120,43 @@
         {% else %}
             <strong>Сообщений от меня нет</strong><br>
         {% endif %}
+
+    {% if messys %}
+            <br>
+            <strong>Оповещения системы:</strong><br>
+            <table class="table table-hover table-sm">
+                <tr>
+                    <th>Дата</th>
+                    <th>Инициатор</th>
+                    <th>Кратко</th>
+                    <th>Управление</th>
+                </tr>
+                {% for m in messys %}
+                    {% if m.warn == '1' %}
+                        <tr class="table-danger">
+                            {% else %}
+                        <tr>
+                    {% endif %}
+                <td>
+                    {{ m.dt }}
+                </td>
+                <td>
+                    {{ m.fromid }}
+                </td>
+                <td>
+                    {{ m.short }}
+                </td>
+                <td>
+                    <a href="{% url 'alertclear' m.id %}">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                                style="color: black">Очистить
+                        </button>
+                    </a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <strong>Оповещений системы нет</strong><br>
+        {% endif %}
     </div>
 {% endblock content %}
