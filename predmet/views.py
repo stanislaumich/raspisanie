@@ -42,7 +42,7 @@ def predmetRasp(request, id, wd):
     for i in range(6):
         for j in range(7):
             try:
-                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idgrp=t)
+                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idpredmet=t)
                 w.append({'v': 1, 'i': r, "np": j})
             except:
                 w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
@@ -117,8 +117,6 @@ def addRaspPredmet(request,id):
             form.paraid = Para.objects.get(id=idpara)
             form.save()
             res = "cохранено"
-            # return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
-            # return HttpResponseRedirect("/rasp/rasp/person/" + str(id) + '/' + str(wd) + '/')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         r = Rasp()
@@ -148,8 +146,6 @@ def editRaspPredmet(request,id):
 
             # res = "cохранено"
             messages.success('Сохранено')
-            # return HttpResponseRedirect("/rasp/rasp/person/" + str(r.idpers.id) + '/' + str(wd) + '/')
-            # return HttpResponseRedirect('/')
             return render(request, "predmet/indexPredmet.html")
     else:
         form = EditPredmet(instance=r)

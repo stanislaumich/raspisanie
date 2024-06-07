@@ -4,11 +4,11 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import FormView, UpdateView
+from django.views.generic import FormView, UpdateView, DeleteView
 
 from para.models import Para
 from person.models import Person, MyPers
-from person.forms import Login, List, EditRasp
+from person.forms import Login, List
 from rasp.models import Rasp, Reserv
 
 
@@ -34,6 +34,7 @@ def indexPerson(request):
     #     messages.success(request, f"Администратор!!!!")
 
     return render(request, "person/indexPerson.html", context={"people": people})
+
 
 
 def detailPerson(request, id):
@@ -110,78 +111,9 @@ def detailRaspPers(request, id, wd):
 
 
 # --------------------------------
-def addRaspPers(request, id):
-    res = ""
-    dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
-    # wd = dt.isocalendar()[1]
-    idpara = request.GET.get("np")
-    if request.method == "POST":
-        form = EditRasp(request.POST)
-        if form.is_valid():
-            form.paraid = Para.objects.get(id=idpara)
-            form.save()
-            res = "cохранено"
-            messages.success(request, f"Занятие сохранено")
-            # return HttpResponseRedirect(request.META.get('HTTP_REFERER')) работает только со ссылками
-            return HttpResponseRedirect('/')
-    else:
-        r = Rasp()
-        r.idpara = Para.objects.get(id=idpara)
-        r.dt = dt
-        r.idpers = Person.objects.get(pk=id)
-        form = EditRasp(instance=r)
-    return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara, 'zid': 0})
-
-
-def editRaspPers(request, id):
-    res = ""
-    r = Rasp.objects.get(id=id)
-    rsp = r
-    # form = EditRasp(request.POST)
-    wd = r.dt.isocalendar()[1]
-    dt = r.dt
-    idpara = r.idpara
-    if request.method == "POST":
-        form = EditRasp(request.POST)
-        if form.is_valid():
-            r.id = id
-            r.name = form.cleaned_data["name"]
-            r.idgrp = form.cleaned_data["idgrp"]
-            r.idpers = form.cleaned_data["idpers"]
-            r.idaud = form.cleaned_data["idaud"]
-            r.idpredmet = form.cleaned_data["idpredmet"]
-            r.save()
-            res = "cохранено"
-            # return HttpResponseRedirect("/rasp/rasp/person/" + str(r.idpers.id) + '/' + str(wd) + '/')
-            return HttpResponseRedirect("/")
-    else:
-
-        form = EditRasp(instance=r)
-        dt = r.dt
-        idpara = r.idpara
-    return render(request, "rasp/editRasp.html",
-                  {'form': form, "res": res, "dt": dt, "idpara": idpara, 'rid': rsp, 'zid': id})
-
-
-def delRaspPers(request, id):
-    try:
-        person = Person.objects.get(id=id)
-        person.delete()
-        return HttpResponseRedirect("/")
-    except Person.DoesNotExist:
-        return HttpResponseNotFound("<h2>Person not found</h2>")
 
 
 # ----------------------------------
-class EditRaspPers(UpdateView):
-    # form_class = EditRasp
-    model = Rasp
-    queryset = Rasp.objects.all()
-    fields = ['name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt']
-    template_name = "rasp/testform.html"
-    success_url = reverse_lazy('personindex')
-
-
 
 
 # --------------------------------

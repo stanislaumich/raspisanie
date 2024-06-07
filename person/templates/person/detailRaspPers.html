@@ -32,7 +32,7 @@
                                 <li>
                                     <td>
                                         {% if i.v == 0 %}
-                                            <a href="{% url 'rspadd' idp %}?dt={{ d1 }}&np={{ i.np }}"
+                                            <a href="{% url 'rspadd' %}?dt={{ d1 }}&np={{ i.np }}"
                                                data-toggle="tooltip" title="СВОБОДНО"
                                                class="btn btn-primary" role="button">{{ i.i.name }}</a>
                                             <a href="{% url 'rspaddreserv' 0 %}?dt={{ d1 }}&np={{ i.np }}&idp={{ idp }}"
@@ -41,7 +41,7 @@
                                         {% elif i.v == 1 %}
                                             <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
-                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                            <a href="{% url 'rspdel' i.i.id %}"
                                                class="btn btn-dark"
                                                role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
@@ -96,7 +96,7 @@
                                 <li>
                                     <td>
                                         {% if i.v == 0 %}
-                                            <a href="{% url 'rspadd' idp %}?dt={{ d1 }}&np={{ i.np }}"
+                                            <a href="{% url 'rspadd' %}?dt={{ d1 }}&np={{ i.np }}"
                                                data-toggle="tooltip" title="СВОБОДНО"
                                                class="btn btn-primary" role="button">{{ i.i.name }}</a>
                                             <a href="{% url 'rspaddreserv' 0 %}?dt={{ d1 }}&np={{ i.np }}&idp={{ idp }}"
@@ -105,7 +105,7 @@
                                         {% elif i.v == 1 %}
                                            <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
-                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                            <a href="{% url 'rspdel' i.i.id %}"
                                                class="btn btn-dark"
                                                role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
@@ -158,7 +158,7 @@
                                 <li>
                                     <td>
                                         {% if i.v == 0 %}
-                                            <a href="{% url 'rspadd' idp %}?dt={{ d1 }}&np={{ i.np }}"
+                                            <a href="{% url 'rspadd' %}?dt={{ d1 }}&np={{ i.np }}"
                                                data-toggle="tooltip" title="СВОБОДНО"
                                                class="btn btn-primary" role="button">{{ i.i.name }}</a>
                                             <a href="{% url 'rspaddreserv' 0 %}?dt={{ d1 }}&np={{ i.np }}&idp={{ idp }}"
@@ -167,7 +167,7 @@
                                         {% elif i.v == 1 %}
                                             <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
-                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                            <a href="{% url 'rspdel' i.i.id %}"
                                                class="btn btn-dark"
                                                role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
@@ -220,7 +220,7 @@
                                 <li>
                                     <td>
                                         {% if i.v == 0 %}
-                                            <a href="{% url 'rspadd' idp %}?dt={{ d1 }}&np={{ i.np }}"
+                                            <a href="{% url 'rspadd' %}?dt={{ d1 }}&np={{ i.np }}"
                                                data-toggle="tooltip" title="СВОБОДНО"
                                                class="btn btn-primary" role="button">{{ i.i.name }}</a>
                                             <a href="{% url 'rspaddreserv' 0 %}?dt={{ d1 }}&np={{ i.np }}&idp={{ idp }}"
@@ -229,7 +229,7 @@
                                         {% elif i.v == 1 %}
                                             <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
-                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                            <a href="{% url 'rspdel' i.i.id %}"
                                                class="btn btn-dark"
                                                role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
@@ -282,7 +282,7 @@
                                 <li>
                                     <td>
                                         {% if i.v == 0 %}
-                                            <a href="{% url 'rspadd' idp %}?dt={{ d1 }}&np={{ i.np }}"
+                                            <a href="{% url 'rspadd' %}?dt={{ d1 }}&np={{ i.np }}"
                                                data-toggle="tooltip" title="СВОБОДНО"
                                                class="btn btn-primary" role="button">{{ i.i.name }}</a>
                                             <a href="{% url 'rspaddreserv' 0 %}?dt={{ d1 }}&np={{ i.np }}&idp={{ idp }}"
@@ -291,7 +291,7 @@
                                         {% elif i.v == 1 %}
                                             <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
-                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                            <a href="{% url 'rspdel' i.i.id %}"
                                                class="btn btn-dark"
                                                role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}
@@ -344,7 +344,7 @@
                             <li>
                                 <td>
                                     {% if i.v == 0 %}
-                                            <a href="{% url 'rspadd' idp %}?dt={{ d1 }}&np={{ i.np }}"
+                                            <a href="{% url 'rspadd' %}?dt={{ d1 }}&np={{ i.np }}"
                                                data-toggle="tooltip" title="СВОБОДНО"
                                                class="btn btn-primary" role="button">{{ i.i.name }}</a>
                                             <a href="{% url 'rspaddreserv' 0 %}?dt={{ d1 }}&np={{ i.np }}&idp={{ idp }}"
@@ -353,7 +353,7 @@
                                         {% elif i.v == 1 %}
                                             <a href="{% url 'rspedit' i.i.id %}" class="btn btn-warning"
                                                role="button">{{ i.i.idpara.name }}</a>
-                                            <a href="{% url 'rspdelete' i.i.id %}"
+                                            <a href="{% url 'rspdel' i.i.id %}"
                                                class="btn btn-dark"
                                                role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
                                         {% else %}

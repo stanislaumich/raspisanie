@@ -20,8 +20,8 @@ class List(ModelForm):
         model = Person
         fields = ('fio',)
 
-class EditRasp(ModelForm):
-    class Meta:
-        model = Rasp
-        fields = ('name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt')
+# class EditRasp(ModelForm):
+#     class Meta:
+#         model = Rasp
+#         fields = ('name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt')
 

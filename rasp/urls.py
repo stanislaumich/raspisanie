@@ -7,9 +7,11 @@ urlpatterns = [
     #common
     path("", views.indexRasp, name="rspindex"),
     path("<int:id>/", views.detailRasp, name="rspdetail"),
-    path("del/<int:id>/", views.delRaspPers, name="rspdelete"),
-       # tests
-    path("gen/", views.genRaspPers, name="rspgen"),
-    path("test/", views.test, name="rsptest"),
+
+    path("rspedit/<int:pk>/", views.EditRasp.as_view(), name="rspedit"),
+    path("rspadd/", views.AddRasp.as_view(), name="rspadd"),
+    path("rspdel/<int:pk>/", views.DelRasp.as_view(), name="rspdel"),
+
+
 
 ]
