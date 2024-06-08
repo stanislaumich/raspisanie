@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         ('person', '0001_initial'),
         ('aud', '0001_initial'),
         ('predmet', '0001_initial'),
-        ('grp', '0001_initial'),
+        ('grpp', '0001_initial'),
     ]
 
     operations = [
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('dt', models.DateField(null=True, verbose_name='Дата')),
                 ('name', models.CharField(max_length=100, verbose_name='Название')),
                 ('idaud', models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, to='aud.aud', verbose_name='Аудитория')),
-                ('idgrp', models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, to='grp.grp', verbose_name='Группа')),
+                ('idgrp', models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, to='grpp.grpp', verbose_name='Группа')),
                 ('idpara', models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, to='para.para', verbose_name='Пара')),
                 ('idpers', models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, to='person.person', verbose_name='Преподаватель')),
                 ('idpredmet', models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, to='predmet.predmet', verbose_name='Предмет')),

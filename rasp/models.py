@@ -3,7 +3,7 @@ from datetime import datetime
 from django.db import models
 
 from aud.models import Aud, MyAud
-from grp.models import Grp
+from grpp.models import Grp
 from para.models import Para
 from person.models import Person, MyPers
 from predmet.models import Predmet

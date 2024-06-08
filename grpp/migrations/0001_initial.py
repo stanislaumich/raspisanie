@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
             name='MyGrp',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('grpid', models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, related_name='grpany', to='grp.grp', verbose_name='Группа')),
+                ('grpid', models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, related_name='grpany', to='grpp.grpp', verbose_name='Группа')),
                 ('myid', models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, related_name='grpme', to='person.person', verbose_name='Хозяин')),
             ],
             options={

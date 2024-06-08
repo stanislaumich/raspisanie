@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from alert import utils
 
 from aud.models import Aud
-from grp.models import Grp
+from grpp.models import Grp
 from para.models import Para
 from person.models import Person
 from predmet.models import Predmet

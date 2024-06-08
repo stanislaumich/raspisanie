@@ -12,7 +12,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    uid = request.session.get('userid', 1)
+    uid = request.session.get('userid', 0)
     mes = Mess.objects.filter(toid=uid, isActive=1).all()
     mesmy = Mess.objects.filter(fromid=uid, isActive=1).all()
     messys = Alert.objects.filter(toid=uid, isActive=1).all()

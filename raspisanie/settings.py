@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'person.apps.PersonConfig',
     'predmet.apps.PredmetConfig',
     'aud.apps.AudConfig',
-    'grp.apps.GrpConfig',
+    'grpp.apps.GrpConfig',
     'rasp.apps.RaspConfig',
     'api.apps.ApiConfig',
     'alert.apps.AlertConfig',

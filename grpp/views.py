@@ -5,8 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 
 # from aud.views import gen_rasp
-from grp.forms import EditRasp, GrpList
-from grp.models import MyGrp
+from grpp.forms import EditRasp, GrpList
+from grpp.models import MyGrp
 from rasp.models import Grp, Para, Rasp, Person
 
 
@@ -166,12 +166,12 @@ def grpadd(request):
             try:
                 t.save()
                 messages.success(request, f"Группа  {t.grpid.name} добавлена")
-                return HttpResponseRedirect('/grp')
+                return HttpResponseRedirect('/grpp')
             except:
                 messages.error(request, 'Не удалось добавить группу в список повторно')
                 error = ''
-                # return render(request, "grp/error.html", context={'error': error})
-                return HttpResponseRedirect('/grp')
+                # return render(request, "grpp/error.html", context={'error': error})
+                return HttpResponseRedirect('/grpp')
 
     else:
         form = GrpList()
@@ -182,4 +182,4 @@ def grpdel(request, id):
     m = MyGrp.objects.get(pk=id)
     messages.success(request, f"Группа {m.grpid.name} удалена")
     m.delete()
-    return HttpResponseRedirect('/grp')
+    return HttpResponseRedirect('/grpp')
