@@ -11,7 +11,7 @@
         <table class="table">
             <tr>
                 <td rowspan=5>
-                    <a href="{% url 'profilephoto' uid %}"><img src="{{ photo }}" alt="Аватарка"></a>
+                    <a href="{% url 'profilephoto' uid %}"><img src="{{ photo }}" alt="Аватарка" width="150px"></a>
                 </td>
                 <form method="POST" class="post-form form-control">
                     {% csrf_token %}
