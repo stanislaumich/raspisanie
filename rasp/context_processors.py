@@ -8,9 +8,13 @@ def getuser(request):
 
 def get_userfio(request):
     uid = getuser(request)
-    p = Person.objects.get(id=uid)
-    fio = p.fio
-    return {'fio': fio, 'uid': uid}
+    try:
+        p = Person.objects.get(id=uid)
+        fio = p.fio
+        return {'fio': fio, 'uid': uid}
+    except:
+        return {'fio': 'АНОНИМ', 'uid': 0}
+
 
 
 def get_week(request):
