@@ -11,6 +11,7 @@ urlpatterns = [
     path("rspedit/<int:pk>/", views.EditRasp.as_view(), name="rspedit"),
     path("rspadd/", views.AddRasp.as_view(), name="rspadd"),
     path("rspdel/<int:pk>/", views.DelRasp.as_view(), name="rspdel"),
+    path("rspclone/<int:id>/", views.clonerasp, name="rspclone"),
 
 
 

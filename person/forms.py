@@ -13,15 +13,19 @@ class Login(ModelForm):
         model = Person
         fields = ('fio', 'password')
 
+class Register(ModelForm):
+    # fio = forms.ModelChoiceField(queryset=Person.objects.all())
+
+    class Meta:
+        model = Person
+        fields = ('fio', 'fam','name','otch','born','dolg','password')
+
+
+
 class List(ModelForm):
     fio = forms.ModelChoiceField(queryset=Person.objects.all())
 
     class Meta:
         model = Person
         fields = ('fio',)
-
-# class EditRasp(ModelForm):
-#     class Meta:
-#         model = Rasp
-#         fields = ('name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt')
 

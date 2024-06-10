@@ -1,162 +1,171 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{{ fio }} ({{ wd }}){% endblock title %}
 {% block header2 %}
-    <br>
-    <a href="{% url 'rspperson' uid wd %}">
-        <button type="button" class="btn btn-sm btn-outline-secondary btn-primary"
-                style="color: white">Моё расписание
-        </button>
-    </a>
-    <a href="{% url 'messsend' uid %}">
-        <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
-                style="color: white">Написать сообщение
-        </button>
-    </a>
-    <a href="{% url 'rsplistadd' %}">
-        <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
-                style="color: black">Добавить преподавателя
-        </button>
-    </a>
-    <a href="{% url 'logout' %}">
-        <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
-                style="color: white">Выйти
-        </button>
-    </a>
+    {% if uid == 0 %}
+        <br>
+    {% else %}
+        <br>
+        <a href="{% url 'rspperson' uid wd %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-primary"
+                    style="color: white">Моё расписание
+            </button>
+        </a>
+        <a href="{% url 'messsend' uid %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                    style="color: white">Написать сообщение
+            </button>
+        </a>
+        <a href="{% url 'rsplistadd' %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
+                    style="color: black">Добавить преподавателя
+            </button>
+        </a>
+        <a href="{% url 'logout' %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                    style="color: white">Выйти
+            </button>
+        </a>
+    {% endif %}
     <br>
 {% endblock header2 %}
 
 {% block content %}
-    <br>
+    {% if uid == 0 %}
+        <br>
+    {% else %}
+        <br>
         <hr>
-    <div class="container">
+        <div class="container">
 
-        <!--  сообщения тут  -->
-        {% if mes %}
-            <br>
-            <strong>Сообщения для меня:</strong><br>
-            <table class="table table-hover table-sm">
-                <tr>
-                    <th>Дата</th>
-                    <th>От кого</th>
-                    <th>Кратко</th>
-                    <th>Содержание</th>
-                    <th>Управление</th>
-                </tr>
-                {% for m in mes %}
-                    {% if m.warn == '1' %}
-                        <tr class="table-danger">
-                            {% else %}
-                        <tr>
-                    {% endif %}
-                <td>
-                    {{ m.dt }}
-                </td>
-                <td>
-                    {{ m.fromid }}
-                </td>
-                <td>
-                    {{ m }}
-                </td>
-                <td>{{ m.long }}</td>
-                <td>
-                    <a href="{% url 'messsend' m.fromid.id %}">
-                        <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
-                                style="color: white">Ответить
-                        </button>
-                    </a>
-                    <a href="{% url 'messclear' m.id %}">
-                        <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
-                                style="color: black">Очистить
-                        </button>
-                    </a></td>
-                </tr>
-                {% endfor %}
-            </table>
+            <!--  сообщения тут  -->
+            {% if mes %}
+                <br>
+                <strong>Сообщения для меня:</strong><br>
+                <table class="table table-hover table-sm">
+                    <tr>
+                        <th>Дата</th>
+                        <th>От кого</th>
+                        <th>Кратко</th>
+                        <th>Содержание</th>
+                        <th>Управление</th>
+                    </tr>
+                    {% for m in mes %}
+                        {% if m.warn == '1' %}
+                            <tr class="table-danger">
+                                {% else %}
+                            <tr>
+                        {% endif %}
+                    <td>
+                        {{ m.dt }}
+                    </td>
+                    <td>
+                        {{ m.fromid }}
+                    </td>
+                    <td>
+                        {{ m }}
+                    </td>
+                    <td>{{ m.long }}</td>
+                    <td>
+                        <a href="{% url 'messsend' m.fromid.id %}">
+                            <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                                    style="color: white">Ответить
+                            </button>
+                        </a>
+                        <a href="{% url 'messclear' m.id %}">
+                            <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                                    style="color: black">Очистить
+                            </button>
+                        </a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
 
-        {% else %}
-            <strong>Сообщений для меня нет</strong><br>
-        {% endif %}
-        {% if mesmy %}
-            <br>
-            <strong>Сообщения мои:</strong><br>
-            <table class="table table-hover table-sm">
-                <tr>
-                    <th>Дата</th>
-                    <th>Кому</th>
-                    <th>Кратко</th>
-                    <th>Содержание</th>
-                    <th>Управление</th>
-                </tr>
-                {% for m in mesmy %}
-                    {% if m.warn == '1' %}
-                        <tr class="table-danger">
-                            {% else %}
-                        <tr>
-                    {% endif %}
-                <td>
-                    {{ m.dt }}
-                </td>
-                <td>
-                    {{ m.toid }}
-                </td>
-                <td>
-                    {{ m }}
-                </td>
-                <td>{{ m.long }}</td>
-                <td>
-                    <a href="{% url 'messsend' m.toid.id %}">
-                        <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
-                                style="color: white">Написать
-                        </button>
-                    </a>
-                    <a href="{% url 'messclear' m.id %}">
-                        <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
-                                style="color: black">Очистить
-                        </button>
-                    </a></td>
-                </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <strong>Сообщений от меня нет</strong><br>
-        {% endif %}
+            {% else %}
+                <strong>Сообщений для меня нет</strong><br>
+            {% endif %}
+            {% if mesmy %}
+                <br>
+                <strong>Сообщения мои:</strong><br>
+                <table class="table table-hover table-sm">
+                    <tr>
+                        <th>Дата</th>
+                        <th>Кому</th>
+                        <th>Кратко</th>
+                        <th>Содержание</th>
+                        <th>Управление</th>
+                    </tr>
+                    {% for m in mesmy %}
+                        {% if m.warn == '1' %}
+                            <tr class="table-danger">
+                                {% else %}
+                            <tr>
+                        {% endif %}
+                    <td>
+                        {{ m.dt }}
+                    </td>
+                    <td>
+                        {{ m.toid }}
+                    </td>
+                    <td>
+                        {{ m }}
+                    </td>
+                    <td>{{ m.long }}</td>
+                    <td>
+                        <a href="{% url 'messsend' m.toid.id %}">
+                            <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                                    style="color: white">Написать
+                            </button>
+                        </a>
+                        <a href="{% url 'messclear' m.id %}">
+                            <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                                    style="color: black">Очистить
+                            </button>
+                        </a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <strong>Сообщений от меня нет</strong><br>
+            {% endif %}
 
-    {% if messys %}
-            <br>
-            <strong>Оповещения системы:</strong><br>
-            <table class="table table-hover table-sm">
-                <tr>
-                    <th>Дата</th>
-                    <th>Инициатор</th>
-                    <th>Кратко</th>
-                    <th>Управление</th>
-                </tr>
-                {% for m in messys %}
-                    {% if m.warn == '1' %}
-                        <tr class="table-danger">
-                            {% else %}
-                        <tr>
-                    {% endif %}
-                <td>
-                    {{ m.dt }}
-                </td>
-                <td>
-                    {{ m.fromid }}
-                </td>
-                <td>
-                    {{ m.short }}
-                </td>
-                <td>
-                    <a href="{% url 'alertclear' m.id %}">
-                        <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
-                                style="color: black">Очистить
-                        </button>
-                    </a></td>
-                </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <strong>Оповещений системы нет</strong><br>
-        {% endif %}
-    </div>
+            {% if messys %}
+                <br>
+                <strong>Оповещения системы:</strong><br>
+                <table class="table table-hover table-sm">
+                    <tr>
+                        <th>Дата</th>
+                        <th>Инициатор</th>
+                        <th>Кратко</th>
+                        <th>Управление</th>
+                    </tr>
+                    {% for m in messys %}
+                        {% if m.warn == '1' %}
+                            <tr class="table-danger">
+                                {% else %}
+                            <tr>
+                        {% endif %}
+                    <td>
+                        {{ m.dt }}
+                    </td>
+                    <td>
+                        {{ m.fromid }}
+                    </td>
+                    <td>
+                        {{ m.short }}
+                    </td>
+                    <td>
+                        <a href="{% url 'alertclear' m.id %}">
+                            <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
+                                    style="color: black">Очистить
+                            </button>
+                        </a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <strong>Оповещений системы нет</strong><br>
+            {% endif %}
+        </div>
+    {% endif %}
 {% endblock content %}

@@ -44,6 +44,9 @@
                                             <a href="{% url 'rspdel' i.i.id %}"
                                                class="btn btn-dark"
                                                role="button" data-toggle="tooltip" title="ОТМЕНИТЬ ЗАНЯТИЕ">X</a>
+                                            <a href="{% url 'rspclone' i.i.id %}"
+                                               class="btn btn-primary"
+                                               role="button" data-toggle="tooltip" title="КЛОНИРОВАТЬ ЗАНЯТИЕ">С</a>
                                         {% else %}
                                             <a href="#" class="btn btn-danger"
                                                role="button" data-toggle="tooltip"

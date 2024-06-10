@@ -2,7 +2,8 @@ import time
 
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.forms import SelectDateWidget
+from django.forms import SelectDateWidget, ModelForm, forms, IntegerField
+from django.forms.utils import ErrorList
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response
 from django.urls import reverse_lazy
@@ -15,7 +16,7 @@ from person.models import Person
 from predmet.models import Predmet
 
 from .models import Rasp
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 import locale
 
@@ -85,7 +86,7 @@ class AddRasp(CreateView):
 
     def form_valid(self, form):
         f = super(AddRasp, self)
-        print(f)
+        # print(f)
         utils.send(
             toid=Person.objects.get(pk=form.instance.idpers.pk),
             fromid=Person.objects.get(pk=self.request.session.get('userid')),
@@ -105,3 +106,57 @@ class DelRasp(DeleteView):
     extra_context = {'zid': 0}
 
 # ------------------------------------------
+class Clone(forms.Form):
+    n = IntegerField()
+    def __init__(
+            self,
+            data=None,
+            files=None,
+            auto_id="id_%s",
+            prefix=None,
+            initial=None,
+            error_class=ErrorList,
+            label_suffix=None,
+            empty_permitted=False,
+            field_order=None,
+            use_required_attribute=None,
+            renderer=None,
+    ):
+        super().__init__(data, files, auto_id, prefix, initial, error_class, label_suffix, empty_permitted, field_order,
+                         use_required_attribute, renderer)
+        # self.n = 1
+
+    class Meta:
+        fields = ('n',)
+
+def clonerasp(request,id):
+    form = Clone(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            r = Rasp.objects.get(pk=id)
+            r.name = 'Занятие 1'
+            r.save()
+            n = form.cleaned_data['n']
+            c = 0
+            print(n)
+            for i in range(n):
+                p = Rasp()
+                p.idpers = r.idpers
+                p.idpara = r.idpara
+                p.idaud = r.idaud
+                p.idgrp = r.idgrp
+                p.idpredmet = r.idpredmet
+                p.name = 'Занятие '+str(c+2)
+                p.dt = r.dt + timedelta(7*(c+1))
+                try:
+                    p.save()
+                    messages.success(request, f"Запись продублирована")
+                    c = c + 1
+                except:
+                    messages.error(request, f"Ошибка записи {p.dt}, место занято")
+
+
+            return HttpResponseRedirect("/")
+    else:
+        form = Clone()
+    return render(request, "person/clone.html")

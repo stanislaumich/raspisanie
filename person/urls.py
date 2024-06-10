@@ -23,8 +23,10 @@ urlpatterns = [
     path("listdel/<int:id>/", views.listDel, name="rsplistdel"),
     # auth
     path("login/", views.login, name="login"),
+    path("register/", views.register, name="register"),
     path("badlogin/", views.badlogin, name="badlogin"),
     path("logout/", views.logout, name="logout"),
+    path("profile/<int:id>/", views.profilePers, name="profile"),
 
     path("delreserv/<int:id>/", views.delRaspPersReserv, name="rspdelreserv"),
     path("addreserv/<int:id>/", views.addRaspPersReserv, name="rspaddreserv"),

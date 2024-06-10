@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Профиль {% endblock title %}
+{% block header2 %}
+    <div style="text-align: center">
+        <strong>Профиль пользователя</strong>
+    </div>
+{% endblock header2 %}
+{% block content %}
+    <div class='container'>
+        <div class="container" style="width: 50%; text-align : center;">
+            <img src="{{ photo }}" alt="Аватарка">
+            {#        <form method="POST" class="post-form form-control">#}
+            {#            {% csrf_token %}#}
+            {#            {{ form.non_field_errors }}#}
+            {#            {% for field in form %}#}
+            {#                {{ field.errors }}#}
+            {#            {% endfor %}#}
+            {##}
+            {#            ФИО: {{ form.fio }}<br>#}
+            {#            Пароль: {{ form.password }}<br>#}
+            {#            <button class="btn btn-primary py-2" type="submit">Войти</button>#}
+            {#        </form>#}
+            <div class='container'>
+Старый пароль Новый пароль Новый пароль
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+

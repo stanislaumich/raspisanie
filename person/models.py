@@ -10,6 +10,7 @@ class Person(models.Model):
     dolg = models.CharField("Должность", max_length=100)
     password = models.CharField("Пароль", max_length=100, default='1111')
     isAdmin = models.IntegerField("Админ", blank=True, default='0')
+    profphoto = models.ImageField('Фото', upload_to='avatars', blank=True, default='avatars/dolly.png')
     def __str__(self):
         return self.fio
 

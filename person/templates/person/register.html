@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} Регистрация {% endblock title %}
+{% block header2 %}
+    <div style="text-align: center">
+        <strong>Регистрация</strong>
+    </div>
+{% endblock header2 %}
+{% block content %}
+    <div class="container" style="width: 50%; text-align : center;">
+        <form method="POST" class="post-form form-control">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                {{ field.errors }}
+            {% endfor %}
+
+            ФИО: {{ form.fio }}<br><br>
+            Фамилия: {{ form.fam }}<br><br>
+            Имя: {{ form.name }}<br><br>
+            Отчество: {{ form.otch }}<br><br>
+            Должность: {{ form.dolg }}<br><br>
+            Год рождения:{{ form.born }}<br><br>
+            Пароль: {{ form.password }}<br><br>
+            <button class="btn btn-primary py-2" type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+{% endblock content %}
+
+
+

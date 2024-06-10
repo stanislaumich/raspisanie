@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %} Клонирование {% endblock title %}
+{% block header2 %}
+    <div style="text-align: center">
+        <strong>Клонирование</strong>
+    </div>
+{% endblock header2 %}
+{% block content %}
+    <div class="container" style="width: 50%; text-align : center;">
+        <form method="POST" class="post-form form-control">
+            {% csrf_token %}
+
+
+            Количество повторений:
+            <input type="number" value="1" name = "n">
+        <br><br>
+            <button class="btn btn-primary py-2" type="submit">Записать</button>
+        </form>
+    </div>
+{% endblock content %}
+
+
+

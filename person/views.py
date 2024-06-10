@@ -6,10 +6,12 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, UpdateView, DeleteView
 
+from alert import utils
 from para.models import Para
 from person.models import Person, MyPers
-from person.forms import Login, List
+from person.forms import Login, List, Register
 from rasp.models import Rasp, Reserv
+from raspisanie.settings import MEDIA_URL
 
 
 def datefromiso(year, week, day):
@@ -34,7 +36,6 @@ def indexPerson(request):
     #     messages.success(request, f"Администратор!!!!")
 
     return render(request, "person/indexPerson.html", context={"people": people})
-
 
 
 def detailPerson(request, id):
@@ -80,7 +81,7 @@ def detailRaspPers(request, id, wd):
             "d6": (dtb + timedelta(-1 * dtb.weekday() + 5)).strftime("%Y-%m-%d"),
             "r1": w[:7], "r2": w[7:14], "r3": w[14:21],
             "r4": w[21:28], "r5": w[28:35], "r6": w[35:42],
-            "fiop": pr.fio, "idp": t,  #"wd": wd,
+            "fiop": pr.fio, "idp": t,  # "wd": wd,
             "light1": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime(
                 "%B %d ") == datetime.today().strftime("%B %d ") else '',
             "light2": 'text-light' if (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
@@ -159,7 +160,29 @@ def login(request):
 
         form = Login(initial={'fio': 0, 'password': '0'})
     return render(request, "person/login.html", context={'form': form})
-    # return HttpResponseRedirect("/")
+
+def register(request):
+    form = Register(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            p = Person()
+            p.fio = form.cleaned_data["fio"].upper()
+            p.fam = form.cleaned_data["fam"]
+            p.name = form.cleaned_data["name"]
+            p.otch = form.cleaned_data["otch"]
+            p.born = form.cleaned_data["born"]
+            p.dolg = form.cleaned_data["dolg"]
+            p.password = form.cleaned_data["password"]
+            p.save()
+            request.session['userid'] = p.id
+            messages.success(request,
+                                 f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
+            return HttpResponseRedirect("/")
+    else:
+        form = Register()
+    return render(request, "person/register.html", context={'form': form})
+
+
 
 
 def badlogin():
@@ -180,8 +203,14 @@ def logout(request):
 
 
 def delRaspPersReserv(request, id):
-    # res = Reserv.objects.get(pk=id)
-    # res.delete()
+    # r = Reserv.objects.get(pk=id)
+    # utils.send(
+    #     toid=r.idpers,
+    #     fromid=r.idmaster,
+    #     warn=0,
+    #     short=f'Установлен резерв {r.idpara} {dt}')
+    # r.delete()
+
     messages.success(request, f"Кнопка R для снятия и установки резерва")
     return HttpResponseRedirect("/")
 
@@ -198,13 +227,28 @@ def addRaspPersReserv(request, id):
         r.idpers = Person.objects.get(pk=idp)
         r.idmaster = getme(request)
         r.save()
+        utils.send(
+            toid=r.idpers,
+            fromid=r.idmaster,
+            warn=0,
+            short=f'Установлен резерв {r.idpara} {dt}')
         messages.success(request, f"Резерв установлен")
     else:
         res = Reserv.objects.get(pk=id)
         if res.idmaster == getme(request):
+            utils.send(
+                toid=res.idpers,
+                fromid=res.idmaster,
+                warn=0,
+                short=f'Снят резерв {res.idpara} {res.dt}')
             res.delete()
             messages.success(request, f"Резерв снят")
         elif res.idpers == getme(request):
+            utils.send(
+                toid=res.idpers,
+                fromid=res.idmaster,
+                warn=0,
+                short=f'Снят резерв {res.idpara} {res.dt}')
             res.delete()
             messages.success(request, f"Резерв снят")
         else:
@@ -212,3 +256,10 @@ def addRaspPersReserv(request, id):
             messages.error(request,
                            f"Резерв можно снять только с себя или с тех на кого вы его установили. Чужой нельзя.")
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def profilePers(request, id):
+
+    uid = getme(request)
+    data = {'photo' :  uid.profphoto.url}
+    return render(request, "person/profile.html", context = data)

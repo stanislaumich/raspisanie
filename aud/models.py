@@ -8,7 +8,7 @@ from person.models import Person
 
 class Aud(models.Model):
     name = models.CharField("Название", max_length=100)
-    descr = models.CharField("Описание", max_length=200)
+    descr = models.CharField("Описание", max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.name
