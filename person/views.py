@@ -161,6 +161,7 @@ def login(request):
         form = Login(initial={'fio': 0, 'password': '0'})
     return render(request, "person/login.html", context={'form': form})
 
+
 def register(request):
     form = Register(request.POST)
     if request.method == "POST":
@@ -176,13 +177,11 @@ def register(request):
             p.save()
             request.session['userid'] = p.id
             messages.success(request,
-                                 f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
+                             f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
             return HttpResponseRedirect("/")
     else:
         form = Register()
     return render(request, "person/register.html", context={'form': form})
-
-
 
 
 def badlogin():
@@ -259,7 +258,24 @@ def addRaspPersReserv(request, id):
 
 
 def profilePers(request, id):
+    if request.method == "POST":
+        old = request.POST.get("old")
+        new1 = request.POST.get("new1")
+        new2 = request.POST.get("new2")
+        # print(old, new1, new2)
+        uid = getme(request)
+        data = {'photo': uid.profphoto.url, 'id': uid.id}
+        p = Person.objects.all().filter(id=uid.id, password=old)
+        if new1 == new2 and p:
+            r = Person.objects.get(id=uid.id)
+            r.password = new1
+            r.save()
+            messages.success(request, f"Пароль изменен")
+        else:
+            messages.error(request, f"Неверные данные")
+        return render(request, "person/profile.html", context=data)
+    else:
+        uid = getme(request)
+        data = {'photo': uid.profphoto.url, 'id': uid.id}
+        return render(request, "person/profile.html", context=data)
 
-    uid = getme(request)
-    data = {'photo' :  uid.profphoto.url}
-    return render(request, "person/profile.html", context = data)

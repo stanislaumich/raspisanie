@@ -4,7 +4,7 @@ from django.views.generic import UpdateView
 
 from person import views
 from . import views
-
+from .forms import EditPhoto
 
 urlpatterns = [
     # rasp for person
@@ -27,6 +27,7 @@ urlpatterns = [
     path("badlogin/", views.badlogin, name="badlogin"),
     path("logout/", views.logout, name="logout"),
     path("profile/<int:id>/", views.profilePers, name="profile"),
+    path("profilephoto/<int:pk>", EditPhoto.as_view(), name="profilephoto"),
 
     path("delreserv/<int:id>/", views.delRaspPersReserv, name="rspdelreserv"),
     path("addreserv/<int:id>/", views.addRaspPersReserv, name="rspaddreserv"),

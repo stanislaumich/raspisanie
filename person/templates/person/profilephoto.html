@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Аватарка {% endblock title %}
+{% block header2 %}
+    <div style="text-align: center">
+        <strong>Фото пользователя</strong>
+    </div>
+{% endblock header2 %}
+{% block content %}
+    <div class="container" style="width: 50%; text-align : center;">
+        <form method="POST" class="post-form form-control" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                {{ field.errors }}
+            {% endfor %}
+            {{ form.as_p }}
+            <button class="btn btn-primary py-2" type="submit">Изменить фото</button>
+        </form>
+    </div>
+{% endblock content %}
+
+
+
