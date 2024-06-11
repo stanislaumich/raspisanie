@@ -12,10 +12,10 @@ urlpatterns = [
     path("", views.indexPerson, name="personindex"),
     path("<int:id>/", views.detailPerson, name="persondetail"),
     path("<int:id>/<int:wd>/", views.detailRaspPers, name="rspperson"),
-
+    # notes
     path("editnotepers/<int:pk>", EditNotePers.as_view(), name="editnotepers"),
     path("addnotepers/", AddNotePers.as_view(), name="addnotepers"),
-
+    # list
     path("listadd/", views.listAdd, name="rsplistadd"),
     path("listdel/<int:id>/", views.listDel, name="rsplistdel"),
     # auth
@@ -23,9 +23,10 @@ urlpatterns = [
     path("register/", views.register, name="register"),
     path("badlogin/", views.badlogin, name="badlogin"),
     path("logout/", views.logout, name="logout"),
+    # profile
     path("profile/<int:id>/", views.profilePers, name="profile"),
     path("profilephoto/<int:pk>", EditPhoto.as_view(), name="profilephoto"),
-
+    # reserv
     path("delreserv/<int:id>/", views.delRaspPersReserv, name="rspdelreserv"),
     path("addreserv/<int:id>/", views.addRaspPersReserv, name="rspaddreserv"),
 ]

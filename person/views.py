@@ -1,11 +1,9 @@
 from datetime import datetime, date, timedelta
-
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, UpdateView, DeleteView, CreateView
-
 from alert import utils
 from para.models import Para
 from person.models import Person, MyPers, MyNote
@@ -122,11 +120,14 @@ def listAdd(request):
             t.myid = Person.objects.get(id=getuser(request))
             t.persid = Person.objects.get(id=form.cleaned_data["fio"].id)
             try:
-                n = MyNote()
-                n.myid = Person.objects.get(id=getuser(request))
-                n.persid = Person.objects.get(id=form.cleaned_data["fio"].id)
-                n.note = ''
-                n.save()
+                try:
+                    n = MyNote()
+                    n.myid = Person.objects.get(id=getuser(request))
+                    n.persid = Person.objects.get(id=form.cleaned_data["fio"].id)
+                    n.note = ''
+                    n.save()
+                except:
+                    pass
                 t.save()
                 messages.success(request, f"Преподаватель  {t.persid.fio} добавлен")
                 return HttpResponseRedirect(reverse('home'))

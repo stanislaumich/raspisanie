@@ -33,7 +33,6 @@
                                         </td>
                                     </tr>
                                 </table>
-
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="{% url 'rspperson' p.persid.id wd %}">
@@ -53,13 +52,11 @@
                                             </button>
                                         </a>
                                         <br>
-
                                     </div>
                                     <!--small class="text-body-secondary">+375293766074</small-->
                                 </div>
                             </div>
                             <div class="card-footer">
-
                                 {% for n in note %}
                                     {% if n.persid == p.persid %}
                                         <a href="{% url 'editnotepers' n.id %}">
@@ -70,12 +67,6 @@
                                         </a>
                                         <small class="text-body-secondary">{{ n }}</small>
                                     {% else %}
-                                        <!--a href="{% url 'addnotepers' %}?myid={{ uid }}&persid= {{ p.persid.id }}">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
-                                                    style="color: black" role="button" data-toggle="tooltip"
-                                                    title="Добавить заметки">+
-                                            </button>
-                                        </a-->
                                     {% endif %}
                                 {% endfor %}
                             </div>
