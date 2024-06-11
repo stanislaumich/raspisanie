@@ -1,17 +1,19 @@
 from datetime import datetime, date, timedelta
-
 from django.contrib import messages
-from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
+from django.views.generic import DeleteView, CreateView
 
+from alert import utils
 from aud.forms import AudList
 from aud.models import Aud
 from rasp.models import Rasp, Para, MyAud, Person
 
+
 def getuser(request):
     return request.session.get('userid', 0)
+
 
 def datefromiso(year, week, day):
     return datetime.strptime("%d%02d%d" % (year, week, day), "%Y%W%w")
@@ -27,9 +29,10 @@ def detailAud(request, id):
     a = Aud.objects.get(id=t)
     return render(request, "aud/detailAud.html", context={"a": a})
 
+
 def detailRaspAud(request, id, wd):
     t = id
-    a = Aud.objects.get(pk = id)
+    a = Aud.objects.get(pk=id)
     k = 0
     w = []
 
@@ -46,9 +49,9 @@ def detailRaspAud(request, id, wd):
         dtb = dtb + timedelta(1)
 
     request.session['week'] = wd
-    cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t , "wd": wd,
+    cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t, "wd": wd,
             "dt1": '(' + a.name + ')  -+-   Понедельник,  ' + (
-                        dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
+                    dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
             "dt2": '(' + a.name + ')  -+-   Вторник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 1)).strftime(
                 "%B %d "),
             "dt3": '(' + a.name + ')  -+-   Среда,  ' + (dtb + timedelta(-1 * dtb.weekday() + 2)).strftime(
@@ -107,7 +110,7 @@ def audadd(request):
             try:
                 t.save()
                 messages.success(request, f"Аудитория  {t.audid.name} добавлена")
-                return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(reverse('audindex'))
             except:
                 messages.error(request, 'Не удалось добавить аудиторию в список повторно')
                 error = form.errors
@@ -122,4 +125,27 @@ def auddel(request, id):
     m = MyAud.objects.get(pk=id)
     messages.success(request, f"Аудитория {m.audid.name} удалена")
     m.delete()
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('audindex'))
+
+
+class AddAudAll(CreateView):
+    model = Aud
+    queryset = Aud.objects.all()
+    template_name = "aud/addaudall.html"
+    fields = ('name', 'descr')
+    success_url = reverse_lazy('audindex')
+
+
+    def form_valid(self, form):
+        f = super(AddAudAll, self)
+        form.save()
+        return super().form_valid(form)
+
+
+class DelAudAll(DeleteView):
+    model = Aud
+    queryset = Aud.objects.all()
+    fields = ['name', 'descr']
+    template_name = "aud/delaudall.html"
+    success_url = reverse_lazy('audindex')
+

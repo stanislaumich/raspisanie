@@ -1,0 +1,7 @@
+<style>
+    .alert{color:red}
+    .form-group{margin: 10px 0;}
+    .form-group input{width:250px;height: 25px;border-radius:3px;}
+    </style>
+
+    https://metanit.com/python/django/4.6.php

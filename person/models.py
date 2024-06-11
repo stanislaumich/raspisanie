@@ -34,3 +34,19 @@ class MyPers(models.Model):
         unique_together = ('myid', 'persid')
         verbose_name = "Список преподавателей"
         verbose_name_plural = "Списки преподавателей"
+
+
+class MyNote(models.Model):
+    myid = models.ForeignKey(Person, related_name='persmen', verbose_name="Хозяин", on_delete=models.PROTECT,
+                             default=0)
+    persid = models.ForeignKey(Person, related_name='persanyn', verbose_name="Персона", on_delete=models.PROTECT,
+                               default=0)
+    note = models.CharField("ФИО", max_length=100, null=True, blank=True)
+    def __str__(self):
+        return self.note
+
+    class Meta:
+        ordering = ['id']
+        unique_together = ('myid', 'persid')
+        verbose_name = "Моя заметка"
+        verbose_name_plural = "Мои заметки"

@@ -1,5 +1,4 @@
-from django.urls import path, re_path, include
-
+from django.urls import path
 from . import views
 
 # rasp for groups
@@ -9,8 +8,8 @@ path("<int:id>/", views.detailGrp, name="grpdetail"),
 
 path("<int:id>/<int:wd>/", views.detailRaspGroup, name="grpdetailrasp"),
 
-# path("editrasp/<int:id>/", views.editRaspGroup, name="grpeditrasp"),
-# path("addrasp/<int:id>/", views.addRaspGroup, name="grpaddrasp"),
+path("grpaddall/", views.AddGrpAll.as_view(), name="grpaddall"),
+path("grpdelall/<int:pk>/", views.DelGrpAll.as_view(), name="grpdelall"),
 
 path("add/", views.grpadd, name="grpadd"),
 path("del/<int:id>/", views.grpdel, name="grpdel"),

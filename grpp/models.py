@@ -9,7 +9,7 @@ from person.models import Person
 class Grp(models.Model):
     num = models.CharField("Номер", max_length=30)
     name = models.CharField("Название", max_length=100)
-
+    kurs = models.IntegerField("Курс",blank=True, null=True)
     def __str__(self):
         return self.name
 

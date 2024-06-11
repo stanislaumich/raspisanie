@@ -4,11 +4,16 @@
 {% endblock title %}
 {% block header2 %}
     <div style="text-align: center">
-        <strong> ГРУППЫ</strong>
+        <strong> МОИ ГРУППЫ</strong>
         <br><br>
         <a href="{% url 'grpadd' %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
-                    style="color: black">Добавить группу
+                    style="color: black">Добавить группу в мой список
+            </button>
+        </a>
+        <a href="{% url 'grpaddall' %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-warning"
+                    style="color: black">Добавить группу в общий список
             </button>
         </a>
     </div>
@@ -19,31 +24,44 @@
         <div class="row">
             {% for gg in g %}
                 <div class="col-sm">
-                    <div class="col" style="width: 10rem;">
+                    <div class="col" style="width: 12rem;">
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <p class="card-text"
-                                   style="text-align: center; font-weight: bold">{{ gg.grpid.name }}</p><br>
+                                   style="text-align: center; font-weight: bold">{{ gg.grpid.name }}
+                                </p><br>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="{% url 'grpdetailrasp' gg.grpid.id wd %}">
                                             <button type="button" class="btn btn-sm btn-primary">Расписание</button>
-                                        </a>
-                                        &nbsp;
+                                        </a> &nbsp;
+                                        &nbsp;<a href="{% url 'grpdel' gg.id %}">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                                                style="color: black" role="button" data-toggle="tooltip"
+                                                title="Редактировать">+
+                                        </button>
+                                    </a>&nbsp;
                                         <a href="{% url 'grpdel' gg.id %}">
                                             <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
-                                                    style="color: black">X
+                                                    style="color: black" role="button" data-toggle="tooltip"
+                                                    title="Удалить из моего списка">X
                                             </button>
                                         </a>
-
                                     </div>
-                                    <small class="opacity-50 text-nowrap">{{ gg.num }}</small>
                                 </div>
+                                <p>
+                                    {% if gg.grpid.kurs %}
+                                    {{ gg.grpid.kurs }} КУРС
+                                    {% else %}
+                                        ---
+                                    {% endif %}
+                                </p>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
-
             {% endfor %}
         </div>
     </div>

@@ -11,4 +11,7 @@ urlpatterns = [
     path("audadd/", views.audadd, name="audadd"),
     path("auddel/<int:id>/", views.auddel, name="auddel"),
 
+    path("audaddall/", views.AddAudAll.as_view(), name="audaddall"),
+    path("auddelall/<int:pk>/", views.DelAudAll.as_view(), name="auddelall"),
+
 ]

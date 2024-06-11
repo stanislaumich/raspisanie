@@ -4,7 +4,7 @@
 {% endblock title %}
 {% block header2 %}
     <div style="text-align: center">
-        <strong> ПРЕПОДАВАТЕЛИ</strong><br><br>
+        <strong> МОИ ПРЕПОДАВАТЕЛИ</strong><br><br>
         <a href="{% url 'rsplistadd' %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
                     style="color: black">Добавить преподавателя
@@ -48,12 +48,22 @@
                                         </a>&nbsp;&nbsp;
                                         <a href="{% url 'rsplistdel' p.id %}">
                                             <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
-                                                    style="color: black">X
+                                                    style="color: black" role="button" data-toggle="tooltip" title="Удалить из моего списка">X
                                             </button>
                                         </a>
+                                        <br>
+
                                     </div>
-                                    <!--small class="text-body-secondary">#</small-->
+                                    <!--small class="text-body-secondary">+375293766074</small-->
                                 </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'rsplistdel' p.id %}">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                                                    style="color: black" role="button" data-toggle="tooltip" title="Редактировать заметки">+
+                                            </button>
+                                        </a>
+                                <small class="text-body-secondary">пометки</small>
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,8 @@ from datetime import date, timedelta, datetime
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DeleteView, CreateView
 
 from para.models import Para
 from person.models import Person
@@ -115,12 +116,12 @@ def predmetadd(request):
             try:
                 t.save()
                 messages.success(request, f"Предмет  {t.predmetid.name} добавлен")
-                return HttpResponseRedirect('/predmet')
+                return HttpResponseRedirect(reverse_lazy('predmetindex'))
             except:
                 messages.error(request, 'Не удалось добавить предмет в список повторно')
                 error = form.errors
                 # return render(request, "predmet/error.html", context={'error': error})
-                return HttpResponseRedirect('/predmet')
+                return HttpResponseRedirect(reverse_lazy('predmetindex'))
 
     else:
         form = PredmetList()
@@ -131,4 +132,26 @@ def predmetdel(request, id):
     m = MyPredmet.objects.get(pk=id)
     messages.success(request, f"Предмет {m.predmetid.name} удален")
     m.delete()
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse_lazy('predmetindex'))
+
+
+class AddPredmetAll(CreateView):
+    model = Predmet
+    queryset = Predmet.objects.all()
+    template_name = "predmet/addpredmetall.html"
+    fields = ('name',)
+    success_url = reverse_lazy('predmetindex')
+
+
+    def form_valid(self, form):
+        f = super(AddPredmetAll, self)
+        form.save()
+        return super().form_valid(form)
+
+
+class DelPredmetAll(DeleteView):
+    model = Predmet
+    queryset = Predmet.objects.all()
+    fields = ['name',]
+    template_name = "predmet/delpredmetall.html"
+    success_url = reverse_lazy('predmetindex')

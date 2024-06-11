@@ -1,11 +1,9 @@
 from datetime import datetime, timedelta, date
-
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
-from django.urls import reverse
-
-# from aud.views import gen_rasp
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DeleteView, CreateView
 from grpp.forms import EditRasp, GrpList
 from grpp.models import MyGrp
 from rasp.models import Grp, Para, Rasp, Person
@@ -110,53 +108,6 @@ def delRaspGroup(request, id):
         return HttpResponseNotFound("<h2>Group not found</h2>")
 
 
-# def editRaspGroup(request, id):
-#     res = ""
-#     r = Rasp.objects.get(id=id)
-#     form = EditRasp(request.POST)
-#     wd = r.dt.isocalendar()[1]
-#     dt = r.dt
-#     idpara = r.idpara
-#     if request.method == "POST":
-#         form = EditRasp(request.POST)
-#         if form.is_valid():
-#             r.id = id
-#             r.name = form.cleaned_data["name"]
-#             r.idgrp = form.cleaned_data["idgrp"]
-#             r.idpers = form.cleaned_data["idpers"]
-#             r.idaud = form.cleaned_data["idaud"]
-#             r.idpredmet = form.cleaned_data["idpredmet"]
-#             r.save()
-#             res = "cохранено"
-#             return HttpResponseRedirect("/rasp/rasp/person/" + str(r.idpers.id) + '/' + str(wd) + '/')
-#     else:
-#         form = EditRasp(instance=r)
-#         dt = r.dt
-#         idpara = r.idpara
-#     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
-#
-#
-# def addRaspGroup(request, id):
-#     res = ""
-#     dt = datetime.strptime(request.GET.get("dt"), '%Y-%m-%d').date()
-#     wd = dt.isocalendar()[1]
-#     idpara = request.GET.get("np")
-#     if request.method == "POST":
-#         form = EditRasp(request.POST)
-#         if form.is_valid():
-#             form.paraid = Para.objects.get(id=idpara)
-#             form.save()
-#             res = "cохранено"
-#             # return HttpResponseRedirect("{% url 'rspperson' form.idpers.id , wd %}")
-#             return HttpResponseRedirect("/rasp/rasp/person/" + str(id) + '/' + str(wd) + '/')
-#     else:
-#         r = Rasp()
-#         r.idpara = Para.objects.get(id=idpara)
-#         r.dt = dt
-#         form = EditRasp(instance=r)
-#     return render(request, "rasp/editRasp.html", {'form': form, "res": res, "dt": dt, "idpara": idpara})
-
-
 def grpadd(request):
     form = GrpList(request.POST)
     if request.method == "POST":
@@ -167,12 +118,12 @@ def grpadd(request):
             try:
                 t.save()
                 messages.success(request, f"Группа  {t.grpid.name} добавлена")
-                return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(reverse_lazy('grpindex'))
             except:
                 messages.error(request, 'Не удалось добавить группу в список повторно')
                 error = ''
                 # return render(request, "grpp/error.html", context={'error': error})
-                return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(reverse_lazy('grpindex'))
 
     else:
         form = GrpList()
@@ -183,4 +134,26 @@ def grpdel(request, id):
     m = MyGrp.objects.get(pk=id)
     messages.success(request, f"Группа {m.grpid.name} удалена")
     m.delete()
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse_lazy('grpindex'))
+
+
+class AddGrpAll(CreateView):
+    model = Grp
+    queryset = Grp.objects.all()
+    template_name = "grp/addgrpall.html"
+    fields = ('__all__')
+    success_url = reverse_lazy('grpindex')
+
+
+    def form_valid(self, form):
+        f = super(AddGrpAll, self)
+        form.save()
+        return super().form_valid(form)
+
+
+class DelGrpAll(DeleteView):
+    model = Grp
+    queryset = Grp.objects.all()
+    fields = ['name', 'num']
+    template_name = "grp/delgrpall.html"
+    success_url = reverse_lazy('grpindex')

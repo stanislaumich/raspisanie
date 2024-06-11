@@ -4,10 +4,15 @@
 {% endblock title %}
 {% block header2 %}
     <div style="text-align: center">
-        <strong> ПРЕДМЕТЫ</strong><br><br>
+        <strong> МОИ ПРЕДМЕТЫ</strong><br><br>
         <a href="{% url 'predmetlistadd' %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
-                    style="color: black">Добавить предмет
+                    style="color: black">Добавить предмет в мой список
+            </button>
+        </a>
+    <a href="{% url 'predmetaddall' %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-warning"
+                    style="color: black">Добавить предмет в общий список
             </button>
         </a>
     </div>
@@ -30,8 +35,14 @@
                                         </a>
                                         &nbsp;
                                         <a href="{% url 'predmetlistdel' pr.id %}">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                                                    style="color: black" role="button" data-toggle="tooltip" title="Редактировать">+
+                                            </button>
+                                        </a>
+                                        &nbsp;
+                                        <a href="{% url 'predmetlistdel' pr.id %}">
                                             <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
-                                                    style="color: black">X
+                                                    style="color: black" role="button" data-toggle="tooltip" title="Удалить из моего списка">X
                                             </button>
                                         </a>
                                     </div>

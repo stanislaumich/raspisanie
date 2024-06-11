@@ -4,45 +4,49 @@
 {% endblock title %}
 {% block header2 %}
     <div style="text-align: center">
-        <strong> АУДИТОРИИ</strong><br><br>
+        <strong> МОИ АУДИТОРИИ</strong><br><br>
         <a href="{% url 'audadd' %}">
             <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
-                    style="color: black">Добавить аудиторию
+                    style="color: black">Добавить аудиторию в мой список
+            </button>
+        </a>
+        <a href="{% url 'audaddall' %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-warning"
+                    style="color: black">Добавить аудиторию в общий список
             </button>
         </a>
     </div>
     <br>
 {% endblock header2 %}
-{% block content%}
-<div class="container-fluid">
-  <div class="row">
-{% for a in aud %}
-    <div class="col-sm">
-        <div class="col" style="width: 9.5rem;">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <p class="card-text" style="text-align: center;"><strong>{{ a.audid.name }}</strong></p><br>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a href="{% url 'audrasp' a.audid.id wd %}">
-                                <button type="button" class="btn btn-sm btn-primary">Расписание</button>
-                            </a>
-                            &nbsp;
-                            <a href="{% url 'auddel' a.id %}">
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for a in aud %}
+                <div class="col-sm">
+                    <div class="col" style="width: 9.5rem;">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <p class="card-text" style="text-align: center;"><strong>{{ a.audid.name }}</strong></p>
+                                <br>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="{% url 'audrasp' a.audid.id wd %}">
+                                            <button type="button" class="btn btn-sm btn-primary">Расписание</button>
+                                        </a>
+                                        &nbsp;
+                                        <a href="{% url 'auddel' a.id %}">
                                             <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
-                                                    style="color: black">X
+                                                    style="color: black"  role="button" data-toggle="tooltip" title="Удалить из моего списка">X
                                             </button>
                                         </a>
+                                    </div>
+                                    <!--small class="text-body-secondary">#</small-->
+                                </div>
+                            </div>
                         </div>
-                        <!--small class="text-body-secondary">#</small-->
                     </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
-
-
-  {% endfor %}
-  </div>
-</div>
 {% endblock content %}
