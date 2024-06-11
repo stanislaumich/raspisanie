@@ -15,7 +15,3 @@ class PredmetList(ModelForm):
         fields = ('name',)
 
 
-class EditPredmet(ModelForm):
-    class Meta:
-        model = Rasp
-        fields = ('name', 'idgrp', 'idpers', 'idaud', 'idpredmet', 'idpara', 'dt')

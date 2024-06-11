@@ -13,6 +13,9 @@ urlpatterns = [
     path("predmetaddall/", views.AddPredmetAll.as_view(), name="predmetaddall"),
     path("predmetdelall/<int:pk>/", views.DelPredmetAll.as_view(), name="predmetdelall"),
 
+
+    path("predmetedit/<int:pk>/", views.EditPredmet.as_view(), name="predmetedit"),
+
     path("listadd/", views.predmetadd, name="predmetlistadd"),
     path("listdel/<int:id>/", views.predmetdel, name="predmetlistdel"),
 ]
