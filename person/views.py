@@ -4,11 +4,11 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import FormView, UpdateView, DeleteView
+from django.views.generic import FormView, UpdateView, DeleteView, CreateView
 
 from alert import utils
 from para.models import Para
-from person.models import Person, MyPers
+from person.models import Person, MyPers, MyNote
 from person.forms import Login, List, Register
 from rasp.models import Rasp, Reserv
 from raspisanie.settings import MEDIA_URL
@@ -32,10 +32,12 @@ def getme(request):
 
 def indexPerson(request):
     people = MyPers.objects.filter(myid=getuser(request)).all()
+    note = MyNote.objects.filter(myid=getuser(request)).all()
+    print(note)
     # if isAdmin(request):
     #     messages.success(request, f"Администратор!!!!")
 
-    return render(request, "person/indexPerson.html", context={"people": people})
+    return render(request, "person/indexPerson.html", context={"people": people, "note": note})
 
 
 def detailPerson(request, id):
@@ -120,6 +122,11 @@ def listAdd(request):
             t.myid = Person.objects.get(id=getuser(request))
             t.persid = Person.objects.get(id=form.cleaned_data["fio"].id)
             try:
+                n = MyNote()
+                n.myid = Person.objects.get(id=getuser(request))
+                n.persid = Person.objects.get(id=form.cleaned_data["fio"].id)
+                n.note = ''
+                n.save()
                 t.save()
                 messages.success(request, f"Преподаватель  {t.persid.fio} добавлен")
                 return HttpResponseRedirect(reverse('home'))
@@ -255,6 +262,8 @@ def addRaspPersReserv(request, id):
             messages.error(request,
                            f"Резерв можно снять только с себя или с тех на кого вы его установили. Чужой нельзя.")
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
 # return HttpResponseRedirect(reverse('home'))
 
 
@@ -280,3 +289,38 @@ def profilePers(request, id):
         data = {'photo': uid.profphoto.url, 'id': uid.id}
         return render(request, "person/profile.html", context=data)
 
+
+class AddNotePers(CreateView):
+    model = MyNote
+    queryset = MyNote.objects.all()
+    template_name = "person/addnote.html"
+    fields = ('note', 'myid','persid',)
+    success_url = reverse_lazy('personindex')
+
+    def form_valid(self, form):
+        f = super(AddNotePers, self)
+        form.persid = form.instance.persid
+        form.myid = form.instance.myid
+        form.save()
+        return super().form_valid(form)
+
+    def get_initial(self):
+        initial = super(AddNotePers, self).get_initial()
+        if self.request.GET.get('persid'):
+            initial['persid'] = Person.objects.get(id=self.request.GET.get('persid'))
+        if self.request.GET.get('myid'):
+            initial['myid'] = Person.objects.get(id=self.request.GET.get('myid'))
+
+        return initial
+
+class EditNotePers(UpdateView):
+    model = MyNote
+    queryset = MyNote.objects.all()
+    template_name = "person/editnote.html"
+    fields = ('note',)
+    success_url = reverse_lazy('personindex')
+
+    def form_valid(self, form):
+        f = super(EditNotePers, self)
+        form.save()
+        return super().form_valid(form)

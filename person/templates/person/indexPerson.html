@@ -48,7 +48,8 @@
                                         </a>&nbsp;&nbsp;
                                         <a href="{% url 'rsplistdel' p.id %}">
                                             <button type="button" class="btn btn-sm btn-outline-secondary btn-danger"
-                                                    style="color: black" role="button" data-toggle="tooltip" title="Удалить из моего списка">X
+                                                    style="color: black" role="button" data-toggle="tooltip"
+                                                    title="Удалить из моего списка">X
                                             </button>
                                         </a>
                                         <br>
@@ -58,12 +59,25 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{% url 'rsplistdel' p.id %}">
+
+                                {% for n in note %}
+                                    {% if n.persid == p.persid %}
+                                        <a href="{% url 'editnotepers' n.id %}">
                                             <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
-                                                    style="color: black" role="button" data-toggle="tooltip" title="Редактировать заметки">+
+                                                    style="color: black" role="button" data-toggle="tooltip"
+                                                    title="Редактировать заметки">+
                                             </button>
                                         </a>
-                                <small class="text-body-secondary">пометки</small>
+                                        <small class="text-body-secondary">{{ n }}</small>
+                                    {% else %}
+                                        <!--a href="{% url 'addnotepers' %}?myid={{ uid }}&persid= {{ p.persid.id }}">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
+                                                    style="color: black" role="button" data-toggle="tooltip"
+                                                    title="Добавить заметки">+
+                                            </button>
+                                        </a-->
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

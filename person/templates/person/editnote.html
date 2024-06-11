@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Редактирование заметки{% endblock title %}
+{% block header2 %}
+
+{% endblock header2 %}
+{% block content %}
+    <center>
+        <div class="container" >
+            <form method="POST" class="post-form" action="">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+                <table class="table-sm  table-bordered" >
+                    <tr>
+                        <td>Заметка:</td>
+                        <td class = "border-dark" >{{ form.note }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan=2 align="center">
+                            <button class="btn btn-primary w-100 py-2" type="submit">Записать</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </center>
+{% endblock content %}

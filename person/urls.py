@@ -5,6 +5,7 @@ from django.views.generic import UpdateView
 from person import views
 from . import views
 from .forms import EditPhoto
+from .views import EditNotePers, AddNotePers
 
 urlpatterns = [
     # rasp for person
@@ -12,12 +13,8 @@ urlpatterns = [
     path("<int:id>/", views.detailPerson, name="persondetail"),
     path("<int:id>/<int:wd>/", views.detailRaspPers, name="rspperson"),
 
-    # path("add/<int:id>/", views.addRaspPers, name="rspadd"),
-    # path("edit2/<int:id>/", views.editRaspPers, name="rspedit2"), #   <int:id>/ UpdateView.as_view
-    # path("edit/<int:pk>/", views.EditRasp.as_view(), name="rspedit"), #   <int:id>/ UpdateView.as_view
-    # path("del/<int:pk>/", views.DelRasp.as_view(), name="rspdel"), #   <int:id>/ DeleteView.as_view
-
-    # path("del2/<int:id>/", views.delRaspPers, name="rspdel2"),
+    path("editnotepers/<int:pk>", EditNotePers.as_view(), name="editnotepers"),
+    path("addnotepers/", AddNotePers.as_view(), name="addnotepers"),
 
     path("listadd/", views.listAdd, name="rsplistadd"),
     path("listdel/<int:id>/", views.listDel, name="rsplistdel"),
