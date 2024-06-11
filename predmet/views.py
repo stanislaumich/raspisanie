@@ -3,6 +3,7 @@ from datetime import date, timedelta, datetime
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from para.models import Para
 from person.models import Person
@@ -130,4 +131,4 @@ def predmetdel(request, id):
     m = MyPredmet.objects.get(pk=id)
     messages.success(request, f"Предмет {m.predmetid.name} удален")
     m.delete()
-    return HttpResponseRedirect('/predmet')
+    return HttpResponseRedirect(reverse('home'))

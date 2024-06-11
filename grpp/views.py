@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, date
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
+from django.urls import reverse
 
 # from aud.views import gen_rasp
 from grpp.forms import EditRasp, GrpList
@@ -104,7 +105,7 @@ def delRaspGroup(request, id):
     try:
         person = Person.objects.get(id=id)
         person.delete()
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect(reverse('home'))
     except Person.DoesNotExist:
         return HttpResponseNotFound("<h2>Group not found</h2>")
 
@@ -166,12 +167,12 @@ def grpadd(request):
             try:
                 t.save()
                 messages.success(request, f"Группа  {t.grpid.name} добавлена")
-                return HttpResponseRedirect('/grpp')
+                return HttpResponseRedirect(reverse('home'))
             except:
                 messages.error(request, 'Не удалось добавить группу в список повторно')
                 error = ''
                 # return render(request, "grpp/error.html", context={'error': error})
-                return HttpResponseRedirect('/grpp')
+                return HttpResponseRedirect(reverse('home'))
 
     else:
         form = GrpList()
@@ -182,4 +183,4 @@ def grpdel(request, id):
     m = MyGrp.objects.get(pk=id)
     messages.success(request, f"Группа {m.grpid.name} удалена")
     m.delete()
-    return HttpResponseRedirect('/grpp')
+    return HttpResponseRedirect(reverse('home'))

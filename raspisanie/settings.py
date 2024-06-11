@@ -125,6 +125,10 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# STATIC_URL = '/raspisanie/static/'
+# STATIC_ROOT = '/home/lz42ru/public_html/raspisanie/static/'
+# MEDIA_URL = '/raspisanie/media/'
+# MEDIA_ROOT = '/home/lz42ru/public_html/raspisanie/media/'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

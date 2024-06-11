@@ -1,5 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+
 from mess.forms import MessAdd
 from mess.models import Mess
 from rasp.models import  Person
@@ -12,7 +14,7 @@ def messClear(request, id):
     m = Mess.objects.get(pk=id)
     m.isActive = 0
     m.save()
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect(reverse('home'))
 
 
 def messSend(request, id):
@@ -27,7 +29,7 @@ def messSend(request, id):
             t.fromid = Person.objects.get(id=getuser(request))
             t.toid = Person.objects.get(id=form.cleaned_data["toid"].id)
             t.save()
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect(reverse('home'))
     else:
 
         if id != 0:

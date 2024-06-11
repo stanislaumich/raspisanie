@@ -6,7 +6,7 @@ from django.forms import SelectDateWidget, ModelForm, forms, IntegerField
 from django.forms.utils import ErrorList
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from alert import utils
 
 from aud.models import Aud
@@ -156,7 +156,7 @@ def clonerasp(request,id):
                     messages.error(request, f"Ошибка записи {p.dt}, место занято")
 
 
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect(reverse('home'))
     else:
         form = Clone()
     return render(request, "person/clone.html")

@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from alert.models import Alert
 
@@ -12,7 +13,7 @@ def alertClear(request, id):
     m = Alert.objects.get(pk=id)
     m.isActive = 0
     m.save()
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect(reverse('home'))
 
 
 # def alertSend(request, id):

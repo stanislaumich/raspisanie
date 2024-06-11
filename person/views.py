@@ -122,13 +122,13 @@ def listAdd(request):
             try:
                 t.save()
                 messages.success(request, f"Преподаватель  {t.persid.fio} добавлен")
-                return HttpResponseRedirect('/person')
+                return HttpResponseRedirect(reverse('home'))
                 # return render(request, url('personindex'))
             except:
                 messages.error(request, f"Ошибка, преподаватель  {t.persid.fio} не добавлен!!!")
                 error = 'Не удалось добавить в список повторно'
                 # return render(request, "person/error.html", context={'error': error})
-                return HttpResponseRedirect('/person')
+                return HttpResponseRedirect(reverse('home'))
 
     else:
         form = List()
@@ -139,7 +139,7 @@ def listDel(request, id):
     m = MyPers.objects.get(pk=id)
     messages.success(request, f"Преподаватель  {m.persid.fio} удален из списка")
     m.delete()
-    return HttpResponseRedirect("/person")
+    return HttpResponseRedirect(reverse('home'))
 
 
 def login(request):
@@ -151,11 +151,11 @@ def login(request):
                 request.session['userid'] = form.cleaned_data["fio"].id
                 messages.success(request,
                                  f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
-                return HttpResponseRedirect("/")
+                return HttpResponseRedirect(reverse('home'))
             else:
                 messages.success(request,
                                  f"В полном доступе отказано, разрешены только действия анонима")
-                return HttpResponseRedirect("/")
+                return HttpResponseRedirect(reverse('home'))
     else:
 
         form = Login(initial={'fio': 0, 'password': '0'})
@@ -178,7 +178,7 @@ def register(request):
             request.session['userid'] = p.id
             messages.success(request,
                              f"Преподаватель  {Person.objects.get(pk=getuser(request))} зарегистрирован в системе")
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect(reverse('home'))
     else:
         form = Register()
     return render(request, "person/register.html", context={'form': form})
@@ -198,7 +198,7 @@ def logout(request):
     messages.success(request, f"Преподаватель  {Person.objects.get(pk=getuser(request))} вышел из системы")
     request.session['userid'] = 0
     request.session['password'] = ''
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect(reverse('home'))
 
 
 def delRaspPersReserv(request, id):
@@ -211,7 +211,7 @@ def delRaspPersReserv(request, id):
     # r.delete()
 
     messages.success(request, f"Кнопка R для снятия и установки резерва")
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect(reverse('home'))
 
 
 def addRaspPersReserv(request, id):
@@ -255,6 +255,7 @@ def addRaspPersReserv(request, id):
             messages.error(request,
                            f"Резерв можно снять только с себя или с тех на кого вы его установили. Чужой нельзя.")
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+# return HttpResponseRedirect(reverse('home'))
 
 
 def profilePers(request, id):

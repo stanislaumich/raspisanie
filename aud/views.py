@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
 
 from aud.forms import AudList
 from aud.models import Aud
@@ -106,7 +107,7 @@ def audadd(request):
             try:
                 t.save()
                 messages.success(request, f"Аудитория  {t.audid.name} добавлена")
-                return HttpResponseRedirect('/aud')
+                return HttpResponseRedirect(reverse('home'))
             except:
                 messages.error(request, 'Не удалось добавить аудиторию в список повторно')
                 error = form.errors
@@ -121,4 +122,4 @@ def auddel(request, id):
     m = MyAud.objects.get(pk=id)
     messages.success(request, f"Аудитория {m.audid.name} удалена")
     m.delete()
-    return HttpResponseRedirect('/aud')
+    return HttpResponseRedirect(reverse('home'))
