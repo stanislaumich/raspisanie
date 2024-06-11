@@ -59,13 +59,24 @@
                             <div class="card-footer">
                                 {% for n in note %}
                                     {% if n.persid == p.persid %}
-                                        <a href="{% url 'editnotepers' n.id %}">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-success"
-                                                    style="color: black" role="button" data-toggle="tooltip"
-                                                    title="Редактировать заметки">+
-                                            </button>
-                                        </a>
-                                        <small class="text-body-secondary">{{ n }}</small>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <a href="{% url 'editnotepers' n.id %}">
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-outline-secondary btn-success"
+                                                                style="color: black" role="button" data-toggle="tooltip"
+                                                                title="Редактировать заметки">+
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <small class="text-body-secondary">
+                                                        {{ n }}
+                                                    </small>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     {% else %}
                                     {% endif %}
                                 {% endfor %}

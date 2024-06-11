@@ -1,11 +1,9 @@
 from datetime import date, timedelta, datetime
-
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DeleteView, CreateView, UpdateView
-
 from para.models import Para
 from person.models import Person
 from predmet.forms import PredmetList
