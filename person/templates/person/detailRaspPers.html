@@ -9,7 +9,13 @@
         <strong> < {{ wd }} > </strong>
         <a href="{% url 'rspperson' idp wdn %}" style="text-decoration: underline"> Неделя вперед&gt; </a>
     </div>
-    <br>
+    <div class="container" style="text-align: center">
+    <a href="{% url 'rspxlspers'  idp wd %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary btn-info"
+                    style="color: black">Выгрузить в EXCEL
+            </button>
+        </a>
+    </div>
 {% endblock header2 %}
 {% block content %}
 <center>

@@ -8,15 +8,15 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response
 from django.urls import reverse_lazy, reverse
 from alert import utils
-
+import xlsxwriter
 from aud.models import Aud
 from grpp.models import Grp
 from para.models import Para
 from person.models import Person
 from predmet.models import Predmet
 
-from .models import Rasp
-from datetime import datetime, timedelta
+from .models import Rasp, Reserv, XlsRaspPers
+from datetime import datetime, timedelta, date
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 import locale
 
@@ -105,9 +105,11 @@ class DelRasp(DeleteView):
     success_url = reverse_lazy('home')
     extra_context = {'zid': 0}
 
+
 # ------------------------------------------
 class Clone(forms.Form):
     n = IntegerField()
+
     def __init__(
             self,
             data=None,
@@ -129,7 +131,8 @@ class Clone(forms.Form):
     class Meta:
         fields = ('n',)
 
-def clonerasp(request,id):
+
+def clonerasp(request, id):
     form = Clone(request.POST)
     if request.method == "POST":
         if form.is_valid():
@@ -146,8 +149,8 @@ def clonerasp(request,id):
                 p.idaud = r.idaud
                 p.idgrp = r.idgrp
                 p.idpredmet = r.idpredmet
-                p.name = 'Занятие '+str(c+2)
-                p.dt = r.dt + timedelta(7*(c+1))
+                p.name = 'Занятие ' + str(c + 2)
+                p.dt = r.dt + timedelta(7 * (c + 1))
                 try:
                     p.save()
                     messages.success(request, f"Запись продублирована")
@@ -155,8 +158,51 @@ def clonerasp(request,id):
                 except:
                     messages.error(request, f"Ошибка записи {p.dt}, место занято")
 
-
             return HttpResponseRedirect(reverse('home'))
     else:
         form = Clone()
     return render(request, "person/clone.html")
+
+
+def rspxlspers(request, id, wd):
+    workbook = xlsxwriter.Workbook('hello.xlsx')
+    worksheet = workbook.add_worksheet()
+
+    # g = Rasp.objects.filter(idpers=id, dt__week=wd).order_by("dt", "idpara_id")
+    k = 0
+    w = []
+    dtb = datefromiso(date.today().year, wd, 1).date()
+    dtb = dtb + timedelta(-1 * dtb.weekday() + 0)
+    for i in range(6):
+        for j in range(7):
+            try:
+                r = Rasp.objects.get(dt=dtb, idpara=j + 1, idpers=id)
+                w.append({'v': 1, 'i': r, "np": j, 'nd': i+1})
+            except:
+                try:
+                    r = Reserv.objects.get(dt=dtb, idpara=j + 1, idpers=id)
+                    w.append({'v': 2, 'i': r, "np": j, 'nd': i+1})
+                except:
+                    w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1, 'nd': i+1})
+            k = k + 1
+        dtb = dtb + timedelta(1)
+    # print(w)
+    k = 0
+    for e in w:
+        print(e['i'])
+        if e['v'] == 0:
+            print('Пусто')
+            r = XlsRaspPers.objects.get(idpara=e['i'].id, idpers=getuser(request), nk=1, nd=e['nd'])
+            worksheet.write(r.xls, 'Пусто')
+        elif e['v'] == 1:
+            print(e['i'].idgrp)
+            r = XlsRaspPers.objects.get(idpara=e['i'].idpara, idpers=getuser(request), nk=1, nd=e['nd'])
+            # print(r)
+            worksheet.write(r.xls, e['i'].idpredmet.name+' '+e['i'].idgrp.name)
+        else:
+            print('Резерв')
+            r = XlsRaspPers.objects.get(idpara=e['i'].idpara, idpers=getuser(request), nk=1, nd=e['nd'])
+            worksheet.write(r.xls, 'Резерв')
+
+    workbook.close()
+    return HttpResponseRedirect(reverse_lazy('home'))

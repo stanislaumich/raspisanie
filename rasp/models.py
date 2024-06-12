@@ -39,9 +39,11 @@ class Rasp(models.Model):
 class Reserv(models.Model):
     dt = models.DateField("Дата", null=True)
     name = models.CharField("Название", max_length=100, null=True, blank=True)
-    idpers = models.ForeignKey(Person, related_name = 'iddest', verbose_name="Преподаватель", on_delete=models.PROTECT, default=0)
-    idpara = models.ForeignKey(Para, verbose_name ="Пара", on_delete=models.PROTECT, default=0)
-    idmaster = models.ForeignKey(Person, related_name = 'idmaster', verbose_name="Хозяин", on_delete=models.PROTECT, default=0)
+    idpers = models.ForeignKey(Person, related_name='iddest', verbose_name="Преподаватель", on_delete=models.PROTECT,
+                               default=0)
+    idpara = models.ForeignKey(Para, verbose_name="Пара", on_delete=models.PROTECT, default=0)
+    idmaster = models.ForeignKey(Person, related_name='idmaster', verbose_name="Хозяин", on_delete=models.PROTECT,
+                                 default=0)
 
     def __str__(self):
         return self.name
@@ -51,3 +53,22 @@ class Reserv(models.Model):
         verbose_name = "Резерв"
         verbose_name_plural = "Резерв"
 
+
+class XlsRaspPers(models.Model):
+    idpers = models.ForeignKey(Person, related_name='idxlsrasppers', verbose_name="Преподаватель",
+                               on_delete=models.PROTECT,
+                               default=0)
+    idpara = models.ForeignKey(Para, verbose_name="Пара", on_delete=models.PROTECT, default=0)
+    nk = models.IntegerField("Номер колонки", null=True, blank=True)
+    nd = models.IntegerField("Номер дня", null=True, blank=True)
+    # np = models.IntegerField("Номер занятия", null=True, blank=True)
+    xls = models.CharField("Ячейка А1", max_length=10, null=True, blank=True)
+    dop1 = models.CharField("Доп1", max_length=200, null=True, blank=True)
+    dop2 = models.CharField("Доп2", max_length=200, null=True, blank=True)
+    xlsrow = models.IntegerField("Строка", null=True, blank=True)
+    xlscol = models.IntegerField("Столбец", null=True, blank=True)
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = "Бланк"
+        verbose_name_plural = "Бланки"

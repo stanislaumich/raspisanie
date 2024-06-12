@@ -14,5 +14,8 @@ urlpatterns = [
     path("rspclone/<int:id>/", views.clonerasp, name="rspclone"),
 
 
+    path("rspxlspers/<int:id>/<int:wd>/", views.rspxlspers, name="rspxlspers"),
+
+
 
 ]

@@ -64,7 +64,6 @@ def detailRaspPers(request, id, wd):
                     w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1})
             k = k + 1
         dtb = dtb + timedelta(1)
-
     request.session['week'] = wd
     cntx = {"r": w, "wdn": wd + 1, "wdp": wd - 1, "i": t,
             "dt1": 'Понедельник,  ' + (dtb + timedelta(-1 * dtb.weekday() + 0)).strftime("%B %d "),
