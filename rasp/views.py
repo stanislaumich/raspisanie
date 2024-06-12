@@ -196,18 +196,18 @@ def rspxlspers(request, id, wd):
     for e in w:
         print(e['i'])
         if e['v'] == 0:
-            print('Пусто')
+            # print('Пусто')
             r = XlsRaspPers.objects.get(idpara=e['i'].id, idpers=getuser(request), nk=1, nd=e['nd'])
-            d = worksheet.cell(row=r.xlsrow, column=r.xlscol, value='Пусто')
+            d = worksheet.cell(row=r.xlsrow, column=r.xlscol, value='')
             d = worksheet.cell(row=r.xlsrow, column=r.xlscol - 1, value=e['i'].name)
         elif e['v'] == 1:
-            print(e['i'].idgrp)
+            # print(e['i'].idgrp)
             r = XlsRaspPers.objects.get(idpara=e['i'].idpara, idpers=getuser(request), nk=1, nd=e['nd'])
             d = worksheet.cell(row=r.xlsrow, column=r.xlscol, value=e['i'].idpredmet.name + ' ' + e['i'].idgrp.name)
             d = worksheet.cell(row=r.xlsrow, column=r.xlscol-1, value=e['i'].idpara.name)
             d = worksheet.cell(row=r.xlsrow, column=r.xlscol+1, value=e['i'].idaud.name)
         else:
-            print('Резерв')
+            # print('Резерв')
             r = XlsRaspPers.objects.get(idpara=e['i'].idpara, idpers=getuser(request), nk=1, nd=e['nd'])
             d = worksheet.cell(row=r.xlsrow, column=r.xlscol, value='Резерв')
             d = worksheet.cell(row=r.xlsrow, column=r.xlscol - 1, value=e['i'].idpara.name)
