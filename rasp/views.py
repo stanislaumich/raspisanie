@@ -5,8 +5,10 @@ from django.core.paginator import Paginator
 from django.forms import SelectDateWidget, ModelForm, forms, IntegerField
 from django.forms.utils import ErrorList
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response
+from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response, HttpResponse
 from django.urls import reverse_lazy, reverse
+from openpyxl.reader.excel import load_workbook
+
 from alert import utils
 import xlsxwriter
 from aud.models import Aud
@@ -14,7 +16,9 @@ from grpp.models import Grp
 from para.models import Para
 from person.models import Person
 from predmet.models import Predmet
-
+from raspisanie.settings import MEDIA_ROOT, MEDIA_URL
+import io
+from django.http import FileResponse
 from .models import Rasp, Reserv, XlsRaspPers
 from datetime import datetime, timedelta, date
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
@@ -165,9 +169,10 @@ def clonerasp(request, id):
 
 
 def rspxlspers(request, id, wd):
-    workbook = xlsxwriter.Workbook('hello.xlsx')
-    worksheet = workbook.add_worksheet()
-
+    # workbook = xlsxwriter.Workbook(MEDIA_ROOT.__fspath__() + '/hello.xlsx')
+    # worksheet = workbook.add_worksheet()
+    wb = load_workbook(MEDIA_ROOT.__fspath__() + '/hello.xlsx')
+    worksheet = wb.active
     # g = Rasp.objects.filter(idpers=id, dt__week=wd).order_by("dt", "idpara_id")
     k = 0
     w = []
@@ -177,13 +182,13 @@ def rspxlspers(request, id, wd):
         for j in range(7):
             try:
                 r = Rasp.objects.get(dt=dtb, idpara=j + 1, idpers=id)
-                w.append({'v': 1, 'i': r, "np": j, 'nd': i+1})
+                w.append({'v': 1, 'i': r, "np": j, 'nd': i + 1})
             except:
                 try:
                     r = Reserv.objects.get(dt=dtb, idpara=j + 1, idpers=id)
-                    w.append({'v': 2, 'i': r, "np": j, 'nd': i+1})
+                    w.append({'v': 2, 'i': r, "np": j, 'nd': i + 1})
                 except:
-                    w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1, 'nd': i+1})
+                    w.append({'v': 0, 'i': Para.objects.get(id=j + 1), "np": j + 1, 'nd': i + 1})
             k = k + 1
         dtb = dtb + timedelta(1)
     # print(w)
@@ -193,16 +198,26 @@ def rspxlspers(request, id, wd):
         if e['v'] == 0:
             print('Пусто')
             r = XlsRaspPers.objects.get(idpara=e['i'].id, idpers=getuser(request), nk=1, nd=e['nd'])
-            worksheet.write(r.xls, 'Пусто')
+            d = worksheet.cell(row=r.xlsrow, column=r.xlscol, value='Пусто')
+            d = worksheet.cell(row=r.xlsrow, column=r.xlscol - 1, value=e['i'].name)
         elif e['v'] == 1:
             print(e['i'].idgrp)
             r = XlsRaspPers.objects.get(idpara=e['i'].idpara, idpers=getuser(request), nk=1, nd=e['nd'])
-            # print(r)
-            worksheet.write(r.xls, e['i'].idpredmet.name+' '+e['i'].idgrp.name)
+            d = worksheet.cell(row=r.xlsrow, column=r.xlscol, value=e['i'].idpredmet.name + ' ' + e['i'].idgrp.name)
+            d = worksheet.cell(row=r.xlsrow, column=r.xlscol-1, value=e['i'].idpara.name)
         else:
             print('Резерв')
             r = XlsRaspPers.objects.get(idpara=e['i'].idpara, idpers=getuser(request), nk=1, nd=e['nd'])
-            worksheet.write(r.xls, 'Резерв')
-
-    workbook.close()
-    return HttpResponseRedirect(reverse_lazy('home'))
+            d = worksheet.cell(row=r.xlsrow, column=r.xlscol, value='Резерв')
+            d = worksheet.cell(row=r.xlsrow, column=r.xlscol - 1, value=e['i'].idpara.name)
+    wb.save(MEDIA_ROOT.__fspath__() + "\\"+str(getuser(request))+".xlsx")
+    return FileResponse(open(MEDIA_ROOT.__fspath__() + "\\"+str(getuser(request))+".xlsx", 'rb'))
+    # response = HttpResponse(open(MEDIA_ROOT.__fspath__()+"\hello.xls"), content_type='application/zip')
+    # response['Content-Disposition'] = 'attachment; filename=test.zip'
+    # response['Content-Type'] = 'application/x-zip'
+    # return response
+    # response1 = HttpResponse()
+    # url = MEDIA_ROOT.__fspath__()+"/hello.xls"
+    # response1['X-Accel-Redirect'] = url
+    # return response1
+    # return HttpResponseRedirect(reverse_lazy('home'))
