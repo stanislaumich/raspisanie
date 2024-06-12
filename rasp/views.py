@@ -169,9 +169,15 @@ def clonerasp(request, id):
 
 
 def rspxlspers(request, id, wd):
-    # workbook = xlsxwriter.Workbook(MEDIA_ROOT.__fspath__() + '/hello.xlsx')
-    # worksheet = workbook.add_worksheet()
-    wb = load_workbook(MEDIA_ROOT.__fspath__() + '/hello.xlsx')
+    # дом
+    fn1 = MEDIA_ROOT.__fspath__() + '/hello.xlsx'
+    fn2 = MEDIA_ROOT.__fspath__() + "/"+str(getuser(request))+".xlsx"
+    fn3 = MEDIA_ROOT.__fspath__() + "\\"+str(getuser(request))+".xlsx"
+    # хост
+    # fn1 = MEDIA_ROOT + '/hello.xlsx'
+    # fn2 = MEDIA_ROOT + "/"+str(getuser(request))+".xlsx"
+    # fn3 = MEDIA_ROOT + "/"+str(getuser(request))+".xlsx"
+    wb = load_workbook(fn1)
     worksheet = wb.active
     # g = Rasp.objects.filter(idpers=id, dt__week=wd).order_by("dt", "idpara_id")
     k = 0
@@ -211,14 +217,6 @@ def rspxlspers(request, id, wd):
             r = XlsRaspPers.objects.get(idpara=e['i'].idpara, idpers=getuser(request), nk=1, nd=e['nd'])
             d = worksheet.cell(row=r.xlsrow, column=r.xlscol, value='Резерв')
             d = worksheet.cell(row=r.xlsrow, column=r.xlscol - 1, value=e['i'].idpara.name)
-    wb.save(MEDIA_ROOT.__fspath__() + "\\"+str(getuser(request))+".xlsx")
-    return FileResponse(open(MEDIA_ROOT.__fspath__() + "\\"+str(getuser(request))+".xlsx", 'rb'))
-    # response = HttpResponse(open(MEDIA_ROOT.__fspath__()+"\hello.xls"), content_type='application/zip')
-    # response['Content-Disposition'] = 'attachment; filename=test.zip'
-    # response['Content-Type'] = 'application/x-zip'
-    # return response
-    # response1 = HttpResponse()
-    # url = MEDIA_ROOT.__fspath__()+"/hello.xls"
-    # response1['X-Accel-Redirect'] = url
-    # return response1
-    # return HttpResponseRedirect(reverse_lazy('home'))
+    wb.save(fn2)
+    return FileResponse(open(fn3, 'rb'))
+
