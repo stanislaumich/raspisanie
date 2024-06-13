@@ -1,5 +1,4 @@
 import time
-
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.forms import SelectDateWidget, ModelForm, forms, IntegerField
@@ -8,7 +7,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound, request, response, HttpResponse
 from django.urls import reverse_lazy, reverse
 from openpyxl.reader.excel import load_workbook
-
 from alert import utils
 import xlsxwriter
 from aud.models import Aud
@@ -130,8 +128,6 @@ class Clone(forms.Form):
     ):
         super().__init__(data, files, auto_id, prefix, initial, error_class, label_suffix, empty_permitted, field_order,
                          use_required_attribute, renderer)
-        # self.n = 1
-
     class Meta:
         fields = ('n',)
 
@@ -179,7 +175,6 @@ def rspxlspers(request, id, wd):
     # fn3 = MEDIA_ROOT + "/"+str(getuser(request))+".xlsx"
     wb = load_workbook(fn1)
     worksheet = wb.active
-    # g = Rasp.objects.filter(idpers=id, dt__week=wd).order_by("dt", "idpara_id")
     k = 0
     w = []
     dtb = datefromiso(date.today().year, wd, 1).date()
