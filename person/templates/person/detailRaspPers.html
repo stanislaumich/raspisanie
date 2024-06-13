@@ -70,7 +70,7 @@
                                         <td colspan=2></td>
                                     {% elif i.v == 1 %}
                                         <td>{{ i.i.idgrp.name }}</td>
-                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{% if i.i.name %}<strong>({{ i.i.name }})</strong> {% endif %}{{ i.i.idpredmet }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% else %}
                                         <td>РЕЗЕРВ</td>
@@ -133,7 +133,7 @@
                                         <td colspan=2></td>
                                     {% elif i.v == 1 %}
                                         <td>{{ i.i.idgrp.name }}</td>
-                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{% if i.i.name %}<strong>({{ i.i.name }})</strong> {% endif %}{{ i.i.idpredmet }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% else %}
                                         <td>РЕЗЕРВ</td>
@@ -195,7 +195,7 @@
                                         <td colspan=2></td>
                                     {% elif i.v == 1 %}
                                         <td>{{ i.i.idgrp.name }}</td>
-                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{% if i.i.name %}<strong>({{ i.i.name }})</strong> {% endif %}{{ i.i.idpredmet }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% else %}
                                         <td>РЕЗЕРВ</td>
@@ -257,7 +257,7 @@
                                         <td colspan=2></td>
                                     {% elif i.v == 1 %}
                                         <td>{{ i.i.idgrp.name }}</td>
-                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{% if i.i.name %}<strong>({{ i.i.name }})</strong> {% endif %}{{ i.i.idpredmet }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% else %}
                                         <td>РЕЗЕРВ</td>
@@ -319,7 +319,7 @@
                                         <td colspan=2></td>
                                     {% elif i.v == 1 %}
                                         <td>{{ i.i.idgrp.name }}</td>
-                                        <td>{{ i.i.idpredmet }}</td>
+                                        <td>{% if i.i.name %}<strong>({{ i.i.name }})</strong> {% endif %}{{ i.i.idpredmet }}</td>
                                         <td>{{ i.i.idaud.name }}</td>
                                     {% else %}
                                         <td>РЕЗЕРВ</td>
@@ -380,7 +380,7 @@
                                     <td colspan=2></td>
                                 {% elif i.v == 1 %}
                                     <td>{{ i.i.idgrp.name }}</td>
-                                    <td>{{ i.i.idpredmet }}</td>
+                                    <td>{% if i.i.name %}<strong>({{ i.i.name }})</strong> {% endif %}{{ i.i.idpredmet }}</td>
                                     <td>{{ i.i.idaud.name }}</td>
                                 {% else %}
                                     <td>РЕЗЕРВ</td>
