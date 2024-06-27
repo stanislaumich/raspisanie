@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
+  <meta charset="utf-8">
+  <title>Cryptocurrency Pricing Application</title>
+</head>
+
+  <body>
+      <div class="container" id="app">
+    <h3 class="text-center">Cryptocurrency Pricing</h3>
+    <div class="columns medium-4" v-for="(result, index) in results">
+    <div class="card">
+      <div class="card-section">
+        <p> {{ index }} </p>
+      </div>
+      <div class="card-divider">
+        <p>{{ result.fio }}</p>
+      </div>
+      <div class="card-section">
+        <p>{{ result.fam }} {{ result.name }} {{ result.otch }}<br>{{ result.dolg }}</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="vueApp.js"></script>
+    
+  </body>
+</html>
