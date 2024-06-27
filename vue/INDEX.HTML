@@ -17,6 +17,9 @@
       <div class="card-divider">
         <p>{{ result.fio }}</p>
       </div>
+	  <div class="card-divider">
+        <p><a :href = "`http://lz42.ru/raspisanie/mess/send/${result.id}/`">Написать</a></p>
+      </div>
       <div class="card-section">
         <p>{{ result.fam }} {{ result.name }} {{ result.otch }}<br>{{ result.dolg }}</p>
       </div>
