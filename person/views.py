@@ -4,10 +4,15 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, UpdateView, DeleteView, CreateView
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from alert import utils
 from para.models import Para
 from person.models import Person, MyPers, MyNote
 from person.forms import Login, List, Register
+from person.serializers import PersonSerializer
 from rasp.models import Rasp, Reserv
 from raspisanie.settings import MEDIA_URL
 
@@ -294,7 +299,7 @@ class AddNotePers(CreateView):
     model = MyNote
     queryset = MyNote.objects.all()
     template_name = "person/addnote.html"
-    fields = ('note', 'myid','persid',)
+    fields = ('note', 'myid', 'persid',)
     success_url = reverse_lazy('personindex')
 
     def form_valid(self, form):
@@ -313,6 +318,7 @@ class AddNotePers(CreateView):
 
         return initial
 
+
 class EditNotePers(UpdateView):
     model = MyNote
     queryset = MyNote.objects.all()
@@ -324,3 +330,4 @@ class EditNotePers(UpdateView):
         f = super(EditNotePers, self)
         form.save()
         return super().form_valid(form)
+

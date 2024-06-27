@@ -15,4 +15,7 @@ urlpatterns = [
     path('predmet/', include('predmet.urls'), name="predmet"),
     path('rasp/', include('rasp.urls'), name='rasp'),
 
+    re_path(r'^api/person/$', views.person_list),
+    re_path(r'^api/person/(\d+)$', views.person_detail),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
