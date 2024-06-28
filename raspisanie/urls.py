@@ -15,6 +15,8 @@ urlpatterns = [
     path('predmet/', include('predmet.urls'), name="predmet"),
     path('rasp/', include('rasp.urls'), name='rasp'),
 
+    path('test/', views.test, name='test'),
+
     re_path(r'^api/person/$', views.person_list),
     re_path(r'^api/person/(\d+)$', views.person_detail),
 

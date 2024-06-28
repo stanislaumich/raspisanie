@@ -1,6 +1,8 @@
 import locale
 
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.template import loader
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -9,6 +11,7 @@ from alert.models import Alert
 from mess.models import Mess
 from person.models import Person
 from person.serializers import PersonSerializer
+from raspisanie.settings import BASE_DIR
 
 locale.setlocale(locale.LC_ALL, "")
 
@@ -58,3 +61,9 @@ def person_detail(request, pk):
         person = Person.objects.get(pk=pk)
         serializer = PersonSerializer(person, context={'request': request}, many=False)
         return Response(serializer.data)
+
+
+def test(request):
+    with open('s:\\django\\raspisanie\\templates\\test.html', 'r') as file:
+        data = file.read().replace('\n', '\n')
+    return HttpResponse(data)

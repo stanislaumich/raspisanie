@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--suppress LossyEncoding -->
+<html lang="ru">
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
+  <meta charset="utf-8">
+  <title>Список</title>
+</head>
+
+  <body>
+    <div class="container" id="app">
+    <h3 class="text-center">Список</h3>
+    <div class="columns medium-4" v-for="(result, index) in results">
+    <div class="card">
+      <div class="card-section">
+        <p> {{ index }} - {{ result.id }} </p>
+      </div>
+      <div class="card-divider">
+        <p>{{ result.fio }}</p>
+      </div>
+	  <div class="card-divider">
+        <p><a :href = "`http://lz42.ru/raspisanie/mess/send/${result.id}/`">Написать</a></p>
+      </div>
+      <div class="card-section">
+        <p>{{ result.fam }} {{ result.name }} {{ result.otch }}<br>{{ result.dolg }}</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+	  const url = "http://127.0.0.1:8000/api/person/";
+	  const vm = new Vue({
+              el: '#app',   
+         data: {
+          results: []
+        },
+        mounted() {
+          axios.get(url).then(response => {
+            this.results = response.data
+          })
+        }
+      });
+    </script>
+  </body>
+</html>
