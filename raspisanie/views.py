@@ -7,8 +7,8 @@ from rest_framework.response import Response
 
 from alert.models import Alert
 from mess.models import Mess
-from person.models import Person
-from person.serializers import PersonSerializer
+from person.models import Person, MyPers
+from person.serializers import PersonSerializer, MyPersonSerializer
 
 locale.setlocale(locale.LC_ALL, "")
 
@@ -39,6 +39,18 @@ def person_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def person_list_my(request, id):
+    if request.method == 'GET':
+        data1 = MyPers.objects.all().filter(myid=id)
+        data = []
+        for p in data1:
+            s = Person.objects.get(pk=p.persid.id)
+            data.append(s)
+        serializer = MyPersonSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+
 @api_view(['PUT', 'DELETE', 'GET'])
 def person_detail(request, pk):
     try:
@@ -63,4 +75,10 @@ def person_detail(request, pk):
 def test(request):
     # with open('s:\\django\\raspisanie\\templates\\test.html', 'r') as file:
     #     data = file.read().replace('\n', '\n')
-    return render(request, template_name = 'api/prepod.html')
+    return render(request, template_name='api/prepod.html')
+
+
+def testmy(request, id):
+    # with open('s:\\django\\raspisanie\\templates\\test.html', 'r') as file:
+    #     data = file.read().replace('\n', '\n')
+    return render(request, template_name='api/prepodmy.html', context={'id': id})

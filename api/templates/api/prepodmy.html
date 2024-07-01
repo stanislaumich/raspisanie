@@ -1,0 +1,35 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
+  <meta charset="utf-8">
+  <title>Список преподавателей</title>
+</head>
+
+  <body>
+      <div class="container" id="app">
+    <h3 class="text-center">Список преподавателей</h3>
+    <div class="columns medium-4" v-for="(result, index) in results">
+    <div class="card">
+      <div class="card-section">
+        <p> {% verbatim %}{{ index }}{% endverbatim %} - {% verbatim %}{{ result.id }}{% endverbatim %} </p>
+      </div>
+
+	  <div class="card-divider">
+        <p>{% verbatim %}{{ result.fio }}{% endverbatim %}&nbsp;&nbsp;&nbsp;
+        <a :href = "`http://lz42.ru/raspisanie/mess/send/${% verbatim %}{result.id}{% endverbatim %}/`">Написать</a></p>
+      </div>
+      <div class="card-section">
+        <p>{% verbatim %}{{ result.fam }}{% endverbatim %} {% verbatim %}{{ result.name }}{% endverbatim %} {% verbatim %}{{ result.otch }}{% endverbatim %}<br>{% verbatim %}{{ result.dolg }}{% endverbatim %}</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="{% static 'js/vue/allprepodmy.js' %}"></script>
+
+  </body>
+</html>

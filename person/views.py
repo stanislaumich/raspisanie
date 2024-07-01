@@ -36,7 +36,7 @@ def getme(request):
 def indexPerson(request):
     people = MyPers.objects.filter(myid=getuser(request)).all()
     note = MyNote.objects.filter(myid=getuser(request)).all()
-    print(note)
+    # print(note)
     # if isAdmin(request):
     #     messages.success(request, f"Администратор!!!!")
 
