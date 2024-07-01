@@ -64,6 +64,6 @@ def person_detail(request, pk):
 
 
 def test(request):
-    with open('s:\\django\\raspisanie\\templates\\test.html', 'r') as file:
-        data = file.read().replace('\n', '\n')
-    return HttpResponse(data)
+    # with open('s:\\django\\raspisanie\\templates\\test.html', 'r') as file:
+    #     data = file.read().replace('\n', '\n')
+    return render(request, template_name = 'api/prepod.html')
