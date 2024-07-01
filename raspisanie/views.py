@@ -1,8 +1,6 @@
 import locale
 
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -11,7 +9,6 @@ from alert.models import Alert
 from mess.models import Mess
 from person.models import Person
 from person.serializers import PersonSerializer
-from raspisanie.settings import BASE_DIR
 
 locale.setlocale(locale.LC_ALL, "")
 
