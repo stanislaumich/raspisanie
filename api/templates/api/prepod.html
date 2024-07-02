@@ -18,7 +18,7 @@
 
 	  <div class="card-divider">
         <p>{% verbatim %}{{ result.fio }}{% endverbatim %}&nbsp;&nbsp;&nbsp;
-        <a :href = "`http://lz42.ru/raspisanie/mess/send/${% verbatim %}{result.id}{% endverbatim %}/`">Написать</a></p>
+        <a :href = "{{ url }}`/mess/send/${% verbatim %}{result.id}{% endverbatim %}/`">Написать</a></p>
       </div>
       <div class="card-section">
         <p>{% verbatim %}{{ result.fam }}{% endverbatim %} {% verbatim %}{{ result.name }}{% endverbatim %} {% verbatim %}{{ result.otch }}{% endverbatim %}<br>{% verbatim %}{{ result.dolg }}{% endverbatim %}</p>

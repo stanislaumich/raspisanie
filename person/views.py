@@ -40,7 +40,7 @@ def indexPerson(request):
     # if isAdmin(request):
     #     messages.success(request, f"Администратор!!!!")
 
-    return render(request, "person/indexPerson.html", context={"people": people, "note": note})
+    return render(request, "person/indexPerson.html", context={"people": people, "note": note, 'url':'http://127.0.0.1:8000'})
 
 
 def detailPerson(request, id):
